@@ -2,17 +2,36 @@
 layout: default
 ---
 
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
+<div class="page-layout">
+  <div class="posts-container">
+    <div class="posts">
+      {% for post in site.posts %}
+      <article class="post">
 
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+        <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
+        <div class="entry">
+          {{ post.excerpt }}
+        </div>
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endfor %}
+        <div class="post-tail">
+          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more btn">Read More</a>
+          <span class="date">{{ post.date | date: "%B %e, %Y" }}</span>
+        </div>
+
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="mastodon-feed">
+    <iframe 
+      allowfullscreen 
+      sandbox="allow-top-navigation allow-scripts allow-popups allow-popups-to-escape-sandbox" 
+      style="max-width:100vw;max-height:100vh;border-radius:8px;border: 2px solid var(--accent-color);" 
+      width="360" 
+      height="800" 
+      src="https://mastofeed.com/apiv2/feed?userurl=https%3A%2F%2Finfosec.exchange%2Fusers%2Fwnj&theme=auto&size=100&header=false&replies=false&boosts=false">
+    </iframe>
+  </div>
 </div>
