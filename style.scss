@@ -489,7 +489,9 @@ img {
   opacity: 0.9;
   
   &::before {
-    content: "🏠︎";
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;
+    content: "\f3c5";
     padding-right: 8px;
   }
 
@@ -723,12 +725,17 @@ details summary::-webkit-details-marker {
 }
 
 details > summary::before {
-  content: "▶ ";
+  font-family: "Font Awesome 7 Free";
+  font-weight: 900;
+  content: "\f054";
   margin-right: 0.5em;
+  display: inline-block;
 }
 
 details[open] > summary::before {
-  content: "▼ ";
+  font-family: "Font Awesome 7 Free";
+  font-weight: 900;
+  content: "\f078";
 }
 
 .timeline {
@@ -782,6 +789,7 @@ details[open] .timeline {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1em;
   margin-top: 1em;
 }
 
@@ -813,6 +821,25 @@ details[open] .timeline {
 
   @media (max-width: 939px) {
     display: none;
+  }
+}
+
+@media (max-width: 939px) {
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .masthead > *:not(nav) {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .masthead.hide-on-scroll > *:not(nav) {
+    max-height: 0;
+    opacity: 0;
   }
 }
 
