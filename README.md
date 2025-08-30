@@ -10,8 +10,6 @@ This site is mostly for publishing **blog posts** and sharing information about 
 
 Here you’ll find posts about topics I care about, experiments I’m working on, and insights from my projects. I’m using this space to keep things organized and shareable, whether it’s a small project, a blog entry, or personal notes.
 
----
-
 ## Development / Local Preview
 
 For reference to run the site locally:
@@ -39,8 +37,6 @@ jekyll serve
 Then open http://127.0.0.1:4000/ or http://localhost:4000/
 
 Editing `_config.yml` or other files will trigger GitHub Pages to rebuild automatically when you push changes.
-
----
 
 ## Social Icons
 
@@ -143,8 +139,6 @@ Feel free to use these icons that I created for your own socials, blogs, or proj
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/zelle.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/zoom.png" width="48" height="48" />
 </p>
-
----
 
 ## Credits
 
