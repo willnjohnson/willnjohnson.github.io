@@ -3,6 +3,10 @@ layout: default
 ---
 
 <article class="post">
+  <a href="#" class="btn" onclick="if(history.length > 1){history.back();}else{window.location='{{ site.baseurl }}';} return false;">
+    <i class="fa fa-arrow-left"></i> Return
+  </a>
+  
   <h1>{{ page.title }}</h1>
 
   <div class="entry">

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Do You Really Need a Personal Website?
+tag: tech
 ---
 
 There's this little field that shows up everywhere: networking events, conference badges, job applications, LinkedIn profiles. "Personal Website." Most people leave it blank. But maybe they shouldn't.

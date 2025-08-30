@@ -208,12 +208,26 @@ ul, ol {
 }
 
 ul {
-  list-style-type: disc;
-  
+  list-style: none;
+  padding-left: 0;
+
   li {
     margin: 8px 0;
+    padding-left: 1.5em;
+    position: relative;
     transition: color 0.3s ease;
-    
+
+    &::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f005";
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-size: 0.75em;
+      line-height: 2.25;
+    }
+
     &:hover {
       color: var(--accent-color);
     }
@@ -222,11 +236,11 @@ ul {
 
 ol {
   list-style-type: decimal;
-  
+
   li {
     margin: 8px 0;
     transition: color 0.3s ease;
-    
+
     &:hover {
       color: var(--accent-color);
     }
@@ -268,8 +282,9 @@ img {
   max-width: none;
 }
 
-.date {
+.date, .tag {
   font-style: italic;
+  text-align: center;
   color: var(--text-muted);
   font-size: 15px;
   font-weight: 500;
@@ -586,6 +601,7 @@ nav {
 
 .btn {
   display: inline-block;
+  text-align: center;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 600;
@@ -604,6 +620,10 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
   }
+}
+
+.btn i {
+  color: inherit;
 }
 
 .wrapper-footer {
@@ -634,10 +654,6 @@ nav {
 footer {
   padding: 40px 0;
   text-align: center;
-  color: var(--text-tertiary);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.6;
   
   a {
     color: var(--accent-color);
@@ -653,6 +669,7 @@ footer {
   p {
     margin: 8px 0;
     opacity: 0.9;
+    font-size: 15px;
     
     &:last-child {
       margin-bottom: 0;
@@ -787,10 +804,17 @@ details[open] .timeline {
 
 .post-tail {
   display: flex;
+  gap: 1em;
   justify-content: space-between;
   align-items: center;
-  gap: 1em;
   margin-top: 1em;
+}
+
+.post-tail .meta {
+  display: flex;
+  gap: 1em;
+  font-size: 0.9em;
+  color: var(--text-muted);
 }
 
 .page-layout {
@@ -825,26 +849,24 @@ details[open] .timeline {
 }
 
 @media (max-width: 939px) {
-  .masthead {
+  .masthead > *:not(nav) {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
 
-  .masthead > *:not(nav) {
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    max-height: 500px;
-    opacity: 1;
-  }
-
   .masthead.hide-on-scroll > *:not(nav) {
     max-height: 0;
     opacity: 0;
+    display: none;
   }
 }
 
 @import "highlights";
-@import "png-icons";
+@import "icons";
 
 @media (prefers-color-scheme: light) {
   @import "syntax-light";

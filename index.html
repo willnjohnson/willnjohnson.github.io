@@ -15,8 +15,15 @@ layout: default
         </div>
 
         <div class="post-tail">
-          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more btn">Read More</a>
-          <span class="date">{{ post.date | date: "%B %e, %Y" }}</span>
+          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more btn">
+            <i class="fa-solid fa-book-open"></i> Read More
+          </a>
+          <div class="meta">
+            <span class="tag">
+              Tag: <a href="{{ site.baseurl }}/tag/{{ post.tag | slugify }}/">{{ post.tag }}</a>
+            </span>
+            <span class="date">{{ post.date | date: "%B %e, %Y" }}</span>
+          </div>
         </div>
 
       </article>
@@ -25,13 +32,13 @@ layout: default
   </div>
 
   <div class="mastodon-feed">
-    <iframe 
-      allowfullscreen 
-      sandbox="allow-top-navigation allow-scripts allow-popups allow-popups-to-escape-sandbox" 
-      style="max-width:100vw;max-height:100vh;border-radius:8px;border: 2px solid var(--accent-color);" 
-      width="360" 
-      height="800" 
-      src="https://mastofeed.com/apiv2/feed?userurl=https%3A%2F%2Finfosec.exchange%2Fusers%2Fwnj&theme=auto&size=100&header=false&replies=false&boosts=false">
+    <iframe
+      src="https://mastofeed.com/apiv2/feed?userurl=https%3A%2F%2Finfosec.exchange%2Fusers%2Fwnj&theme=auto&size=100&header=false&replies=false&boosts=false"
+      width="360"
+      height="800"
+      style="max-width:100vw;max-height:100vh;border-radius:8px;border:2px solid var(--accent-color);"
+      sandbox="allow-scripts allow-same-origin"
+      referrerpolicy="no-referrer">
     </iframe>
   </div>
 </div>

@@ -4,7 +4,7 @@
   display: inline-block;
   background-size: contain;
 
-  // Custom Icons
+  // For my custom PNG icons
   &.amino           { background-image: url('/images/icons/amino.png'); }
   &.apple           { background-image: url('/images/icons/apple.png'); }
   &.bandcamp        { background-image: url('/images/icons/bandcamp.png'); }
@@ -77,4 +77,46 @@
   &.youtube         { background-image: url('/images/icons/youtube.png'); }
   &.zelle           { background-image: url('/images/icons/zelle.png'); }
   &.zoom            { background-image: url('/images/icons/zoom.png'); }
+}
+
+.footer {
+  .fa-free {
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;
+    font-style: normal;
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+
+  .fa-brands {
+    font-family: "Font Awesome 7 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+
+  .fa {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
 }

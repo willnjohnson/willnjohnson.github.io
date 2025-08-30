@@ -18,18 +18,14 @@ avatar: https://avatars.githubusercontent.com/u/26980980?v=4
 
 # Includes an icon in the footer for each username you enter
 footer-links:
-  email: "wnj@tutamail.com"
-  bsky: "wnj.bsky.social"
-  github: "willnjohnson"
-  instagram: "dilucular"
-  linkedin: "wnj"
-  linktree: "willnjohnson"
-  mastodon: "infosec.exchange/@wnj"
-  substack: "willnj"
-  telegram: "willnj"
-  threads: "dilucular"
-  x: "willnjohnson"
-  youtube: "@willnjohnson"
+  email-fa: "wnj@tutamail.com"
+  github-fa: "willnjohnson"
+  instagram-fa: "dilucular"
+  linkedin-fa: "wnj"
+  mastodon-fa: "infosec.exchange/@wnj"
+  telegram-fa: "willnj"
+  x-fa: "willnjohnson"
+  youtube-fa: "@willnjohnson"
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account

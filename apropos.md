@@ -172,7 +172,9 @@ I am a versatile and self-driven computer scientist with a deep interest in both
 <p><a href="mailto:wnj@tutamail.com">wnj@tutamail.com</a></p>
 
 <p>
-<a href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x459356edf000087609f9ae8b779165ad45885e20" 
-   target="_blank" 
-   class="btn">⚷ PGP Key</a>
+  <a href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x459356edf000087609f9ae8b779165ad45885e20" 
+    target="_blank" 
+    class="btn">
+    <i class="fa fa-key"></i> PGP Key
+  </a>
 </p>
