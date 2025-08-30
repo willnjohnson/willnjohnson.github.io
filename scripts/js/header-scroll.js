@@ -6,8 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth > 939) return;
 
     window.requestAnimationFrame(() => {
-      masthead.classList.toggle("hide-on-scroll", window.scrollY > lastY && window.scrollY > 10);
-      lastY = window.scrollY;
+      const currentY = window.scrollY;
+
+      if (currentY > lastY && currentY > 10) {
+        masthead.classList.add("hide-on-scroll");
+      }
+
+      if (currentY <= 5) {
+        masthead.classList.remove("hide-on-scroll");
+      }
+
+      lastY = currentY;
     });
   }, { passive: true });
 });
