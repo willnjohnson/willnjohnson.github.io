@@ -705,6 +705,13 @@ footer {
   padding: 40px 0;
   text-align: center;
   
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 5px;
+  }
+
   a {
     color: var(--accent-color);
     font-weight: 500;
@@ -803,12 +810,12 @@ details > summary::before {
   content: "\f054";
   margin-right: 0.5em;
   display: inline-block;
+  transition: transform 0.3s ease;
+  transform: rotate(0deg);
 }
 
 details[open] > summary::before {
-  font-family: "Font Awesome 7 Free";
-  font-weight: 900;
-  content: "\f078";
+  transform: rotate(90deg);
 }
 
 .timeline {
