@@ -1,0 +1,71 @@
+# Latin quotes
+- text: "Per aspera ad astra — Through hardships to the stars"
+  lang: latin
+- text: "Dum spiro, spero — While I breathe, I hope"
+  lang: latin
+- text: "Labor omnia vincit — Work conquers all"
+  lang: latin
+- text: "Sapere aude — Dare to know"
+  lang: latin
+- text: "Lux in tenebris — Light in the darkness"
+  lang: latin
+- text: "Festina lente — Make haste slowly"
+  lang: latin
+- text: "Gutta cavat lapidem — A drop hollows a stone"
+  lang: latin
+
+# Italian quotes
+- text: "Rosso di sera, bel tempo si spera — Red sky at night, fair weather hoped for"
+  lang: italian
+- text: "Chi dorme non piglia pesci — He who sleeps catches no fish"
+  lang: italian
+- text: "Finché c’è vita c’è speranza — As long as there is life, there is hope"
+  lang: italian
+- text: "La calma è la virtù dei forti — Calmness is the virtue of the strong"
+  lang: italian
+- text: "Piano piano si va lontano — Slowly, slowly one goes far"
+  lang: italian
+
+# Greek quotes
+- text: "Γνῶθι σεαυτόν (Gnothi seauton) — Know thyself"
+  lang: greek
+- text: "Μηδὲν ἄγαν (Meden agan) — Nothing in excess"
+  lang: greek
+- text: "Κάλλιον ὀψὲ ἢ ποτέ — Better late than never"
+  lang: greek
+
+# Japanese Kotowaza
+- text: "七転び八起き (Nanakorobi yaoki) — Fall seven times, rise eight"
+  lang: japanese
+- text: "雨降って地固まる (Ame futte ji katamaru) — After the rain, the earth hardens"
+  lang: japanese
+- text: "石の上にも三年 (Ishi no ue ni mo sannen) — Sit on a stone for three years"
+  lang: japanese
+- text: "桜梅桃李 (Oubai touri) — Cherry, plum, peach, apricot (each blossoms in their own way)"
+  lang: japanese
+
+# French quotes
+- text: "Après la pluie, le beau temps — After the rain, fair weather"
+  lang: french
+- text: "L’espoir fait vivre — Hope keeps us alive"
+  lang: french
+- text: "Petit à petit, l’oiseau fait son nid — Little by little, the bird builds its nest"
+  lang: french
+- text: "À cœur vaillant rien d’impossible — To a valiant heart, nothing is impossible"
+  lang: french
+
+# English Proverbs / Old Sayings
+- text: "This too shall pass"
+  lang: english
+- text: "Hope springs eternal"
+  lang: english
+- text: "No bees, no honey; no work, no money"
+  lang: english
+- text: "A smooth sea never made a skilled sailor"
+  lang: english
+- text: "Great oaks from little acorns grow"
+  lang: english
+- text: "Slow and steady wins the race"
+  lang: english
+- text: "The darkest hour is just before the dawn"
+  lang: english

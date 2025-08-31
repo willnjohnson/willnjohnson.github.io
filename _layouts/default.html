@@ -3,6 +3,7 @@
   <head>
     <script src="{{ '/scripts/js/header-scroll.js' | relative_url }}"></script>
     <script src="{{ '/scripts/js/star-trail.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/quotes.js' | relative_url }}"></script>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
 
     {% include meta.html %}
@@ -50,6 +51,14 @@
         <footer class="footer">
           {% include icons.html %}
           {% include copyright.html %}
+          <div
+            id="random-quote"
+            data-quotes='[
+              {% for q in site.data.quotes %}
+                "{{ q.text | escape }}"{% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            ]'
+          ></div>
         </footer>
       </div>
     </div>
