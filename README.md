@@ -29,8 +29,8 @@ gem install github-pages
 
 ```bash
 # clone and serve
-git clone https://github.com/<username>/<username>.github.io.git
-cd <username>.github.io
+git clone https://github.com/willnjohnson/willnjohnson.github.io.git
+cd willnjohnson.github.io
 jekyll serve
 ```
 
@@ -49,24 +49,27 @@ Feel free to use these icons that I created for your own socials, blogs, or proj
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/beacons.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/beehiiv.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/bitbucket.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/bsky.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/buymeacoffee.png" width="48" height="48" />
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/bsky.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/buymeacoffee.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/cashapp.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/discord.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/dribbble.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/email.png" width="48" height="48" />
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/facebook.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/fiverr.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/flickr.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/gamespot.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/github.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/gitlab.png" width="48" height="48" />
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/github.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/gitlab.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/givesendgo.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/glassdoor.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/gofundme.png" width="48" height="48" />
@@ -82,24 +85,27 @@ Feel free to use these icons that I created for your own socials, blogs, or proj
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/kick.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/kickstarter.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/kofi.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/linkedin.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/linktree.png" width="48" height="48" />
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/linkedin.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/linktree.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/linux.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/mastodon.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/medium.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/nintendo.png" width="48" height="48" />
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/nintendoswitch.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/odysee.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/onlyfans.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/patreon.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/paypal.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/pinterest.png" width="48" height="48" />
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/paypal.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/pinterest.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/playstation.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/polywork.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/reddit.png" width="48" height="48" />
@@ -115,24 +121,27 @@ Feel free to use these icons that I created for your own socials, blogs, or proj
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/stackoverflow.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/steam.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/subify.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/substack.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/teams.png" width="48" height="48" />
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/substack.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/teams.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/telegram.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/threads.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/tiktok.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/trovo.png" width="48" height="48" />
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/twitch.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/twitter.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/venmo.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/vk.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/whatsapp.png" width="48" height="48" />
+  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/windows.png" width="48" height="48" />
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/whatsapp.png" width="48" height="48" />
-  <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/windows.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/x.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/xbox.png" width="48" height="48" />
   <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/icons/youtube.png" width="48" height="48" />
