@@ -635,18 +635,24 @@ nav a.active {
   border-radius: 25px;
   transition: all 0.3s ease;
   background: transparent;
-  user-select: none; // prevents text highlighting
-  
-  &:hover {
-    background: var(--accent-color);
-    color: var(--bg-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
-  }
+  user-select: none;
 }
 
 .btn i {
   color: inherit;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+}
+
+.btn:focus {
+  outline: none;
 }
 
 .back-to-top {
@@ -664,16 +670,16 @@ nav a.active {
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 1000;
+}
 
-  &.visible {
-    opacity: 1;
-    visibility: visible;
-    cursor: pointer;
-  }
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
 
-  &.round {
-    border-radius: 50%;
-  }
+.back-to-top.round {
+  border-radius: 50%;
 }
 
 .wrapper-footer {
