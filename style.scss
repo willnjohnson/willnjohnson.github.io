@@ -678,6 +678,13 @@ nav a.active {
   cursor: pointer;
 }
 
+.back-to-top.visible:active {
+  background: transparent;
+  color: var(--accent-color);
+  transform: none;
+  box-shadow: none;
+}
+
 .back-to-top.round {
   border-radius: 50%;
 }
