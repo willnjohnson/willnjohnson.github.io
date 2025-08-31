@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/favicon.png" alt="Site logo" width="48" style="vertical-align:middle; margin-right:10px;"> willnjohnson.github.io
+# <img src="https://raw.githubusercontent.com/willnjohnson/willnjohnson.github.io/refs/heads/master/images/logo.png" alt="Site logo" width="48" style="vertical-align:middle; margin-right:10px;"> willnjohnson.github.io
 
 Welcome to my personal website and blog, built with **Jekyll** and hosted on **GitHub Pages**.  
 
