@@ -19,11 +19,13 @@ avatar: https://avatars.githubusercontent.com/u/26980980?v=4
 # Includes an icon in the footer for each username you enter
 footer-links:
   email-fa: "wnj@tutamail.com"
+  bsky-fa: "wnj.bsky.social"
   github-fa: "willnjohnson"
   instagram-fa: "dilucular"
   linkedin-fa: "wnj"
   mastodon-fa: "infosec.exchange/@wnj"
   telegram-fa: "willnj"
+  threads-fa: "dilucular"
   x-fa: "willnjohnson"
   youtube-fa: "@willnjohnson"
 

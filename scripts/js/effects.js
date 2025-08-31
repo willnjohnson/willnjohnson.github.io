@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Header Scroll Effect
+// Scroll Effect
 document.addEventListener("DOMContentLoaded", () => {
   const masthead = document.querySelector(".masthead");
   const content = masthead.querySelectorAll(":scope > *:not(nav)");
@@ -79,5 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    backToTopBtn.blur();
   });
 });
