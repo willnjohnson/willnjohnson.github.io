@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="{{ '/scripts/js/header-scroll.js' | relative_url }}"></script>
-    <script src="{{ '/scripts/js/star-trail.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/effects.js' | relative_url }}"></script>
     <script src="{{ '/scripts/js/quotes.js' | relative_url }}"></script>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
 
@@ -64,5 +63,9 @@
     </div>
 
     {% include analytics.html %}
+
+    <div class="btn back-to-top" role="button" aria-label="Back to top" tabindex="0">
+      <i class="fas fa-chevron-up"></i>
+    </div>
   </body>
 </html>

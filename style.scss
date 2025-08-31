@@ -524,7 +524,7 @@ nav {
   
   @include mobile {
     float: none;
-    margin-top: 20px;
+    margin-top: 0px;
     display: block;
     font-size: 16px;
   }
@@ -548,6 +548,29 @@ nav {
       margin: 0 12px;
       color: var(--accent-color);
       padding: 8px 15px;
+    }
+  }
+}
+
+nav a.active {
+  position: relative;
+  color: var(--accent-color);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background-color: var(--accent-color);
+  }
+
+  @include mobile {
+    color: var(--text-primary);
+
+    &::after {
+      height: 3px;
     }
   }
 }
@@ -624,6 +647,33 @@ nav {
 
 .btn i {
   color: inherit;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.25rem;
+  display: flex;
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
+  }
+
+  &.round {
+    border-radius: 50%;
+  }
 }
 
 .wrapper-footer {
