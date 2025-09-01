@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The Fabric of Computing
+summary: "Our digital fabric was first woven on the Jacquard loom."
 tag: tech
 ---
 

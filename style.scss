@@ -300,6 +300,10 @@ img {
   }
 }
 
+.summary {
+  color: var(--text-muted);
+}
+
 // Specify the color of the selection
 ::-moz-selection {
   color: var(--bg-primary);
