@@ -634,23 +634,39 @@ nav a.active {
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--accent-color);
+  background: transparent;
   padding: 12px 24px;
   border: 2px solid var(--accent-color);
   border-radius: 25px;
   transition: all 0.3s ease;
-  background: transparent;
   user-select: none; // prevents text highlighting
-  
+
+  i {
+    color: inherit;
+  }
+
   &:hover {
     background: var(--accent-color);
     color: var(--bg-primary);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
   }
-}
 
-.btn i {
-  color: inherit;
+  @media (max-width: 939px) {
+    &:hover {
+      background: transparent;
+      color: var(--accent-color);
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      background: var(--accent-color);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+    }
+  }
 }
 
 .back-to-top {
@@ -820,6 +836,22 @@ details > summary::before {
 
 details[open] > summary::before {
   transform: rotate(90deg);
+}
+
+details[open] > .btn {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+}
+
+.btn.back-to-top {
+  @include mobile {
+    background: var(--accent-color);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+  }
 }
 
 .timeline {
