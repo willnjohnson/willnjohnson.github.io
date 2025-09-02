@@ -878,20 +878,25 @@ details[open] .timeline {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+.highlight {
+  overflow-x: auto;
+  padding: 1em;
+}
+
 .highlight pre {
   border: none !important;
   box-shadow: none !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow: visible !important;      
-  white-space: pre-wrap !important;  
-  word-break: break-word !important; 
+  overflow-x: auto !important;
+  white-space: pre !important;
+  word-break: normal !important;
 }
 
 .highlight code {
   display: block !important;
-  width: 100% !important;
-  white-space: inherit !important;
+  width: max-content !important;
+  white-space: pre !important;
 }
 
 .post-tail {
