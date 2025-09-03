@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Apropos
-permalink: /Apropos/
+permalink: /apropos/
 ---
 
 <p>
