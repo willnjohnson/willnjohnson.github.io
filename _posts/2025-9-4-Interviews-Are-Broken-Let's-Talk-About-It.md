@@ -70,10 +70,10 @@ We face a few recurring issues that make no sense:
 *   **Ignoring the ecosystem.** If I’m fumbling with something, I don’t reinvent the wheel in isolation. I talk with my team. I ask the senior engineer. We hash it out in a standup, or on Slack. We plan the roadmap together. Again, the ecosystem builds the individual.
 
 <p>Hmm... How do you think a C++ programmer would adapt to writing Java code?</p>
-```cpp
+```
 // TODO: Fix this. Java requires this block of code for some reason when I'm compiling with g++.
 // vvvvvv IGNORE THIS BLOCK OF CODE vvvvvv
-        %:include "iostream"
+        %:include <iostream>
         %:define System S s;s
         %:define public
         %:define static
