@@ -2,6 +2,10 @@
 layout: post
 title: The Fabric of Computing
 summary: "Our digital fabric was first woven on the Jacquard loom."
+quote: |
+  > "Software and cathedrals are much the same – first we build them, then we pray."
+  >
+  > — Samuel T. Redwine, Jr.
 tag: tech
 ---
 
@@ -10,6 +14,13 @@ The Jacquard loom may not be the first thing that comes to mind when you think a
 ## The Loom That Programmed Itself
 
 When Joseph Marie Jacquard invented the <a href="https://en.wikipedia.org/wiki/Jacquard_machine">Jacquard loom</a>, it wasn’t just a new way to weave fabric. It was a breakthrough in automating complex tasks using a series of punched cards. These cards contained patterns of holes that told the loom exactly what to do next. Each punch card represented an instruction that the machine would follow, making it one of the first programmable machines in history. Sound familiar?
+
+{% include image.html 
+    src="https://upload.wikimedia.org/wikipedia/commons/0/09/Jacquard.loom.cards.jpg" 
+    max-width="500px"
+    alt="Punch cards of a Jacquard loom (2004)" 
+    caption="Close-up of punch cards from a Jacquard loom, by George H. Williams (public domain)"
+%}
 
 Well, if you’ve ever worked with early computers, you might recognize this concept: **punch cards**. They were the primary method of input for early computer systems and are directly inspired by Jacquard’s loom.
 

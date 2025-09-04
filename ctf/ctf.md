@@ -1,0 +1,53 @@
+---
+layout: page
+title: Capture The Flag
+permalink: /ctf/
+---
+
+Up for a fun challenge? I've hidden flags, formatted `wnj-ctf-{<string>}`, across this site.
+
+#### 1. Julius Was Here
+`It looks legible, but something isn't quite right about it... qhd-wnz-{fusion}`
+
+#### 2. Ready for Inspection
+`What you see isn’t all you get. Some things hide between the lines.`
+
+#### 3. Use the Map
+`Every journey leaves a trail. This one might be drawn out for you already. Can you spot it?`
+
+#### 4. I, For One, Welcome Our New Robot Overlords
+`Bzzt. Cannot compute. Bzzt, we've hidden the flag.`
+
+#### 5. I Can Has Cookie?
+`Sometimes what’s baked right in isn’t quite right. Maybe a little tweak will make it taste better.`
+
+<p>
+  <a href="/ctf/i-can-has-cookie" 
+    class="btn">
+    Go To Challenge
+  </a>
+</p>
+
+#### 6. Keep Digging
+`The surface doesn’t tell the whole story. Some answers are buried deep.`
+
+#### 7. Oops! I Dropped My Key
+`The admin leaked his private PGP key, but it's locked behind a passphrase. Hmm. Maybe ask John for some help to uncover what's lurking in the shadow. (Hint: Passphrase is 6 letters mixed case)`
+
+<div>
+  <a href="/ctf/private_pgp_key.asc" 
+     class="btn"
+     download="private_pgp_key.asc">
+    Private PGP Key
+  </a>
+  <a href="/ctf/flag.asc" 
+     class="btn"
+     download="flag.asc">
+    Flag
+  </a>
+  <a href="/ctf/shadow" 
+     class="btn"
+     download="shadow.txt">
+    Shadow
+  </a>
+</div>

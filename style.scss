@@ -230,6 +230,10 @@ ul {
 
     &:hover {
       color: var(--accent-color);
+
+      em {
+        color: var(--accent-color);
+      }
     }
   }
 }
@@ -243,6 +247,10 @@ ol {
 
     &:hover {
       color: var(--accent-color);
+
+      em {
+        color: var(--accent-color);
+      }
     }
   }
 }
@@ -300,7 +308,7 @@ img {
   }
 }
 
-.summary {
+.summary, figcaption {
   color: var(--text-muted);
 }
 
@@ -603,9 +611,9 @@ nav a.active {
 
 .post {
   blockquote {
-    margin: 2em 0;
+    margin: 1em 0;
     border-left: 4px solid var(--accent-color);
-    padding: 1.2em 1.8em;
+    padding: 0.25em 1em;
     color: var(--text-tertiary);
     font-size: 20px;
     font-style: italic;
@@ -623,7 +631,36 @@ nav a.active {
   .comments {
     margin-top: 20px;
   }
+}
 
+spoiler {
+  display: inline-block;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  margin: 0 0.1em;
+  padding: 0.1em 0.3em;
+  cursor: pointer;
+  color: transparent;
+  user-select: none;
+  font-size: 0.9em;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+
+  &:active {
+    color: inherit;
+    user-select: none;
+  }
+
+  &::selection {
+    background: none;
+  }
+}
+
+/* Animation for subtle sparkle flicker */
+@keyframes sparkle-fade {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 .btn {

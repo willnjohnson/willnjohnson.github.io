@@ -5,9 +5,11 @@ permalink: /apropos/
 ---
 
 <p>
-I am a versatile and self-driven computer scientist with a deep interest in both the technical and creative aspects of software development.
+When I’m not coding, you’ll probably find me sipping coffee ☕ or tea 🍵 while diving into random Wiktionary pages or other articles, experimenting with new food recipes for my next meal, or having fun on my Nintendo Switch. I enjoy brain-teasers — from solving difficult crossword metas to playing tabletop and board games like <em>Exit The Game</em> with my sister and brother-in-law. I’m endlessly curious, whether it’s learning a new skill, reading obscure facts, or discovering the little joys in everyday life.
 </p>
-
+<p>
+That same curiosity drives my aspiration as a versatile and self-driven computer scientist, where I explore both the technical and creative aspects of software development. I like to approach challenges playfully and thoughtfully, blending logic, experimentation, and imagination to build solutions that are both functional and elegant.
+</p>
 <details class="timeline-container">
   <summary class="btn">Timeline (My Programming Journey)</summary>
   <br><br>
@@ -160,15 +162,15 @@ I am a versatile and self-driven computer scientist with a deep interest in both
 <h2>Additional Interests</h2>
 
 <ul>
-  <li><strong>Linguistics</strong> — particularly evolutionary linguistics, studying how words change, split, or vanish across time, but also interested in mathematical-side of linguistics (regular expressions, Turing Machines, etc.).</li>
+  <li><strong>Linguistics</strong> — particularly evolutionary linguistics, studying how words change, split, or vanish across time, but also interested in the mathematical-side of linguistics (regular expressions, Turing Machines, etc.).</li>
   <li><strong>Classic and Medieval Literature</strong> — fascinated by old stories.</li>
-  <li><strong>Cybersecurity</strong> — continuously developing a secure mindset.</li>
+  <li><strong>Cybersecurity</strong> — continuously developing a secure mindset. Ooh, a <a href="/ctf">CTF?</a> (¬‿¬)</li>
 </ul>
 
 <hr>
 
 <h2>Contact Me</h2>
-
+<p>Below is my email. <em>(Note: The PGP key isn't required to contact me.)</em></p>
 <p><a href="mailto:wnj@tutamail.com">wnj@tutamail.com</a></p>
 
 <p>

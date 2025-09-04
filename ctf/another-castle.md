@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Flag Not Found (๑·̀ᗝ·́)૭
-permalink: /another-castle.html
+permalink: /ctf/another-castle/
 ---
 
 <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">

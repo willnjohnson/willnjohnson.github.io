@@ -1,7 +1,7 @@
 ---
 layout: page
-title: I Can Has Cookies?
-permalink: /i-can-has-cookies.html
+title: I Can Has Cookie?
+permalink: /ctf/i-can-has-cookie/
 ---
 
 <div>

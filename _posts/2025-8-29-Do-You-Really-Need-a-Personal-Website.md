@@ -2,6 +2,10 @@
 layout: post
 title: Do You Really Need a Personal Website?
 summary: "A personal website is your digital business card—simple, affordable, and the best way to showcase projects, ideas, and stand out professionally."
+quote: |
+  > "You can’t wait for inspiration, you have to go after it with a club."
+  >
+  > — Jack London
 tag: tech
 ---
 

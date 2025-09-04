@@ -1,0 +1,19 @@
+<figure class="post-image">
+  {% if include.imgur %}
+    <img src="https://i.imgur.com/{{ include.imgur }}" 
+         alt="{{ include.alt | default: '' }}" 
+         {% if include.max-width %} width="{{ include.max-width }}"{% endif %}
+         {% if include.max-height %} height="{{ include.max-height }}"{% endif %}
+         loading="lazy" />
+  {% elsif include.src %}
+    <img src="{{ include.src }}" 
+         alt="{{ include.alt | default: '' }}" 
+         {% if include.max-width %} width="{{ include.max-width }}"{% endif %}
+         {% if include.max-height %} height="{{ include.max-height }}"{% endif %}
+         loading="lazy" />
+  {% endif %}
+
+  {% if include.caption %}
+    <figcaption>{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>
