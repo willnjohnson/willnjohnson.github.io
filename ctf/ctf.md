@@ -11,6 +11,7 @@ Up for a fun challenge? I've hidden flags, formatted `wnj-ctf-{<string>}`, acros
 
 #### 2. Ready for Inspection
 `What you see isn’t all you get. Some things hide between the lines.`
+<!-- Who would ever think to check the comments? wnj-ctf-{i_inspect_therefore_i_persist} -->
 
 #### 3. Use the Map
 `Every journey leaves a trail. This one might be drawn out for you already. Can you spot it?`
@@ -34,7 +35,7 @@ Up for a fun challenge? I've hidden flags, formatted `wnj-ctf-{<string>}`, acros
 #### 7. Oops! I Dropped My Key
 `The admin leaked his private PGP key, but it's locked behind a passphrase. Hmm. Maybe ask John for some help to uncover what's lurking in the shadow. (Hint: Passphrase is 6 letters mixed case)`
 
-<div>
+<div class="group">
   <a href="/ctf/private_pgp_key.asc" 
      class="btn"
      download="private_pgp_key.asc">

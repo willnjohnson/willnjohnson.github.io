@@ -951,8 +951,13 @@ details[open] .timeline {
   color: var(--text-muted);
 }
 
+.group {
+  display: flex;
+  gap: 1em;
+}
+
 @include mobile {
-  .post-tail {
+  .post-tail, .group {
     flex-direction: column;
     align-items: flex-start;
     gap: 1em;
