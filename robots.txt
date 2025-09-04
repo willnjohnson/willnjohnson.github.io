@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /wnj-ctf-{bzzt-congrats}/
