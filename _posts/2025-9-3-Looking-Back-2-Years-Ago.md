@@ -17,7 +17,7 @@ Being a senior was all three at once: exciting, stressful, and bittersweet. On t
 
 But, man, it wasn’t smooth sailing. My stubborn drive to keep a perfect 4.0 GPA meant I overloaded myself with pressure, even tackling graduate-level courses like Software Security and Network Security. The stress was *relentless*. Still, crossing that finish line and graduating felt like my proudest achievement, even if my brain felt like scrambled eggs.
 
-And the ceremony? Yeah, I skipped it. I’d earned my Volunteer of Distinction pin, which probably would’ve looked pretty cool on a graduation cap, but pomp and circumstance has just never been my thing. Plus, let’s be real, a university graduation just hits different than high school, right? Much less fuss.
+And the ceremony? Yeah, I skipped it. I’d earned my Volunteer of Distinction pin, which probably would’ve looked pretty cool on a graduation gown, but pomp and circumstance has just never been my thing. Plus, let’s be real, a university graduation just hits different than high school, right? Much less fuss.
 
 ###### Demo of our Neuromorphic Autonomous Car
 
