@@ -6,7 +6,7 @@ layout: default
   <a href="#" class="btn" onclick="if(history.length > 1){history.back();}else{window.location='{{ site.baseurl }}';} return false;">
     <i class="fa fa-arrow-left"></i> Return
   </a>
-  
+
   <h1>{{ page.title }}</h1>
 
   <p class="summary">{{ page.summary }}</p>
@@ -24,5 +24,7 @@ layout: default
 
   <hr>
 
-  {% include disqus.html %}
+  {% include social-share.html %}
+
+  <!-- {% include disqus.html %} -->
 </article>

@@ -1,0 +1,15 @@
+<div class="image-grid grid-cols-{{ include.columns | default: 'auto' }} {% if include.layout %}{{ include.layout }}{% endif %} {% if include.compact %}compact{% endif %}">
+  {% assign images = include.images | split: ',' %}
+  {% for image in images %}
+    {% assign parts = image | split: '|' %}
+    {% assign src = parts[0] | strip %}
+    {% assign alt = parts[1] | default: 'Grid image' | strip %}
+    {% assign caption = parts[2] | default: '' | strip %}
+    <div class="grid-item">
+      <img src="{{ src | relative_url }}" alt="{{ alt }}" loading="lazy">
+      {% if caption %}
+      <div class="grid-caption">{{ caption }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

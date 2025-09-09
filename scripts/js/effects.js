@@ -50,12 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const masthead = document.querySelector(".masthead");
   const content = masthead.querySelectorAll(":scope > *:not(nav)");
-  const mainContainer = document.querySelector("div#main.container");
+  const mainContainer = document.querySelector("#main");
   const maxDistance = 300; // Increased for slower transition
   const backToTopBtn = document.querySelector(".back-to-top");
- 
+
   let ticking = false;
- 
+
   window.addEventListener("scroll", () => {
     if (!ticking) {
       ticking = true;
@@ -63,20 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const y = window.scrollY;
         if (window.innerWidth <= 939) {
           const progress = Math.min(1, y / maxDistance);
-         
+
           // Different easing for opacity and height
           const opacityProgress = progress; // Keep opacity linear
           const heightProgress = Math.pow(progress, 0.1); // Slower height transition
-         
+
           const opacity = 1 - opacityProgress;
           const maxHeight = (1 - heightProgress) * 500;
           const marginTop = heightProgress * 60;
-         
+
           content.forEach(el => {
             el.style.opacity = opacity;
             el.style.maxHeight = `${maxHeight}px`;
           });
-          
+
           // Apply margin-top to main container
           if (mainContainer) {
             mainContainer.style.marginTop = `${marginTop}px`;
@@ -87,24 +87,24 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.opacity = '';
             el.style.maxHeight = '';
           });
-          
+
           // Reset main container margin
           if (mainContainer) {
             mainContainer.style.marginTop = '';
           }
         }
-       
+
         if (y > 100) {
           backToTopBtn.classList.add("visible");
         } else {
           backToTopBtn.classList.remove("visible");
         }
-       
+
         ticking = false;
       });
     }
   }, { passive: true });
- 
+
   // Handle resize to reset styles
   window.addEventListener("resize", () => {
     if (window.innerWidth > 939) {
@@ -112,13 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
         el.style.opacity = '';
         el.style.maxHeight = '';
       });
-      
+
       if (mainContainer) {
         mainContainer.style.marginTop = '';
       }
     }
   });
- 
+
   backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     backToTopBtn.blur();

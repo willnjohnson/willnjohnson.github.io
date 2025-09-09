@@ -1,0 +1,17 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {% assign crumbs = include.path | split: ',' %}
+    {% for crumb in crumbs %}
+      {% assign parts = crumb | split: '|' %}
+      {% assign url = parts[0] | strip %}
+      {% assign label = parts[1] | strip %}
+      <li>
+        {% if forloop.last %}
+          <span>{{ label }}</span>
+        {% else %}
+          <a href="{{ url | relative_url }}">{{ label }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</nav>

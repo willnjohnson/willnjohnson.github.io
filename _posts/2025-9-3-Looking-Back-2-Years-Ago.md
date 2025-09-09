@@ -23,6 +23,13 @@ And the ceremony? Yeah, I skipped it. I’d earned my Volunteer of Distinction p
 
 {% include yt-video.html id="TVREhZGX4KY" %}
 
+{% include image.html 
+    imgur="BR9V7ZN.gif" 
+    max-width="500px"
+    alt="Neuromorphic Autonomous Car Simulation"
+    caption="Running the Car in Simulation" 
+ %}
+
 ### Friendships & Farewells
 
 The more difficult goodbyes weren’t marked by speeches or after-graduation parties. They were silent farewells to colleagues and friends, especially the ones I’d spent countless hours with for my Software Engineering course and our Senior Design Capstone. These were friendships built on shared passions, debugging sessions on Discord, and the mutual understanding of impending deadlines. When the time came to part ways, we didn’t need flowery speeches—just an unspoken *good luck on your next adventure*. It felt more profound, in a way.
