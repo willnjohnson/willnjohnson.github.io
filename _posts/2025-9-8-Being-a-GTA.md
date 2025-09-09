@@ -49,7 +49,7 @@ Could I prove they used it? Not completely. So I didn’t flag it. It was also t
 
 ### My Take on AI
 
-I didn’t get access to tools like ChatGPT during undergrad. It wasn’t really a thing until late 2022, and by then I was nearly done with my Bachelor’s. Man, I still remember the crazy moments trying to wrap my head around implementing Dekel-Nassimi-Aahni's parallel matrix multiplication in MPI, and all of the other programming ventures along the way. But since starting grad school, I’ve tried using AI for a few things — mostly just to test it. Mixed results.
+I didn’t get access to tools like ChatGPT during undergrad. It wasn’t really a thing until late 2022, and by then I was nearly done with my Bachelor’s. Man, I still remember the crazy moments trying to wrap my head around implementing Dekel-Nassimi-Sahni's parallel matrix multiplication in MPI, and all of the other programming ventures along the way. But since starting grad school, I’ve tried using AI for a few things — mostly just to test it. Mixed results.
 
 Ask ChatGPT for something like “prove that the union of countably many countable sets is countable,” and it fumbles. It creates a convincing, but incorrect response. I usually have to check Math StackExchange anyway. Man, can you imagine reading the word *count* three times in one sentence!?
 
