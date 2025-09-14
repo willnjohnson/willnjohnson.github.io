@@ -63,7 +63,7 @@ The problem? You don't truly know a candidate unless you talk with them, or, bet
 
 We face a few recurring issues that make no sense:
 
-*   **Expecting one individual to have every piece of expertise.** Well, Rome wasn’t built in a day—and it wasn’t built by one individual either. Sure, it's *possible*, but it's unreleastic. Ultimately, the organization builds the organism; we thrive by mutualism, like worker ants and bees.
+*   **Expecting one individual to have every piece of expertise.** Well, Rome wasn’t built in a day—and it wasn’t built by one individual either. Sure, it's *possible*, but it's unrealistic. Ultimately, the organization builds the organism; we thrive by mutualism, like worker ants and bees.
 
 *   **Expecting hyper-specific skills in hyper-specific languages.** Believe it or not, computer scientists are adaptable. There’s a reason *K&R’s C Programming Language* book is so highly regarded and why professors don't tell students to buy a book on every programming language out there: it teaches the foundations. You learn one system deeply, and suddenly the next language comes easier. The real skill isn’t memorization—it’s knowing how to look things up, how to adapt, and how to collaborate.
 

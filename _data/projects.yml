@@ -48,3 +48,9 @@ past:
     text_color: var(--text-primary)
     github: SigTail
     image: https://i.imgur.com/vAcgwFZ.png
+  - name: Vivace
+    description: My personalized Windows lockscreen (ReactJS + Tauri + Vite)
+    color: orange
+    text_color: var(--text-primary)
+    github: Vivace
+    image: https://i.imgur.com/vOTD1co.png

@@ -5,7 +5,7 @@ permalink: /apropos/
 ---
 
 <p>
-When I’m not coding, you’ll probably find me sipping coffee ☕ or tea 🍵 while diving into random Wiktionary pages or other articles, experimenting with new food recipes for my next meal, or having fun on my Nintendo Switch. I enjoy brain-teasers — from solving crossword metas to playing tabletop and board games like <em>Exit The Game</em> or online games like <em>Wordle</em> and <em>Connections</em> with my sister and brother-in-law. I’m endlessly curious, whether it’s learning a new skill, reading obscure facts, or discovering the little joys in everyday life.
+When I’m not coding, you’ll probably find me sipping coffee ☕ or tea 🍵 while diving into reading random Wiktionary/Wikisource pages or other articles, experimenting with new food recipes for my next meal, or having fun on my Nintendo Switch. I enjoy brain-teasers — from solving crossword metas to playing tabletop and board games like <em>Exit The Game</em> or online games like <em>Wordle</em> and <em>Connections</em> with my sister and brother-in-law. I’m endlessly curious, whether it’s learning a new skill, reading obscure facts, or discovering the little joys in everyday life.
 </p>
 <p>
 That same curiosity drives my aspiration as a versatile and self-driven computer scientist, where I explore both the technical and creative aspects of software development. I like to approach challenges playfully and thoughtfully, blending logic, experimentation, and imagination to build solutions that are both functional and elegant.
