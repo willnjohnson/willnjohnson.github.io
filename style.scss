@@ -97,26 +97,6 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-
-  background-image:
-    repeating-linear-gradient(to right, var(--grid-line-color) 0 1px, transparent 1px 30px),
-    repeating-linear-gradient(to bottom, var(--grid-line-color) 0 1px, transparent 1px 30px);
-
-  mask-image: radial-gradient(circle at center,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.1) 25%,
-    rgba(0, 0, 0, 0.4) 55%,
-    rgba(0, 0, 0, 1) 80%);
-  mask-repeat: no-repeat;
-  mask-size: cover;
-
-  -webkit-mask-image: radial-gradient(circle at center,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.1) 25%,
-    rgba(0, 0, 0, 0.4) 55%,
-    rgba(0, 0, 0, 1) 80%);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
 }
 
 .container {
@@ -145,10 +125,6 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0 20px;
   padding: 0;
   transition: color 0.3s ease;
-  
-  &:hover {
-    color: var(--accent-color);
-  }
   
   @include mobile {
     line-height: 1.4;
@@ -384,16 +360,16 @@ img {
 /**********************/
 
 /*
-// .masthead
+// .head
 */
 
-.wrapper-masthead {
+.wrapper-head {
   margin-bottom: 60px;
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid var(--border-light);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -401,12 +377,12 @@ img {
 }
 
 @media (prefers-color-scheme: dark) {
-  .wrapper-masthead {
-    background: rgba(15, 23, 42, 0.95);
+  .wrapper-head {
+    background: rgba(0, 0, 0, 0.5);
   }
 }
 
-.masthead {
+.head {
   padding: 1rem 0;
   display: flex;
   align-items: center;
@@ -513,17 +489,11 @@ img {
 .site-name {
   margin: 0;
   color: var(--text-primary);
-  cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 600;
   font-size: 24px;
   letter-spacing: -0.5px;
   transition: all 0.3s ease;
-
-  &:hover {
-    color: var(--accent-color);
-    transform: translateY(-1px);
-  }
 }
 
 .site-description {
@@ -579,7 +549,7 @@ nav {
     color: var(--text-secondary);
     text-align: right;
     padding: 10px 18px;
-    border-radius: 25px;
+    border-radius: 10px;
     transition: all 0.3s ease;
     font-weight: 400;
     
@@ -631,7 +601,7 @@ nav a.active {
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-color) 25%, transparent);
+    background-color: var(--bg-highlight);
     border-radius: 8px;
   }
 }
@@ -704,7 +674,7 @@ spoiler {
   color: var(--accent-color);
   padding: 12px 24px;
   border: 2px solid var(--accent-color);
-  border-radius: 25px;
+  border-radius: 10px;
   transition: all 0.3s ease;
   background: transparent;
   user-select: none;
@@ -713,7 +683,7 @@ spoiler {
     background: var(--accent-color);
     color: var(--bg-primary);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color) 30%, transparent);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--accent-color) 30%, transparent);
   }
 }
 
@@ -731,6 +701,7 @@ spoiler {
 }
 
 .back-to-top {
+  border-radius: 25px;
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -758,9 +729,15 @@ spoiler {
 .wrapper-footer {
   margin-top: 2rem;
   border-top: 1px solid var(--border-light);
-  background: var(--bg-secondary);
+  background: rgba(255, 255, 255, 0.5);
   position: relative;
   user-select: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrapper-footer {
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
 
 footer {
@@ -821,21 +798,6 @@ footer {
   font-style: italic;
   font-size: 0.9em;
   color: var(--text-muted);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.post {
-  animation: fadeInUp 0.6s ease-out;
 }
 
 .highlight {
@@ -992,9 +954,10 @@ details[open] .timeline {
 
 .page-layout {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 900px;
   padding: 0 2rem;
 
+  /* For Mastodon
   @media (min-width: 940px) {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -1006,6 +969,7 @@ details[open] .timeline {
     padding: 0 1rem;
     gap: 2rem;
   }
+  */
 }
 
 .posts-container {
@@ -1022,10 +986,6 @@ details[open] .timeline {
 
 .mastodon-feed {
   transition: all 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-  }
 
   @media (max-width: 939px) {
     display: none;
@@ -1033,7 +993,7 @@ details[open] .timeline {
 }
 
 @media (max-width: 939px) {
-  .masthead > *:not(nav) {
+  .head > *:not(nav) {
     transition: opacity 0.2s linear, max-height 0.2s linear;
     overflow: hidden;
   }

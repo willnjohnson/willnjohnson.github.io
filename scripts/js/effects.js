@@ -1,4 +1,5 @@
 // Star Trail Effect
+/*
 const stars = [];
 let lastStar = 0;
 
@@ -30,6 +31,7 @@ document.addEventListener('mousemove', e => {
 
 setInterval(() => !moving && Math.random() < 0.3 && 
   createStar(mouseX + (Math.random() - 0.5) * 100, mouseY + (Math.random() - 0.5) * 100), 2000);
+*/
 
 // Navigation Underline Effect
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Scroll Effect
 document.addEventListener("DOMContentLoaded", () => {
-  const masthead = document.querySelector(".masthead");
-  const content = masthead.querySelectorAll(":scope > *:not(nav)");
+  const head = document.querySelector(".head");
+  const content = head.querySelectorAll(":scope > *:not(nav)");
   const mainContainer = document.querySelector("#main");
   const maxDistance = 300; // Increased for slower transition
   const backToTopBtn = document.querySelector(".back-to-top");
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const opacity = 1 - opacityProgress;
           const maxHeight = (1 - heightProgress) * 500;
-          const marginTop = heightProgress * 60;
+          const marginTop = heightProgress * 100;
 
           content.forEach(el => {
             el.style.opacity = opacity;
