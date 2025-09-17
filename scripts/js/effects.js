@@ -53,76 +53,120 @@ document.addEventListener("DOMContentLoaded", () => {
   const head = document.querySelector(".head");
   const content = head.querySelectorAll(":scope > *:not(nav)");
   const mainContainer = document.querySelector("#main");
-  const maxDistance = 300; // Increased for slower transition
   const backToTopBtn = document.querySelector(".back-to-top");
 
+  // Store the initial calculated height of the content to hide
+  // This will be the maximum value for maxHeight when the header is fully open.
+  let initialContentMaxHeight = 0;
+
+  // Function to calculate initial content height dynamically
+  const calculateInitialContentHeight = () => {
+    // Temporarily reset styles to get true max height if they were modified
+    content.forEach(el => {
+      el.style.opacity = '';
+      el.style.maxHeight = '';
+      el.style.paddingTop = ''; // Reset any potential padding changes
+      el.style.paddingBottom = '';
+      el.style.marginTop = ''; // Reset any potential margin changes
+      el.style.marginBottom = '';
+    });
+
+    initialContentMaxHeight = 0;
+    // Iterate over each non-nav element to sum their heights
+    // Include their margins/paddings if they contribute to the visual height
+    content.forEach(el => {
+      if (el.offsetHeight > 0) { // Only count visible elements
+        const style = window.getComputedStyle(el);
+        const marginY = parseFloat(style.marginTop) + parseFloat(style.marginBottom);
+        initialContentMaxHeight += el.offsetHeight + marginY;
+      }
+    });
+
+    initialContentMaxHeight = Math.max(initialContentMaxHeight, 150); // Minimum of 150px
+  };
+
+  // Run calculation initially
+  calculateInitialContentHeight();
+
+  const maxScrollDistanceForAnimation = 300;
+
   let ticking = false;
+
+  const handleScroll = () => {
+    const y = window.scrollY;
+
+    if (window.innerWidth <= 939) {
+      const progress = Math.min(1, y / maxScrollDistanceForAnimation);
+
+      const opacity = 1 - progress;
+
+      const heightProgress = Math.min(1, Math.pow(progress, 0.5));
+
+      const currentMaxHeight = (1 - heightProgress) * initialContentMaxHeight;
+
+      content.forEach(el => {
+        el.style.opacity = opacity;
+        // Ensure maxHeight doesn't go below 0
+        el.style.maxHeight = `${Math.max(0, currentMaxHeight)}px`;
+      });
+
+      if (mainContainer && mainContainer.style.marginTop) {
+         mainContainer.style.marginTop = '';
+      }
+    } else {
+      // Reset styles when not mobile
+      content.forEach(el => {
+        el.style.opacity = '';
+        el.style.maxHeight = '';
+      });
+      // Ensure main container margin is not affected by JS when not on mobile
+      if (mainContainer && mainContainer.style.marginTop) {
+        mainContainer.style.marginTop = '';
+      }
+    }
+
+    // Back to top button logic
+    if (y > 100) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
+    }
+
+    ticking = false;
+  };
 
   window.addEventListener("scroll", () => {
     if (!ticking) {
       ticking = true;
-      window.requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (window.innerWidth <= 939) {
-          const progress = Math.min(1, y / maxDistance);
-
-          // Different easing for opacity and height
-          const opacityProgress = progress; // Keep opacity linear
-          const heightProgress = Math.pow(progress, 0.1); // Slower height transition
-
-          const opacity = 1 - opacityProgress;
-          const maxHeight = (1 - heightProgress) * 500;
-          const marginTop = heightProgress * 100;
-
-          content.forEach(el => {
-            el.style.opacity = opacity;
-            el.style.maxHeight = `${maxHeight}px`;
-          });
-
-          // Apply margin-top to main container
-          if (mainContainer) {
-            mainContainer.style.marginTop = `${marginTop}px`;
-          }
-        } else {
-          // Reset styles when not mobile
-          content.forEach(el => {
-            el.style.opacity = '';
-            el.style.maxHeight = '';
-          });
-
-          // Reset main container margin
-          if (mainContainer) {
-            mainContainer.style.marginTop = '';
-          }
-        }
-
-        if (y > 100) {
-          backToTopBtn.classList.add("visible");
-        } else {
-          backToTopBtn.classList.remove("visible");
-        }
-
-        ticking = false;
-      });
+      window.requestAnimationFrame(handleScroll);
     }
   }, { passive: true });
 
-  // Handle resize to reset styles
+  // Handle resize to reset styles and recalculate height if layout changes
   window.addEventListener("resize", () => {
+    // Recalculate the initial content height as element dimensions might change
+    // when the window resizes, especially on and off mobile breakpoints.
+    calculateInitialContentHeight();
+
     if (window.innerWidth > 939) {
       content.forEach(el => {
         el.style.opacity = '';
         el.style.maxHeight = '';
       });
-
       if (mainContainer) {
         mainContainer.style.marginTop = '';
       }
     }
+    // Also re-run scroll handler to ensure correct state after resize
+    handleScroll();
   });
 
   backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     backToTopBtn.blur();
   });
+
+  // Initial call to set state correctly if page is loaded scrolled
+  // and to ensure initialContentMaxHeight is correctly reflected if not scrolled
+  handleScroll();
 });
