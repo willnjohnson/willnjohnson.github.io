@@ -159,6 +159,27 @@ That same curiosity drives my aspiration as a versatile and self-driven computer
 
 <hr>
 
+<h2>Teachings and Research</h2>
+
+<h3>Classes Taught</h3>
+<p>
+During my time as a graduate teaching assistant, I supported multiple courses through grading, teaching meetings, and office hours. I aided students in understanding complex concepts, troubleshooting technical documentation, and completing assignments. I've also written Python gradescripts to facilitate evaluating program correctness and managing a Portainer server. Courses I assisted with include:
+</p>
+<ul>
+  <li>Fall 2024: Applied Cryptography (full class)</li>
+  <li>Spring 2024: Operating Systems (full class)</li>
+  <li>Fall 2023: Operating Systems (half class); Human‑Computer Interaction (half class)</li>
+</ul>
+
+<h3>Research</h3>
+<p>
+As an undergraduate research assistant, I investigated the stability of altcoins in the cryptocurrency market, comparing them with established coins using statistical analysis. My contributions included categorizing coins by trade volume, developing a peak‑finding algorithm based on a sliding window approach, implementing and improving web scraping tools (Selenium) to collect repository data, and building tools to compare altcoin and parent coin files. I organized research findings in Notion and collaborated with a graduate research assistant to refine the project.
+<br><br>
+<b>Tools used:</b> Selenium, Pandas, Matplotlib, statistical libraries (Numpy, Pandas, Scikit Learn, etc.)
+</p>
+
+<hr>
+
 <h2>Additional Interests</h2>
 
 <ul>
