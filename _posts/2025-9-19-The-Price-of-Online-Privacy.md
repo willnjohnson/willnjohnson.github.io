@@ -15,6 +15,13 @@ It all started when I realized just how messy the online world really is. The fi
 
 And then there are the "work-for-free" exit scams. This is a special kind of awful. The company might ask you to complete a "small project" as a final step in the hiring process. This isn't your average 30-minute coding challenge. They want you to build an entire feature, or sometimes, a whole section of their product. You work for hours, sometimes days, pouring your time and skill into what you think is a legitimate test. But that "project" is the product itself. Once you submit the work, they take your code, implement it, and then vanish. The website disappears, the "recruiter" ghosts you, and the company's social media accounts go dark. They got free labor, and you're left with nothing but wasted time and the sinking feeling you were just a cog in a broader exit scam. It's a frustrating and exhausting wild goose chase, leaving you with a lingering sense of vulnerability and a mountain of cleanup.
 
+{% include image.html 
+    imgur="WFW6Hdx.png" 
+    max-width="500px"
+    alt="Dealing with Scam Emails"
+    caption="Dealing with Scam Emails" 
+ %}
+
 ### The Unseen Dangers of Data
 
 Then there's the misuse of personal data, something I experienced firsthand. At one point, I strongly suspect my online activity led to my address being leaked. Not long after, someone physically destroyed my mailbox, not once but twice (the first time in May 2023, and the second time a year later). I can't prove the connection, but the timing was too coincidental to ignore. I actually feared for my life. If someone is willing to destroy my mailbox, who knows what they might do next? That's completely messed up. And it’s not even about oversharing. These scammers are relentless. They'll go to extreme lengths if they think you have something valuable to them. I don't even know what they wanted from me, but dealing with it was awful and exhausting. This experience made it crystal clear that personal information online is more dangerous than most people realize.
