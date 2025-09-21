@@ -45,6 +45,13 @@ Today, the questions are different: **“Invert this binary tree.”** Something
 
 Back then, the test was: *can you think through design?* Now, the test is: *can you memorize problems from a book you bought off Amazon? And sometimes, the books become heavily outdated or irrelevant!*
 
+{% include image.html 
+    imgur="Iy0Wqil.jpeg" 
+    max-width="500px"
+    alt="Stack of Books"
+    caption="Stack of Books" 
+ %}
+
 ## The Fortune 300 Paradox
 
 Wait, why is everyone calling them "FAANG companies"? And is Netflix still relevant, or does the 'N' stand for NVIDIA now?
