@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="{{ '/scripts/js/theme-toggle.js' | relative_url }}"></script>
     <script src="{{ '/scripts/js/effects.js' | relative_url }}"></script>
     <script src="{{ '/scripts/js/quotes.js' | relative_url }}"></script>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
@@ -30,6 +31,9 @@
             <a href="{{ site.baseurl }}/apropos">Apropos</a>
             <a href="{{ site.baseurl }}/projects">Projects</a>
             <a href="{{ site.baseurl }}/freelance">Freelance</a>
+            <button id="theme-toggle" aria-label="Toggle theme" class="theme-toggle-btn">
+              <i id="theme-icon" class="fa-regular fa-lightbulb"></i>
+            </button>
           </nav>
         </header>
       </div>

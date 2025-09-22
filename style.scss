@@ -11,8 +11,8 @@
 /* THEME SYSTEM */
 /**************/
 
+// Light mode colors (default)
 :root {
-  // Light mode colors (default)
   --bg-primary: #{$white};
   --bg-secondary: rgba(#{red($lightGray)}, #{green($lightGray)}, #{blue($lightGray)}, 0.5);
   --bg-highlight: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.04);
@@ -39,9 +39,9 @@
   --grid-line-color: rgba(50, 50, 50, 0.05);
 }
 
+// System dark mode preference (when no manual override)
 @media (prefers-color-scheme: dark) {
-  :root {
-    // Dark mode colors
+  :root:not(.light-theme) {
     --bg-primary: #0f172a;
     --bg-secondary: rgba(30, 41, 59, 0.3);
     --bg-highlight: rgba(99, 102, 241, 0.1);
@@ -67,6 +67,62 @@
 
     --grid-line-color: rgba(255, 255, 255, 0.03);
   }
+}
+
+// Manual dark theme override
+.dark-theme {
+  --bg-primary: #0f172a;
+  --bg-secondary: rgba(30, 41, 59, 0.3);
+  --bg-highlight: rgba(99, 102, 241, 0.1);
+  --bg-highlight-hover: rgba(99, 102, 241, 0.15);
+  --bg-code: #1e293b;
+  --bg-nav: rgba(15, 23, 42, 0.95);
+  --bg-avatar-border: rgba(99, 102, 241, 0.2);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  --border-light: rgba(99, 102, 241, 0.2);
+  --border-medium: rgba(99, 102, 241, 0.25);
+  
+  --accent-color: #6366f1;
+  --accent-hover: #8b5cf6;
+  
+  --shadow-light: 0 2px 20px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.3);
+
+  --grid-line-color: rgba(255, 255, 255, 0.03);
+}
+
+// Manual light theme override (forces light even if system prefers dark)
+.light-theme {
+  --bg-primary: #{$white};
+  --bg-secondary: rgba(#{red($lightGray)}, #{green($lightGray)}, #{blue($lightGray)}, 0.5);
+  --bg-highlight: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.04);
+  --bg-highlight-hover: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.08);
+  --bg-code: #f8f9fa;
+  --bg-nav: rgba(255, 255, 255, 0.95);
+  --bg-avatar-border: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.1);
+  
+  --text-primary: #{$darkerGray};
+  --text-secondary: #{$darkGray};
+  --text-tertiary: #{$gray};
+  --text-muted: #{$gray};
+  
+  --border-light: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.1);
+  --border-medium: rgba(#{red($blue)}, #{green($blue)}, #{blue($blue)}, 0.12);
+  
+  --accent-color: #{$blue};
+  --accent-hover: #{darken($blue, 15%)};
+  
+  --shadow-light: 0 2px 20px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+  --grid-line-color: rgba(50, 50, 50, 0.05);
 }
 
 /**************/
@@ -390,17 +446,11 @@ img {
   top: 0;
   z-index: 100;
   backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-nav);
   border-bottom: 1px solid var(--border-light);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   user-select: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .wrapper-head {
-    background: rgba(0, 0, 0, 0.5);
-  }
 }
 
 .head {
@@ -616,6 +666,32 @@ nav a.active {
   }
 }
 
+.theme-toggle-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font: inherit;
+  cursor: pointer;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--accent-color);
+    background: var(--bg-highlight);
+  }
+
+  @include mobile {
+    top: 1.75rem;
+    right: 1rem;
+  }
+}
+
 /*
 // .main
 */
@@ -759,15 +835,9 @@ spoiler {
 .wrapper-footer {
   margin-top: 2rem;
   border-top: 1px solid var(--border-light);
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-nav);
   position: relative;
   user-select: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .wrapper-footer {
-    background: rgba(0, 0, 0, 0.5);
-  }
 }
 
 footer {
