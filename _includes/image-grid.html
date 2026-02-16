@@ -1,0 +1,11 @@
+{% assign projects = include.data %}
+<div class="image-grid grid-cols-{{ include.columns | default: 'auto' }}">
+  {% for project in projects.past %}
+  <a href="{% if project.url %}{{ project.url }}{% elsif project.website %}{{ project.website }}{% else %}https://github.com/willnjohnson/{{ project.github }}{% endif %}" style="text-decoration: none; color: inherit; display: block;">
+    <div class="grid-item{% if project.image %} has-image{% endif %}" style="background-color: {{ project.color }}; {% if project.image %}background-image: url('{{ project.image }}'); background-size: cover; background-position: center;{% endif %} padding: 20px; text-align: center; border-radius: 12px; color: {{ project.text_color }};">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+    </div>
+  </a>
+  {% endfor %}
+</div>

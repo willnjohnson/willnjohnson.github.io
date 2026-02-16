@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="{{ '/scripts/js/toggle.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/actions.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/effects.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/quotes.js' | relative_url }}"></script>
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
+
+    {% include meta.html %}
+
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    {% if page.layout == 'blog' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/blog.css" />{% endif %}
+    {% if page.layout == 'post' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/post.css" />{% endif %}
+    <link rel="stylesheet" href="{{ '/fonts/fontawesome/css/all.min.css' | relative_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+    <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">
+  
+    {% include ga4.html %}
+  </head>
+
+  <body>
+    <div class="wrapper-head">
+      <div class="container">
+        <header class="head clearfix">
+          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name username-gradient">{{ site.name }}</h1>
+            <p class="site-description">{{ site.description }}</p>
+            <span class="site-info">
+              <span class="site-location">{{ site.location }}</span>
+              <span class="site-time">{{ site.time | date: "%H:%M:%S" }}</span>
+            </span>
+          </span>
+          </div>
+
+          <nav>
+            <a href="{{ site.baseurl }}/blog">blog</a>
+            <a href="{{ site.baseurl }}/apropos">apropos</a>
+            <a href="{{ site.baseurl }}/projects">projects</a>
+            <a href="{{ site.baseurl }}/freelance">freelance</a>
+            <button onclick="location.href='/'" class="site-avatar-small"><img src="{{ site.avatar }}" /></button>
+            <div class="top-nav-actions">
+              <div class="burger-wrapper" style="position: relative;">
+                <button id="burger-btn" class="nav-btn">
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+    <div id="dropdown-menu" class="dropdown-menu">
+      <a href="https://status.willnj.com/" class="dropdown-item">
+        <i class="fa-solid fa-external-link"></i>
+        <span>Status</span>
+      </a>
+
+      <button id="theme-toggle" aria-label="Toggle theme" class="dropdown-item">
+        <i id="theme-icon" class="fa-regular fa-cloud-sun"></i>
+        <span>Toggle Theme</span>
+      </button>
+    </div>
+    
+    <div id="main" role="main" class="page-container">
+      {{ content }}
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          {% include icons.html %}
+          {% include copyright.html %}
+          <div
+            id="random-quote"
+            data-quotes='[
+              {% for q in site.data.quotes %}
+                "{{ q.text | escape }}"{% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            ]'
+          ></div>
+        </footer>
+      </div>
+    </div>
+    <div class="btn back-to-top" role="button" aria-label="Back to top" tabindex="0">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+  </body>
+</html>

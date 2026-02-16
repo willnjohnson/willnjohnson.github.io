@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<section class="tag-page">
+  <header class="tag-header">
+    <h1>Posts tagged: <span class="tag-name">{{ page.tag }}</span></h1>
+  </header>
+
+  {% assign tagged = site.posts | where_exp: "p", "p.tags contains page.tag" %}
+
+  {% if tagged.size > 0 %}
+    <ul class="tagged-posts">
+      {% for post in tagged %}
+        <li class="tagged-post">
+          <a href="{{ post.url | relative_url }}" class="post-title">{{ post.title }}</a>
+          <br/><span class="post-date">{{ post.date | date: "%B %e, %Y" }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="no-posts">No posts found for this tag.</p>
+  {% endif %}
+
+  <footer class="tag-footer">
+    <a href="{{ site.baseurl }}/tag" class="btn">Browse All Tags</a>
+  </footer>
+</section>

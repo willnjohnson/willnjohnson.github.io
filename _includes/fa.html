@@ -1,0 +1,7 @@
+{%- assign s = include.style | default: "solid" -%}
+{%- case s -%}
+  {%- when "brands" -%}{%- assign fa_class = "fa-brands" -%}
+  {%- when "regular" -%}{%- assign fa_class = "fa-regular" -%}
+  {%- else -%}{%- assign fa_class = "fa-solid" -%}
+{%- endcase -%}
+<i class="{{ fa_class }} fa-{{ include.icon }}"></i>

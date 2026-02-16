@@ -1,0 +1,72 @@
+---
+layout: default
+---
+
+<article class="post">
+  <h1>{{ page.title }}</h1>
+
+  <p class="summary">{{ page.summary }}</p>
+
+  <div class="post-meta">
+    <div class="date">
+      Posted {{ page.date | date: "%b %e, %Y" }}
+      {% if page.updated %}
+        &nbsp;•&nbsp; Updated {{ page.updated | date: "%b %e, %Y" }}
+      {% endif %}
+    </div>
+    <div class="date read-time">
+      <i class="fa-regular fa-clock"></i> 
+      {% assign words = content | number_of_words %}
+      {% assign read_time = words | divided_by: 200 | at_least: 1 %}
+      {{ read_time }} min read
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="entry">
+    {{ page.quote | markdownify }}
+    {{ content }}
+  </div>
+  
+  {% if page.tags %}
+    <span class="meta-tags">
+      <i class="fa-solid fa-tag"></i>
+      {% for tag in page.tags %}
+        <span class="meta-tag"><a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/">{{ tag }}</a></span>{% unless forloop.last %}, {% endunless %}
+      {% endfor %}
+    </span>
+  {% endif %}
+
+  <br/><br/>
+  
+  <figcaption>This post is licensed under <strong>CC BY 4.0</strong> by the author.</figcaption>
+
+  <hr>
+
+  <!-- Previous/Next Article Navigation -->
+  <nav class="post-pagination">
+    {% if page.previous %}
+      <a href="{{ site.baseurl }}{{ page.previous.url }}" class="prev-article">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span class="article-title">{{ page.previous.title }}</span>
+      </a>
+    {% else %}
+      <div class="spacer"></div>
+    {% endif %}
+    {% if page.next %}
+      <a href="{{ site.baseurl }}{{ page.next.url }}" class="next-article">
+        <span class="article-title">{{ page.next.title }}</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    {% else %}
+      <div class="spacer"></div>
+    {% endif %}
+  </nav>
+
+  {% include disqus.html %}
+
+  <hr>
+
+  {% include social-share.html %}
+</article>

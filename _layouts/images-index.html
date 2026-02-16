@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<section class="tag-page">
+  <header class="tag-header">
+    <h1>Images</h1>
+  </header>
+
+  <ul class="tagged-posts">
+    {% for file in site.static_files %}
+      {% if file.path contains '/images/' %}
+        {% unless file.path contains '/icons/' %}
+        <li class="tagged-post">
+          <a href="{{ file.path }}" class="post-title" target="_blank">{{ file.name }}</a>
+        </li>
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <footer class="tag-footer">
+    <a href="{{ site.baseurl }}/" class="btn">Back to Home</a>
+  </footer>
+</section>

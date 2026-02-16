@@ -1,0 +1,31 @@
+cards:
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/e/e8/Lc3_2018_%28263682303%29_%28cropped%29.jpeg
+    name: Linus Torvalds
+    label: Developer
+    description: Creator of Linux and Git
+    url: https://github.com/torvalds/linux
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/a/a2/Sam_Altman_TechCrunch_SF_2019_Day_2_Oct_3_%28cropped%29.jpg
+    name: Sam Altman
+    label: Entrepreneur
+    description: CEO of OpenAI
+    url: https://openai.com
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/c/c0/Andrej_Karpathy%2C_OpenAI.png
+    name: Andrej Karpathy
+    label: AI Researcher
+    description: Former Tesla AI Director
+    url: https://karpathy.ai
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/6/6b/Guido_van_Rossum_in_PyConUS24_%28cropped%29.jpg
+    name: Guido van Rossum
+    label: Developer
+    description: Creator of Python
+    url: https://www.python.org
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg
+    name: Steve Jobs
+    label: Entrepreneur
+    description: Co-founder of Apple
+    url: https://www.apple.com
+  - thumb: https://upload.wikimedia.org/wikipedia/commons/4/4c/Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png
+    name: Ada Lovelace
+    label: Mathematician
+    description: First computer programmer
+    url: https://en.wikipedia.org/wiki/Ada_Lovelace

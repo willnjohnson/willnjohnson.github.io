@@ -1,0 +1,148 @@
+// Blog index page only: post list and post cards.
+// Loaded only on /blog/ via blog.css.
+
+.posts > .post {
+  padding: 0.1em 0 1em 0;
+  margin: 1em 0;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, transparent, var(--accent-color), transparent) 1;
+  transition: color 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background-color: var(--bg-highlight);
+    border-radius: 8px;
+    margin-left: -1em;
+    margin-right: -1em;
+    padding: 0.1em 1em 1em 1em;
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+    @media (max-width: 939px) {
+      border-radius: 0;
+    }
+  }
+}
+
+.posts > .post:last-child {
+  border-bottom: none;
+}
+
+// Post card (blog index cards)
+.post-card {
+  margin: 20px 0;
+  padding: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  transition: all 0.3s ease;
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px rgba(0,0,0,0.3);
+  }
+
+  .post-card-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+
+  .post-card-thumb {
+    flex-shrink: 0;
+    width: 150px;
+    height: 120px;
+    overflow: hidden;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      height: 150px;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-radius: 0;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .post-card-content {
+    flex: 1;
+    padding: 10px 15px 5px 15px;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .entry {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.5;
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        pointer-events: none;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .post-tail {
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-highlight);
+    margin-top: 0;
+  }
+}
+
+// Touch hover support for post cards (blog only)
+@media (hover: none) and (pointer: coarse) {
+  .post-card:hover,
+  .post-card.touch-hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .post-card:hover h1, .post-card:hover h2, .post-card:hover h3, .post-card:hover h4, .post-card:hover h5, .post-card:hover h6, .post-card:hover p, .post-card:hover span, .post-card:hover div,
+  .post-card.touch-hover h1, .post-card.touch-hover h2, .post-card.touch-hover h3, .post-card.touch-hover h4, .post-card.touch-hover h5, .post-card.touch-hover h6, .post-card.touch-hover p, .post-card.touch-hover span, .post-card.touch-hover div {
+    color: inherit;
+  }
+}

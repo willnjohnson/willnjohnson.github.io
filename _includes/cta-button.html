@@ -1,0 +1,8 @@
+<div class="cta-container">
+  <a 
+    href="{{ include.href | default: '#' }}" 
+    class="cta-button {{ include.style | default: 'primary' }}"
+  >
+    {{ include.text | default: 'Click Me' }}
+  </a>
+</div>

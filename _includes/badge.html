@@ -1,0 +1,32 @@
+{%- if include.items -%}
+  {%- assign list = include.items | split: "," -%}
+  {%- for item in list -%}
+    {%- assign parts = item | split: ":" -%}
+    {%- assign icon = parts[0] -%}
+    {%- assign style = parts[1] | default: "solid" -%}
+    {%- assign text = parts[2] | default: "" -%}
+    {%- assign link = parts[3] | default: include.link -%}
+    
+    {%- if link -%}
+      <a href="{{ link }}" class="badge">
+        {%- include fa.html icon=icon style=style -%} {{ text }}
+      </a>
+    {%- else -%}
+      <span class="badge">
+        {%- include fa.html icon=icon style=style -%} {{ text }}
+      </span>
+    {%- endif -%}
+    
+    {%- unless forloop.last -%} {%- endunless -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- if include.link -%}
+    <a href="{{ include.link }}" class="badge">
+      {%- include fa.html icon=include.icon style=include.style -%} {{ include.text }}
+    </a>
+  {%- else -%}
+    <span class="badge">
+      {%- include fa.html icon=include.icon style=include.style -%} {{ include.text }}
+    </span>
+  {%- endif -%}
+{%- endif -%}

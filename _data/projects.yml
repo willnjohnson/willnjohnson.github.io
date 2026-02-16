@@ -1,0 +1,49 @@
+past:
+  - name: Weather App
+    description: PyQT5 weather app to display current weather, forecast, historical data for searchable locations using OpenWeatherMap API (COSC340)
+    color: skyblue
+    text_color: var(--text-primary)
+    github: WeatherApp
+    image: https://i.imgur.com/o8Gq7Ao.png
+  
+  - name: Icarus
+    description: Unity C# "incremental upgrade-themed" platformer to soar the skies as far as possible (COSC552)
+    color: orange
+    text_color: var(--text-primary)
+    github: Icarus
+    image: https://i.imgur.com/Ln2NY16.png
+  
+  - name: 4DOF Manipulation
+    description: Processing (JS) app exploring iterative improvements to translating, rotating, and scaling user square
+    color: darkgray
+    text_color: var(--text-primary)
+    github: 4DOF-Manipulation
+    image: https://i.imgur.com/OOSlRsJ.png
+  
+  - name: Shapeshifter Helper
+    description: Visual C# puzzle solver for the game "Shapeshifter" with a fast C++ DLL
+    color: green
+    text_color: var(--text-primary)
+    github: ShapeshifterHelper
+    image: https://i.imgur.com/N2pZJhZ.png
+  
+  - name: ChatGPT Bulk Deleter
+    description: Userscript (JS) to bulk delete conversations
+    color: '#222'
+    text_color: var(--text-primary)
+    github: ChatGPTBulkDeleter
+    image: https://i.imgur.com/R4OeqFN.png
+  
+  - name: SigTail
+    description: Userscript (JS) to display signatures across socials/sites
+    color: tan
+    text_color: var(--text-primary)
+    github: SigTail
+    image: https://i.imgur.com/vAcgwFZ.png
+  
+  - name: Vivace
+    description: My personalized Windows lockscreen (ReactJS + Tauri + Vite)
+    color: orange
+    text_color: var(--text-primary)
+    github: Vivace
+    image: https://i.imgur.com/vOTD1co.png

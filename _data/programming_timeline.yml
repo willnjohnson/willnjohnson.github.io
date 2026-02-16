@@ -1,0 +1,49 @@
+title: "Programming Journey"
+items:
+  - year: "2010"
+    title: "Beginning"
+    description: "Learned the basics of **HTML** and a bit of **JavaScript**, sparking an early interest in web development and the intersection of creativity and technical problem-solving."
+
+  - year: "2012"
+    title: "Creative Phase"
+    description: "Explored Adobe Creative Suite, **ActionScript**, **ColdFusion**, and **Dreamweaver** for web design and frontend development. Began experimenting with low-level system manipulation techniques."
+
+  - year: "2013–2014"
+    title: "High School Coding Years"
+    description: "Studied **Visual Basic** and **Java** in high school courses. Discovered Capture the Flag challenges through *PicoCTF*, which deepened my passion for applying logic and creativity to technical problems."
+
+  - year: "2015"
+    title: "Exploration"
+    description: "Pursued an Associate's degree while advancing skills through online courses in **ES6 JavaScript** and **ReactJS**, staying current with emerging technologies."
+
+  - year: "2016"
+    title: "Continued Exploration"
+    description: "Learned **React Native** for mobile development. Developed experience maintaining wikis and writing in **Markdown** and **BBCode**."
+
+  - year: "2017"
+    title: "Mobile Development"
+    description: "Experimented with **Expo Go** and **TestFlight** for app deployment and testing. Gained practical experience in developer workflows and user interaction design. Worked with testing frameworks like Mocha and Postman."
+
+  - year: "2016–2018"
+    title: "Backend Development"
+    description: "Developed proficiency in **Redux**, **Redis**, **Express.js**, **GraphQL**, and **Solidity**. Contributed to a blockchain project exploring Ethereum-related technologies, gaining insights into decentralized systems."
+
+  - year: "2018–2019"
+    title: "Security Focus"
+    description: "Joined a security-focused community, utilizing tools like **BurpSuite** and **Postman** to analyze web applications and understand system vulnerabilities."
+
+  - year: "2020–2024"
+    title: "University Studies"
+    description: "Earned a B.S. in Computer Science with a minor in Cybersecurity (Summa Cum Laude, 4.0 GPA) and an M.S. in Computer Science. Key coursework included **Python**, **C**, and **C++**.<br><br>Led a senior design project on autonomous racing vehicles, integrating FPGA, LIDAR, and reinforcement learning for simulation and real-world testing."
+
+  - year: "2023"
+    title: "Undergraduate Research"
+    description: "As an Undergraduate Research Assistant, studied cryptocurrency market dynamics. Developed web scrapers, data analysis tools using **Pandas**, and algorithms to detect market patterns."
+
+  - year: "2023–2024"
+    title: "Graduate Teaching Assistant"
+    description: "Supported courses in **Operating Systems**, **Human-Computer Interaction**, and **Applied Cryptography**, assisting with grading, office hours, and technical guidance."
+
+  - year: "2025"
+    title: "Independent Work and Self-Learning"
+    description: "Continually learning Rust, DevOps, etc. and experimenting with new projects."
