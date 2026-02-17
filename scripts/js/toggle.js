@@ -68,7 +68,6 @@ function getCurrentTheme() {
 // Theme toggle
 document.addEventListener('DOMContentLoaded', function() {
   const toggleBtn = document.getElementById("theme-toggle");
-  const icon = document.getElementById("theme-icon");
   
   if (!toggleBtn) {
     console.error("Toggle button not found!");

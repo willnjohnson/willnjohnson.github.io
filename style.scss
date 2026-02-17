@@ -128,7 +128,7 @@ body {
 }
 
 body, .wrapper-head, .wrapper-footer, .page-container {
-  transition: background-color 0.25s;
+  transition: background-color 0.3s;
 }
 
 body::before {
@@ -168,7 +168,7 @@ dd,
 label,
 legend,
 summary {
-  transition: color 0.25s;
+  transition: color 0.3s;
 }
 
 .container {
@@ -843,7 +843,7 @@ nav a.active {
 
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
 
   z-index: 101;
 }
@@ -1024,7 +1024,7 @@ figure.highlight.no-line-numbers td.code {
     }
 
     @include mobile {
-      top: 1.35rem;
+      top: 1.25rem;
       left: 1.25rem;
     }
   }
@@ -1471,7 +1471,7 @@ details[open] > summary.btn {
 
 @media (max-width: 939px) {
   .head > *:not(nav) {
-    transition: opacity 0.2s linear, max-height 0.2s linear;
+    transition: opacity 0.3s linear, max-height 0.3s linear;
     overflow: hidden;
   }
 }
@@ -2064,7 +2064,7 @@ hr {
   border-radius: 8px;
   box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
 }

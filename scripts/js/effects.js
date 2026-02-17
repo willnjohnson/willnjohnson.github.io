@@ -7,7 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const linkPath = new URL(link.href).pathname.replace(/\/+$/, "").toLowerCase();
 
     const isLocal = link.href.includes(window.location.origin);
-    if (isLocal && linkPath === currentPath) {
+    if (
+      isLocal &&
+      (
+        currentPath === linkPath ||              // exact match
+        currentPath.startsWith(linkPath + "/")   // nested page
+      )
+    ) {
       link.classList.add("active");
     }
   });
@@ -142,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Animate wrapperHead top property (0 to -1em)
     if (wrapperHead) {
-      const topValue = -1 * progress; // 0 to -1
+      const topValue = -1 * progress;
       wrapperHead.style.top = `${topValue}em`;
     }
 
