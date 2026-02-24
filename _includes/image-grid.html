@@ -1,0 +1,31 @@
+{% comment %}
+  Image Grid Widget
+  Usage: {% include image-grid.html source="projects" columns="3" %}
+  
+  Parameters:
+    - source: Name of the data file in _data folder (without .yml extension)
+    - columns: Number of columns (default: "auto")
+  
+  The data should have this structure:
+    past:
+      - name: "Project Name"
+        description: "Project description"
+        image: "/images/project.jpg" (optional)
+        color: "#ff0000" (optional background color)
+        text_color: "#ffffff" (optional text color)
+        url: "https://example.com" (optional)
+        website: "https://example.com" (optional, alternative to url)
+        github: "username/repo" (optional, creates GitHub link)
+{% endcomment %}
+
+{% assign projects = site.data[include.source] %}
+<div class="image-grid grid-cols-{{ include.columns | default: 'auto' }}">
+  {% for project in projects.past %}
+  <a href="{% if project.url %}{{ project.url }}{% elsif project.website %}{{ project.website }}{% else %}https://github.com/willnjohnson/{{ project.github }}{% endif %}" style="text-decoration: none; color: inherit; display: block;">
+    <div class="grid-item{% if project.image %} has-image{% endif %}" style="background-color: {{ project.color }}; {% if project.image %}background-image: url('{{ project.image }}'); background-size: cover; background-position: center;{% endif %} padding: 20px; text-align: center; border-radius: 12px; color: {{ project.text_color }};">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+    </div>
+  </a>
+  {% endfor %}
+</div>

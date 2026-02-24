@@ -1,0 +1,67 @@
+{% comment %}
+  Disqus Comments
+  Usage: {% include disqus.html %}
+  
+  Requires site.disqus to be set in _config.yml with your Disqus shortname.
+  Automatically adapts to light/dark theme based on site theme setting.
+{% endcomment %}
+
+{% if site.disqus %}
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = '{{ site.disqus }}';
+	    var disqus_loaded = false;
+
+	    function reloadDisqus() {
+	        // Remove existing Disqus
+	        var thread = document.getElementById('disqus_thread');
+	        var oldScript = thread.querySelector('script[src*="disqus.com"]');
+	        
+	        if (oldScript && oldScript.parentNode) {
+	            oldScript.parentNode.removeChild(oldScript);
+	        }
+	        
+	        // Clear the thread content
+	        thread.innerHTML = '';
+	        disqus_loaded = false;
+	        
+	        // Load with new theme
+	        loadDisqus();
+	    }
+
+	    function loadDisqus() {
+	        if (disqus_loaded) return;
+	        
+	        var isDark = document.documentElement.classList.contains('dark-theme');
+	        
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        
+	        // Set theme via Disqus config
+	        dsq.setAttribute('data-theme', isDark ? 'dark' : 'light');
+	        
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	        
+	        // Configure Disqus
+	        window.disqus_config = function() {
+	            this.page.url = '{{ page.url | absolute_url }}';
+	            this.page.identifier = '{{ page.id }}';
+	        };
+	        
+	        disqus_loaded = true;
+	    }
+
+	    // Load Disqus on page load
+	    loadDisqus();
+	    
+	    // Reload Disqus when theme changes
+	    window.addEventListener('theme-changed', function(e) {
+	        reloadDisqus();
+	    });
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+{% endif %}

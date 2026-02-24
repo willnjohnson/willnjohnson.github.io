@@ -1,0 +1,21 @@
+{% comment %}
+  FontAwesome Icon Helper
+  Usage: {% include fa.html icon="github" style="brands" %}
+  
+  Parameters:
+    - icon: FontAwesome icon name (without 'fa-' prefix, e.g., "github", "envelope")
+    - style: Icon style - "solid" (default), "regular", or "brands"
+    
+  Examples:
+    {% include fa.html icon="github" style="brands" %}
+    {% include fa.html icon="envelope" style="solid" %}
+    {% include fa.html icon="user" style="regular" %}
+{% endcomment %}
+
+{%- assign s = include.style | default: "solid" -%}
+{%- case s -%}
+  {%- when "brands" -%}{%- assign fa_class = "fa-brands" -%}
+  {%- when "regular" -%}{%- assign fa_class = "fa-regular" -%}
+  {%- else -%}{%- assign fa_class = "fa-solid" -%}
+{%- endcase -%}
+<i class="{{ fa_class }} fa-{{ include.icon }}"></i>

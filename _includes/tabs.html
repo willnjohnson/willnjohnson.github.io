@@ -1,0 +1,68 @@
+{% comment %}
+  Tabs Widget
+  Usage: {% include tabs.html id="my-tabs" tabs="Tab 1|Content 1;;Tab 2|Content 2" %}
+  
+  Parameters:
+    - id: Optional unique ID for multiple tab sets on same page
+    - tabs: Double-semicolon-separated tabs, each with pipe-separated label and content
+      Format: "label|content;;label|content"
+    
+    Example:
+      {% include tabs.html 
+        tabs="Getting Started|Start here;;Features|Check out these features;;FAQ|Answers to common questions" 
+      %}
+{% endcomment %}
+
+<div class="tabs" id="tabs-{{ include.id | default: 'default' }}">
+  <div class="tab-buttons">
+    {% assign tabs = include.tabs | split: ';;' %}
+    {% for tab in tabs %}
+      {% assign parts = tab | split: '|' %}
+      {% assign label = parts[0] | strip %}
+      <button class="tab-button" data-tab="{{ forloop.index }}">{{ label }}</button>
+    {% endfor %}
+  </div>
+  <div class="tab-content">
+    {% for tab in tabs %}
+      {% assign parts = tab | split: '|' %}
+      {% assign content = parts[1] | strip %}
+      <div class="tab-pane" id="tab-{{ forloop.index }}">
+        {{ content | markdownify }}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.tabs').forEach(function(tabsContainer) {
+    const tabButtons = tabsContainer.querySelectorAll('.tab-button');
+    const tabPanes = tabsContainer.querySelectorAll('.tab-pane');
+
+    function showTab(index) {
+      tabPanes.forEach(function(pane, i) {
+        if (i === index) {
+          pane.style.display = 'block';
+        } else {
+          pane.style.display = 'none';
+        }
+      });
+      tabButtons.forEach(function(button, i) {
+        if (i === index) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
+
+    tabButtons.forEach(function(button, index) {
+      button.addEventListener('click', function() {
+        showTab(index);
+      });
+    });
+
+    showTab(0); // Show first tab by default
+  });
+});
+</script>

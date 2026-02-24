@@ -1,0 +1,89 @@
+{% comment %}
+  Card Marquee Widget
+  Usage: {% include card_marquee.html source="cards" %}
+  
+  The source parameter should match a YAML file in /_data/ without the extension.
+  Example: source="cards" loads /_data/cards.yml
+  
+  The YAML file should have this structure:
+    cards:
+      - name: "Card Title"
+        label: "Optional label"
+        description: "Optional description"
+        thumb: "/images/thumb.jpg"
+        url: "https://example.com"
+  
+  Parameters:
+    - source: Data file name (without .yml extension)
+    - id: Optional unique ID for multiple marquees on same page
+{% endcomment %}
+
+{% assign data_file = include.source | append: ".yml" %}
+{% assign card_data = site.data[include.source].cards %}
+
+<div class="card-marquee" id="card-marquee-{{ include.id | default: 'default' }}">
+  <div class="card-marquee-track" data-card-width="335">
+    {% for card in card_data %}
+    <a href="{{ card.url | relative_url }}" class="card-marquee-item"{% if card.url contains 'http' %} target="_blank" rel="noopener noreferrer"{% endif %}>
+      {% if card.thumb %}
+      <div class="card-marquee-thumb">
+        <img src="{{ card.thumb | relative_url }}" alt="{{ card.name }}">
+      </div>
+      {% endif %}
+      <div class="card-marquee-content">
+        {% if card.name %}
+        <h4 class="card-marquee-name">{{ card.name }}</h4>
+        {% endif %}
+        {% if card.label %}
+        <p class="card-marquee-label">{{ card.label }}</p>
+        {% endif %}
+        {% if card.description %}
+        <p class="card-marquee-description">{{ card.description }}</p>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+(function() {
+  const marquees = document.querySelectorAll('.card-marquee');
+  
+  marquees.forEach(function(marquee) {
+    const track = marquee.querySelector('.card-marquee-track');
+    
+    // Get original cards BEFORE cloning
+    const originalCards = Array.from(track.querySelectorAll('.card-marquee-item'));
+    const originalCount = originalCards.length;
+    
+    if (originalCount === 0) return;
+    
+    // Clone the original set exactly ONCE
+    originalCards.forEach(function(card) {
+      const clone = card.cloneNode(true);
+      track.appendChild(clone);
+    });
+    
+    // Force reflow to ensure everything is rendered
+    void track.offsetWidth;
+    
+    // MEASURE the actual rendered width of the first set
+    const firstCard = originalCards[0];
+    const lastCard = originalCards[originalCount - 1];
+    
+    const firstCardLeft = firstCard.offsetLeft;
+    const lastCardRight = lastCard.offsetLeft + lastCard.offsetWidth;
+    
+    const computedStyle = window.getComputedStyle(track);
+    const gap = parseFloat(computedStyle.gap) || 24;
+    const singleSetWidth = (lastCardRight - firstCardLeft) + gap;
+    
+    track.style.setProperty('--scroll-width', '-' + singleSetWidth + 'px');
+    
+    const animationDuration = (singleSetWidth / 200).toFixed(1);
+    
+    track.style.animation = 'scroll-left ' + animationDuration + 's linear infinite';
+  });
+})();
+</script>

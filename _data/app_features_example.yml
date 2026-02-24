@@ -1,0 +1,20 @@
+features:
+  - title: Powerful Core Dashboard
+    description: A unified control center to manage projects, users, analytics, and settings.
+    icon: fa-solid fa-gauge-high
+    color: blue
+
+  - title: Seamless Team Collaboration
+    description: Share projects, leave comments, and track changes in real time so your entire team stays aligned and productive.
+    icon: fa-solid fa-users
+    color: green
+
+  - title: Lightning-Fast Performance
+    description: Optimized rendering and smart caching ensure your data loads instantly, even with thousands of records.
+    icon: fa-solid fa-bolt
+    color: yellow
+
+  - title: Support Us
+    description: Donations can be received anytime at <a href="https://example.com" target="_blank">example.com</a>.
+    icon: fa-solid fa-heart
+    color: red

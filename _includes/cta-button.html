@@ -1,0 +1,18 @@
+{% comment %}
+  CTA Button Widget
+  Usage: {% include cta-button.html href="https://example.com" text="Click Here" style="primary" %}
+  
+  Parameters:
+    - href: Link URL (default: "#")
+    - text: Button text (default: "Click Me")
+    - style: Button style class - "primary" (default), "secondary", etc.
+{% endcomment %}
+
+<div class="cta-container">
+  <a 
+    href="{{ include.href | default: '#' }}" 
+    class="cta-button {{ include.style | default: 'primary' }}"
+  >
+    {{ include.text | default: 'Click Me' }}
+  </a>
+</div>

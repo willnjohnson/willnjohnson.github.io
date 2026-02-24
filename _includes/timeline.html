@@ -1,0 +1,35 @@
+{% comment %}
+  Timeline Widget
+  Usage: {% include timeline.html source="programming_timeline" %}
+  
+  Parameters:
+    - source: Name of the data file in _data folder (without .yml extension)
+    
+  The data should have this structure:
+    title: "Timeline Title"
+    items:
+      - year: "2024"
+        title: "Event Title"
+        description: "Event description (supports markdown)"
+{% endcomment %}
+
+{% assign timeline = site.data[include.source] %}
+<details class="timeline-container" id="timeline-{{ timeline.title | slugify }}">
+  <summary class="btn">{{ timeline.title }}</summary>
+  
+  <div class="timeline-wrapper">
+    {% for item in timeline.items %}
+    <div class="timeline-item">
+      <div class="timeline-date">{{ item.year }}</div>
+      <div class="timeline-content">
+        <h4>{{ item.title }}</h4>
+        {{ item.description | markdownify }}
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div class="timeline-collapse" onclick="collapseTimeline('timeline-{{ timeline.title | slugify }}')">
+      <i class="fa-solid fa-chevron-up"></i>
+    </div>
+  </div>
+</details>

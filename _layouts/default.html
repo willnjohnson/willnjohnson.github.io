@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="{{ '/scripts/js/toggle.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/actions.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/effects.js' | relative_url }}"></script>
+    <script src="{{ '/scripts/js/quotes.js' | relative_url }}"></script>
+    {% if site.time_settings %}
+      <script src="{{ '/scripts/js/time.js' | relative_url }}"></script>
+    {% endif %}
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
+
+    {% include meta.html %}
+
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    {% if site.pattern %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/patterns/{{ site.pattern }}.css" />{% endif %}
+    {% if page.layout == 'blog' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/blog.css" />{% endif %}
+    {% if page.layout == 'post' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/post.css" />{% endif %}
+    {% if page.layout == 'guide-module' or page.layout == 'guide-content' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/post.css" />{% endif %}
+    {% if page.layout == 'guides' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/guides.css" />{% endif %}
+    <link rel="stylesheet" href="{{ '/fonts/fontawesome/css/all.min.css' | relative_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+    <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">
+  
+    {% include ga4.html %}
+  </head>
+
+  <body>
+    <div class="wrapper-head">
+      <div class="container">
+        <header class="head clearfix">
+          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name username-gradient">{{ site.name }}</h1>
+            <p class="site-description">{{ site.description }}</p>
+            {% if site.location or site.time_settings %}
+            <span class="site-stat" data-time-config='{
+              "timeZone": "{{ site.time_settings.timeZone | default: 'America/New_York' }}",
+              "hour": "{{ site.time_settings.hour | default: '2-digit' }}",
+              "minute": "{{ site.time_settings.minute | default: '2-digit' }}",
+              "second": "{{ site.time_settings.second | default: '2-digit' }}",
+              "hour12": {{ site.time_settings.hour12 | default: false }}
+            }'>
+              {% if site.location %}<span class="site-location">{{ site.location }}</span>{% endif %}
+              {% if site.time_settings %}<span class="site-time">00:00:00</span>{% endif %}
+            </span>
+            {% endif %}
+          </div>
+
+          <nav>
+            {% for link in site.nav-links %}
+              {% assign forloop_index = forloop.index %}
+              {% assign link_key = link[0] %}
+              {% assign link_value = link[1] %}
+              
+              {% if link_value contains ' ' %}
+                {% assign url_part = link_value | split: ' ' | first %}
+                {% assign label_part = link_value | split: ' ' | last %}
+              {% else %}
+                {% assign url_part = link_value %}
+                {% assign label_part = link_key %}
+              {% endif %}
+              
+              {% if forloop_index <= 4 %}
+                {% if url_part contains '://' %}
+                  <a href="{{ url_part }}">{{ label_part }}</a>
+                {% else %}
+                  <a href="{{ site.baseurl }}{{ url_part }}">{{ label_part }}</a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            <button onclick="location.href='/'" class="site-avatar-small"><img src="{{ site.avatar }}" /></button>
+            <div class="top-nav-actions">
+              <div class="burger-wrapper" style="position: relative;">
+                <button id="burger-btn" class="nav-btn">
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </header>
+      </div>
+    </div>
+    <div id="dropdown-menu" class="dropdown-menu">
+      {% for link in site.nav-links %}
+        {% assign forloop_index = forloop.index %}
+        {% assign link_key = link[0] %}
+        {% assign link_value = link[1] %}
+        
+        {% if link_value contains ' ' %}
+          {% assign url_part = link_value | split: ' ' | first %}
+          {% assign label_part = link_value | split: ' ' | last %}
+        {% else %}
+          {% assign url_part = link_value %}
+          {% assign label_part = link_key %}
+        {% endif %}
+        
+        {% if forloop_index > 4 %}
+          <a href="{{ url_part }}" class="dropdown-item">
+            <i class="fa-solid fa-external-link"></i>
+            <span>{{ label_part | capitalize }}</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+
+      <button id="theme-toggle" aria-label="Toggle theme" class="dropdown-item">
+        <i id="theme-icon" class="fa-regular fa-cloud-sun"></i>
+        <span>Toggle Theme</span>
+      </button>
+    </div>
+    
+    <div id="main" role="main" class="page-container">
+      {{ content }}
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          {% include icons.html %}
+          {% include copyright.html %}
+          <div
+            id="random-quote"
+            data-quotes='[
+              {% for q in site.data.quotes %}
+                "{{ q.text | escape }}"{% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            ]'
+          ></div>
+        </footer>
+      </div>
+    </div>
+    <div class="btn back-to-top" role="button" aria-label="Back to top" tabindex="0">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+  </body>
+</html>

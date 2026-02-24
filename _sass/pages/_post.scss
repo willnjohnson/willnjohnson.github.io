@@ -1,0 +1,333 @@
+// Single post page only: blockquote, comments, tags, spoiler, pagination.
+// Loaded only on post layout via post.css.
+
+.post {
+  blockquote {
+    margin: 1em 0;
+    border-left: 4px solid var(--accent-color);
+    padding: 0.25em 1em;
+    color: var(--text-tertiary);
+    font-size: 20px;
+    font-style: italic;
+    background: var(--bg-highlight);
+    border-radius: 0 8px 8px 0;
+    position: relative;
+    transition: all 0.3s ease;
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+    &:hover {
+      background: var(--bg-highlight-hover);
+      transform: translateX(5px);
+      -moz-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      -webkit-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      box-shadow: 3px 3px rgba(0,0,0,0.3);
+    }
+  }
+
+  .current-title {
+    p {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 24px;
+      margin-bottom: 0;
+
+      span + span::before {
+        color: var(--text-muted);
+        content: "—";
+        margin: 0 0.2em;
+      }
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .summary {
+    margin-top: 0.1em;
+  }
+
+  .comments {
+    margin-top: 24px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 20px;
+
+    #disqus_thread {
+      min-height: 200px;
+
+      iframe {
+        background: var(--bg-primary) !important;
+      }
+    }
+
+    [id*="disqus"] {
+      background: var(--bg-primary) !important;
+    }
+  }
+
+  // Post page tags (standalone)
+  .tags {
+    display: flex;
+    margin: 10px 0 15px 0;
+
+    .tag {
+      padding: 4px 12px;
+      font-size: 13px;
+    }
+  }
+}
+
+spoiler {
+  display: inline-block;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  margin: 0 0.1em;
+  padding: 0.1em 0.3em;
+  cursor: pointer;
+  color: transparent;
+  user-select: none;
+  font-size: 0.9em;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+
+  &:active {
+    color: inherit;
+    user-select: none;
+  }
+
+  &::selection {
+    background: none;
+  }
+}
+
+// Previous/Next article navigation (post page only)
+.post-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin: 2rem 0;
+  user-select: none;
+
+  a,
+  .spacer,
+  .nav-placeholder {
+    flex: 1;
+  }
+
+  .nav-placeholder {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    color: var(--text-muted);
+    font-style: bolder;
+    font-size: 14px;
+    border: 1px solid transparent;
+  }
+
+  a {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  a:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--accent-color);
+
+    i {
+      color: var(--accent-color);
+    }
+  }
+
+  .prev-article {
+    background: var(--bg-highlight);
+    text-align: left;
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+    &:hover {
+      background: var(--bg-highlight-hover);
+      -moz-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      -webkit-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      box-shadow: 3px 3px rgba(0,0,0,0.3);
+    }
+  }
+
+  .prev-article i {
+    flex-shrink: 0;
+    margin-top: 0.2em;
+  }
+
+  .next-article {
+    background: var(--bg-highlight);
+    text-align: right;
+    justify-content: flex-end;
+    -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+    &:hover {
+      background: var(--bg-highlight-hover);
+      -moz-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      -webkit-box-shadow: 3px 3px rgba(0,0,0,0.3);
+      box-shadow: 3px 3px rgba(0,0,0,0.3);
+    }
+  }
+
+  .next-article i {
+    flex-shrink: 0;
+    margin-top: 0.2em;
+  }
+
+  .article-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    min-width: 0;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+}
+
+// Social Share
+.social-share {
+  margin: 20px 0;
+  padding: 6px;
+  background: var(--bg-highlight);
+  border-radius: 8px;
+  text-align: center;
+  -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px rgba(0,0,0,0.1);
+  user-select: none;
+
+  @media (max-width: 939px) {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 0;
+  }
+
+  h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary);
+    font-size: 18px;
+  }
+
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 10px 12px;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+      -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+      box-shadow: 3px 3px rgba(0,0,0,0.1);
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        -moz-box-shadow: 3px 3px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 3px 3px rgba(0,0,0,0.3);
+        box-shadow: 3px 3px rgba(0,0,0,0.3);
+      }
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Post meta row: authors on left, read time on right
+.post-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.post-authors {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.author-images {
+  display: flex;
+}
+
+.author-images .author-image {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+  margin-left: -8px;
+  box-shadow: none;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.author-names {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+
+  .author-link {
+    position: relative;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  .author-link::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    bottom: 0;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+}

@@ -1,0 +1,62 @@
+
+//
+// VARIABLES
+//
+
+// Colors
+$blue: #4183C4;
+
+// Grays
+$black: #000;
+$darkerGray: #222;
+$darkGray: #333;
+$gray: #666;
+$lightGray: #eee;
+$white: #fff;
+
+// Font stacks
+@font-face {
+  font-family: "Quantico";
+  src: url("/fonts/Quantico/Quantico-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quantico Italic";
+  src: url("/fonts/Quantico/Quantico-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quantico Bold";
+  src: url("/fonts/Quantico/Quantico-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quantico Bold Italic";
+  src: url("/fonts/Quantico/Quantico-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fresca";
+  src: url("/fonts/Fresca/Fresca-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+$helvetica: Helvetica, Arial, sans-serif;
+$helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia: Georgia, serif;
+
+// Mobile breakpoints
+@mixin mobile {
+  @media screen and (max-width: 940px) {
+    @content;
+  }
+}

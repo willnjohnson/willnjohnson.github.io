@@ -1,0 +1,119 @@
+.png-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-size: contain;
+
+  // For my custom PNG icons
+  &.amino           { background-image: url('/images/icons/amino.png'); }
+  &.apple           { background-image: url('/images/icons/apple.png'); }
+  &.bandcamp        { background-image: url('/images/icons/bandcamp.png'); }
+  &.beacons         { background-image: url('/images/icons/beacons.png'); }
+  &.beehiiv         { background-image: url('/images/icons/beehiiv.png'); }
+  &.bitbucket       { background-image: url('/images/icons/bitbucket.png'); }
+  &.bsky            { background-image: url('/images/icons/bsky.png'); }
+  &.buymeacoffee    { background-image: url('/images/icons/buymeacoffee.png'); }
+  &.cashapp         { background-image: url('/images/icons/cashapp.png'); }
+  &.discord         { background-image: url('/images/icons/discord.png'); }
+  &.dribbble        { background-image: url('/images/icons/dribbble.png'); }
+  &.email           { background-image: url('/images/icons/email.png'); }
+  &.facebook        { background-image: url('/images/icons/facebook.png'); }
+  &.fiverr          { background-image: url('/images/icons/fiverr.png'); }
+  &.flickr          { background-image: url('/images/icons/flickr.png'); }
+  &.gamespot        { background-image: url('/images/icons/gamespot.png'); }
+  &.github          { background-image: url('/images/icons/github.png'); }
+  &.gitlab          { background-image: url('/images/icons/gitlab.png'); }
+  &.givesendgo      { background-image: url('/images/icons/givesendgo.png'); }
+  &.glassdoor       { background-image: url('/images/icons/glassdoor.png'); }
+  &.gofundme        { background-image: url('/images/icons/gofundme.png'); }
+  &.gog             { background-image: url('/images/icons/gog.png'); }
+  &.goodreads       { background-image: url('/images/icons/goodreads.png'); }
+  &.googleplay      { background-image: url('/images/icons/googleplay.png'); }
+  &.guilded         { background-image: url('/images/icons/guilded.png'); }
+  &.indiegogo       { background-image: url('/images/icons/indiegogo.png'); }
+  &.instagram       { background-image: url('/images/icons/instagram.png'); }
+  &.kick            { background-image: url('/images/icons/kick.png'); }
+  &.kickstarter     { background-image: url('/images/icons/kickstarter.png'); }
+  &.kofi            { background-image: url('/images/icons/kofi.png'); }
+  &.linkedin        { background-image: url('/images/icons/linkedin.png'); }
+  &.linktree        { background-image: url('/images/icons/linktree.png'); }
+  &.linux           { background-image: url('/images/icons/linux.png'); }
+  &.mastodon        { background-image: url('/images/icons/mastodon.png'); }
+  &.medium          { background-image: url('/images/icons/medium.png'); }
+  &.nintendo        { background-image: url('/images/icons/nintendo.png'); }
+  &.nintendoswitch  { background-image: url('/images/icons/nintendoswitch.png'); }
+  &.odysee          { background-image: url('/images/icons/odysee.png'); }
+  &.onlyfans        { background-image: url('/images/icons/onlyfans.png'); }
+  &.patreon         { background-image: url('/images/icons/patreon.png'); }
+  &.paypal          { background-image: url('/images/icons/paypal.png'); }
+  &.pinterest       { background-image: url('/images/icons/pinterest.png'); }
+  &.playstation     { background-image: url('/images/icons/playstation.png'); }
+  &.polywork        { background-image: url('/images/icons/polywork.png'); }
+  &.reddit          { background-image: url('/images/icons/reddit.png'); }
+  &.rss             { background-image: url('/images/icons/rss.png'); }
+  &.rumble          { background-image: url('/images/icons/rumble.png'); }
+  &.skype           { background-image: url('/images/icons/skype.png'); }
+  &.snapchat        { background-image: url('/images/icons/snapchat.png'); }
+  &.soundcloud      { background-image: url('/images/icons/soundcloud.png'); }
+  &.spotify         { background-image: url('/images/icons/spotify.png'); }
+  &.stackoverflow   { background-image: url('/images/icons/stackoverflow.png'); }
+  &.steam           { background-image: url('/images/icons/steam.png'); }
+  &.subify          { background-image: url('/images/icons/subify.png'); }
+  &.substack        { background-image: url('/images/icons/substack.png'); }
+  &.teams           { background-image: url('/images/icons/teams.png'); }
+  &.telegram        { background-image: url('/images/icons/telegram.png'); }
+  &.threads         { background-image: url('/images/icons/threads.png'); }
+  &.tiktok          { background-image: url('/images/icons/tiktok.png'); }
+  &.trovo           { background-image: url('/images/icons/trovo.png'); }
+  &.twitch          { background-image: url('/images/icons/twitch.png'); }
+  &.twitter         { background-image: url('/images/icons/twitter.png'); }
+  &.venmo           { background-image: url('/images/icons/venmo.png'); }
+  &.vk              { background-image: url('/images/icons/vk.png'); }
+  &.wefunder        { background-image: url('/images/icons/wefunder.png'); }
+  &.whatsapp        { background-image: url('/images/icons/whatsapp.png'); }
+  &.windows         { background-image: url('/images/icons/windows.png'); }
+  &.x               { background-image: url('/images/icons/x.png'); }
+  &.xbox            { background-image: url('/images/icons/xbox.png'); }
+  &.youtube         { background-image: url('/images/icons/youtube.png'); }
+  &.zelle           { background-image: url('/images/icons/zelle.png'); }
+  &.zoom            { background-image: url('/images/icons/zoom.png'); }
+}
+
+.footer {
+  .fa-free {
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;
+    font-style: normal;
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+
+  .fa-brands {
+    font-family: "Font Awesome 7 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+
+  .fa {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin: 0 5px;
+
+    &:hover {
+      color: var(--text-muted);
+    }
+  }
+}

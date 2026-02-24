@@ -1,0 +1,93 @@
+{% comment %}
+  Carousel Widget
+  Usage: {% include carousel.html slides="image1.jpg|Title 1;;image2.jpg|Title 2" %}
+  
+  Parameters:
+    - id: Optional unique ID for multiple carousels on same page
+    - slides: Double-semicolon-separated slides, each with pipe-separated parts:
+      Format: "image|title|description|background-color"
+    
+    Example:
+      {% include carousel.html 
+        slides="/images/slide1.jpg|Welcome|Welcome to my site;#ff0000;;/images/slide2.jpg|About|Learn more about me" 
+      %}
+{% endcomment %}
+
+<div class="carousel" id="carousel-{{ include.id | default: 'default' }}" data-slide-index="1">
+  <div class="carousel-container">
+    {% assign slides = include.slides | split: ';;' %}
+    {% for slide in slides %}
+      {% assign slide_parts = slide | split: '|' %}
+      {% assign image = slide_parts[0] | strip %}
+      {% assign title = slide_parts[1] | default: '' | strip %}
+      {% assign description = slide_parts[2] | default: '' | strip %}
+      {% assign background = slide_parts[3] | default: 'transparent' | strip %}
+
+      <div class="carousel-slide" {% if background != 'transparent' %}style="background: {{ background }}"{% endif %}>
+        {% if image %}
+        <div class="carousel-image">
+          <img src="{{ image | relative_url }}" alt="{{ title | default: 'Carousel slide' }}" style="max-width: 100%; height: auto;">
+        </div>
+        {% endif %}
+
+        {% if title or description %}
+        <div class="carousel-content">
+          {% if title %}
+          <h3 class="carousel-title">{{ title }}</h3>
+          {% endif %}
+          {% if description %}
+          <p class="carousel-description">{{ description | markdownify }}</p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-prev" data-action="prev">&#10094;</button>
+  <button class="carousel-next" data-action="next">&#10095;</button>
+  <div class="carousel-dots">
+    {% for slide in slides %}
+    <span class="dot" data-slide="{{ forloop.index }}"></span>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.carousel').forEach(function(carousel) {
+    const carouselId = carousel.id;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.dot');
+    let slideIndex = parseInt(carousel.dataset.slideIndex) || 1;
+
+    function showSlides(n) {
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+
+    carousel.querySelector('.carousel-prev').addEventListener('click', function() {
+      showSlides(slideIndex -= 1);
+    });
+
+    carousel.querySelector('.carousel-next').addEventListener('click', function() {
+      showSlides(slideIndex += 1);
+    });
+
+    dots.forEach(function(dot, index) {
+      dot.addEventListener('click', function() {
+        showSlides(slideIndex = index + 1);
+      });
+    });
+
+    showSlides(slideIndex);
+  });
+});
+</script>

@@ -1,0 +1,35 @@
+{% comment %}
+  Breadcrumb Navigation
+  Usage: {% include breadcrumb.html %}
+  
+  Automatically generates breadcrumb navigation based on the current page URL.
+  No parameters required - uses page.url and page.title automatically.
+{% endcomment %}
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <!-- Always show base URL as Home -->
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+
+    {% assign parts = page.url | split: '/' | reject: '' %}
+    {% assign path_acc = "" %}
+
+    {% for part in parts %}
+      {% assign path_acc = path_acc | append: part | append: "/" %}
+
+      {% if forloop.last %}
+        <li>
+          <span title="{{ page.title }}">{{ page.title }}</span>
+        </li>
+      {% else %}
+        {% if forloop.index0 > 0 %}
+          <li>
+            <a href="{{ path_acc | relative_url }}">
+              {{ part | replace: '-', ' ' | capitalize }}
+            </a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ol>
+</nav>

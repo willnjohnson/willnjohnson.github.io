@@ -1,0 +1,28 @@
+{% comment %}
+  Prompt/Alert Box Widget
+  Usage: {% include prompt.html type="info" content="Your content here" %}
+  
+  Parameters:
+    - type: Box type - "info" (default), "tip", or "danger"
+    - content: The content to display (supports markdown)
+{% endcomment %}
+
+{% assign type = include.type | default: "info" %}
+
+<div class="prompt prompt-{{ type }}">
+  <div class="prompt-icon">
+    {% case type %}
+      {% when "tip" %}
+        <i class="fa-solid fa-lightbulb"></i>
+      {% when "info" %}
+        <i class="fa-solid fa-info-circle"></i>
+      {% when "danger" %}
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      {% else %}
+        <i class="fa-solid fa-info-circle"></i>
+    {% endcase %}
+  </div>
+  <div class="prompt-text">
+    {{ include.content | markdownify }}
+  </div>
+</div>

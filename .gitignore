@@ -1,0 +1,17 @@
+#############################################
+# They'll never check .gitignore ¬‿¬       #
+#                                           #
+# wnj-flag-{sneaky_sneaky_sneaky}           #
+#                                           #
+# Thank goodness it wasn't my private key.  #
+#############################################
+_site
+.DS_Store
+.jekyll
+.jekyll-metadata
+.bundle
+.sass-cache
+Gemfile
+Gemfile.lock
+node_modules
+package.json

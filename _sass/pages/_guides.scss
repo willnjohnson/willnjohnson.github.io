@@ -1,0 +1,244 @@
+// Guides page styles: collapsible modules for course-style guides.
+// Loaded only on /guides/ via guides.css.
+
+.guides-container {
+  width: 100%;
+  user-select: none;
+}
+
+// Guide card (course selection)
+.guide-card {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  transition: all 0.3s ease;
+  -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+
+  .guide-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .expand-icon {
+      font-size: 20px;
+      color: var(--text-primary);
+      transition: transform 0.3s ease;
+    }
+
+    &.expanded .expand-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .guide-card-description {
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .guide-modules {
+    margin-top: 10px;
+    display: none;
+    cursor: default;
+
+    &.expanded {
+      display: block;
+    }
+  }
+}
+
+// Module list item
+.module-item {
+  margin: 8px 0;
+  padding: 0;
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: 8px;
+  background: var(--bg-highlight);
+  transition: all 0.2s ease;
+  font-size: 16px;
+
+  a {
+    padding: 10px 15px;
+  }
+
+  &:hover {
+    border: 1px solid var(--accent-color);
+
+    a {
+      color: var(--text-primary);
+    }
+  }
+
+  &.active {
+    border-color: var(--text-primary);
+    background: var(--bg-highlight);
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .module-id {
+      font-weight: bold;
+      margin-right: 10px;
+      min-width: 50px;
+      width: 50px;
+      color: var(--accent-color);
+    }
+
+    .module-title {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .module-arrow {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  &:hover .module-arrow {
+    opacity: 1;
+  }
+}
+
+// Module chapter separator
+.module-separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px 0;
+
+  .separator-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-light);
+  }
+
+  .separator-text {
+    padding: 0 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+  }
+}
+
+// Guide course header (individual guide page)
+.guide-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--accent-color);
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .guide-meta {
+    color: var(--text-secondary);
+    font-size: 14px;
+
+    span {
+      margin-right: 20px;
+    }
+  }
+}
+
+// Guide module content (individual module page)
+.guide-module-content {
+  .module-nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+
+    a {
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--accent-color);
+        color: var(--bg-primary);
+        border-color: var(--accent-color);
+      }
+
+      &.prev-module {
+        i {
+          margin-right: 8px;
+        }
+      }
+
+      &.next-module {
+        i {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  .module-progress {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--bg-highlight);
+    border-radius: 8px;
+
+    .progress-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+
+      .progress-fill {
+        height: 100%;
+        background: var(--accent-color);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+      }
+    }
+  }
+}

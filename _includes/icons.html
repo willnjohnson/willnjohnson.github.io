@@ -1,0 +1,156 @@
+{% comment %}
+  Social Media Icons
+  Usage: {% include icons.html %}
+  
+  Displays social media icons based on site.footer-links configuration in _config.yml.
+  Supports both PNG icons (custom) and FontAwesome icons (fa suffix).
+  
+  PNG Icons: site.footer-links.email, site.footer-links.github, etc.
+  FontAwesome: site.footer-links.email-fa, site.footer-links.github-fa, etc.
+{% endcomment %}
+
+<div class="social-icons">
+    <!-- PNG Icons (Custom) -->
+    {% if site.footer-links.email %}<a href="mailto:{{ site.footer-links.email }}"><i class="png-icon email"></i></a>{% endif %}
+    {% if site.footer-links.amino %}<a href="https://www.aminoapps.com/u/{{ site.footer-links.amino }}"><i class="png-icon amino"></i></a>{% endif %}
+    {% if site.footer-links.apple %}<a href="https://apps.apple.com/{{ site.footer-links.apple }}"><i class="png-icon apple"></i></a>{% endif %}
+    {% if site.footer-links.bandcamp %}<a href="https://{{ site.footer-links.bandcamp }}.bandcamp.com"><i class="png-icon bandcamp"></i></a>{% endif %}
+    {% if site.footer-links.beacons %}<a href="https://www.beacons.ai/{{ site.footer-links.beacons }}"><i class="png-icon beacons"></i></a>{% endif %}
+    {% if site.footer-links.beehiiv %}<a href="https://{{ site.footer-links.beehiiv }}.beehiiv.com"><i class="png-icon beehiiv"></i></a>{% endif %}
+    {% if site.footer-links.bitbucket %}<a href="https://www.bitbucket.org/{{ site.footer-links.bitbucket }}"><i class="png-icon bitbucket"></i></a>{% endif %}
+    {% if site.footer-links.bsky %}<a href="https://bsky.app/profile/{{ site.footer-links.bsky }}"><i class="png-icon bsky"></i></a>{% endif %}
+    {% if site.footer-links.buymeacoffee %}<a href="https://www.buymeacoffee.com/{{ site.footer-links.buymeacoffee}}"><i class="png-icon buymeacoffee"></i></a>{% endif %}
+    {% if site.footer-links.discord %}<a href="https://www.discord.com/invite/{{ site.footer-links.discord}}"><i class="png-icon discord"></i></a>{% endif %}
+    {% if site.footer-links.dribbble %}<a href="https://www.dribbble.com/{{ site.footer-links.dribbble }}"><i class="png-icon dribbble"></i></a>{% endif %}
+    {% if site.footer-links.facebook %}<a href="https://www.facebook.com/{{ site.footer-links.facebook }}"><i class="png-icon facebook"></i></a>{% endif %}
+    {% if site.footer-links.fiverr %}<a href="https://www.fiverr.com/{{ site.footer-links.fiverr }}"><i class="png-icon fiverr"></i></a>{% endif %}
+    {% if site.footer-links.flickr %}<a href="https://www.flickr.com/photos/{{ site.footer-links.flickr }}"><i class="png-icon flickr"></i></a>{% endif %}
+    {% if site.footer-links.gamespot %}<a href="https://www.gamespot.com/profile/{{ site.footer-links.gamespot }}"><i class="png-icon gamespot"></i></a>{% endif %}
+    {% if site.footer-links.github %}<a href="https://www.github.com/{{ site.footer-links.github }}"><i class="png-icon github"></i></a>{% endif %}
+    {% if site.footer-links.gitlab %}<a href="https://www.gitlab.com/{{ site.footer-links.gitlab }}"><i class="png-icon gitlab"></i></a>{% endif %}
+    {% if site.footer-links.givesendgo %}<a href="https://www.givesendgo.com/{{ site.footer-links.givesendgo }}"><i class="png-icon givesendgo"></i></a>{% endif %}
+    {% if site.footer-links.glassdoor %}<a href="https://www.glassdoor.com/{{ site.footer-links.givesendgo }}"><i class="png-icon glassdoor"></i></a>{% endif %}
+    {% if site.footer-links.gofundme %}<a href="https://www.gofundme.com/f/{{ site.footer-links.gofundme }}"><i class="png-icon gofundme"></i></a>{% endif %}
+    {% if site.footer-links.gog %}<a href="https://www.gog.com/u/{{ site.footer-links.gog }}"><i class="png-icon gog"></i></a>{% endif %}
+    {% if site.footer-links.goodreads %}<a href="https://www.goodreads.com/{{ site.footer-links.goodreads }}"><i class="png-icon goodreads"></i></a>{% endif %}
+    {% if site.footer-links.googleplay %}<a href="https://play.google.com/store/apps/{{ site.footer-links.googleplay }}"><i class="png-icon googleplay"></i></a>{% endif %}
+    {% if site.footer-links.guilded %}<a href="https://www.guilded.gg/u/{{ site.footer-links.guilded }}"><i class="png-icon guilded"></i></a>{% endif %}
+    {% if site.footer-links.indiegogo %}<a href="https://www.indiegogo.com/projects/{{ site.footer-links.indiegogo }}"><i class="png-icon indiegogo"></i></a>{% endif %}
+    {% if site.footer-links.instagram %}<a href="https://www.instagram.com/{{ site.footer-links.instagram }}"><i class="png-icon instagram"></i></a>{% endif %}
+    {% if site.footer-links.kick %}<a href="https://www.kick.com/{{ site.footer-links.kick }}"><i class="png-icon kick"></i></a>{% endif %}
+    {% if site.footer-links.kickstarter %}<a href="https://www.kickstarter.com/projects/{{ site.footer-links.kickstarter }}"><i class="png-icon kickstarter"></i></a>{% endif %}
+    {% if site.footer-links.kofi %}<a href="https://ko-fi.com/{{ site.footer-links.kofi }}"><i class="png-icon kofi"></i></a>{% endif %}
+    {% if site.footer-links.linkedin %}<a href="https://www.linkedin.com/in/{{ site.footer-links.linkedin }}"><i class="png-icon linkedin"></i></a>{% endif %}
+    {% if site.footer-links.linktree %}<a href="https://linktr.ee/{{ site.footer-links.linktree }}"><i class="png-icon linktree"></i></a>{% endif %}
+    {% if site.footer-links.mastodon %}<a href="https://{{ site.footer-links.mastodon }}"><i class="png-icon mastodon"></i></a>{% endif %}
+    {% if site.footer-links.medium %}<a href="https://www.medium.com/@{{ site.footer-links.medium }}"><i class="png-icon medium"></i></a>{% endif %}
+    {% if site.footer-links.nintendo %}<a href="https://www.nintendo.com/{{ site.footer-links.nintendo }}"><i class="png-icon nintendo"></i></a>{% endif %}
+    {% if site.footer-links.nintendoswitch %}<a href="https://www.nintendo.com/{{ site.footer-links.nintendoswitch }}"><i class="png-icon nintendoswitch"></i></a>{% endif %}
+    {% if site.footer-links.odysee %}<a href="https://odysee.com/@{{ site.footer-links.odysee }}"><i class="png-icon odysee"></i></a>{% endif %}
+    {% if site.footer-links.onlyfans %}<a href="https://www.onlyfans.com/@{{ site.footer-links.onlyfans }}"><i class="png-icon onlyfans"></i></a>{% endif %}
+    {% if site.footer-links.patreon %}<a href="https://www.patreon.com/{{ site.footer-links.patreon }}"><i class="png-icon patreon"></i></a>{% endif %}
+    {% if site.footer-links.paypal %}<a href="https://www.paypal.com/paypalme/{{ site.footer-links.paypal }}"><i class="png-icon paypal"></i></a>{% endif %}
+    {% if site.footer-links.pinterest %}<a href="https://www.pinterest.com/{{ site.footer-links.pinterest }}"><i class="png-icon pinterest"></i></a>{% endif %}
+    {% if site.footer-links.playstation %}<a href="https://store.playstation.com/{{ site.footer-links.playstation }}"><i class="png-icon playstation"></i></a>{% endif %}
+    {% if site.footer-links.polywork %}<a href="https://www.polywork.com/{{ site.footer-links.polywork }}"><i class="png-icon polywork"></i></a>{% endif %}
+    {% if site.footer-links.reddit %}<a href="https://www.reddit.com/r/{{ site.footer-links.reddit }}"><i class="png-icon reddit"></i></a>{% endif %}
+    {% if site.footer-links.rss %}<a href="{{ site.baseurl }}/feed.xml"><i class="png-icon rss"></i></a>{% endif %}
+    {% if site.footer-links.rumble %}<a href="https://rumble.com/{{ site.footer-links.rumble }}"><i class="png-icon rumble"></i></a>{% endif %}
+    {% if site.footer-links.skype %}<a href="https://www.skype.com/{{ site.footer-links.skype }}"><i class="png-icon skype"></i></a>{% endif %}
+    {% if site.footer-links.snapchat %}<a href="https://www.snapchat.com/@{{ site.footer-links.snapchat }}"><i class="png-icon snapchat"></i></a>{% endif %}
+    {% if site.footer-links.soundcloud %}<a href="https://soundcloud.com/@{{ site.footer-links.soundcloud }}"><i class="png-icon soundcloud"></i></a>{% endif %}
+    {% if site.footer-links.spotify %}<a href="https://open.spotify.com/user/{{ site.footer-links.spotify }}"><i class="png-icon spotify"></i></a>{% endif %}
+    {% if site.footer-links.stackoverflow %}<a href="http://www.stackoverflow.com/{{ site.footer-links.stackoverflow }}"><i class="png-icon stackoverflow"></i></a>{% endif %}
+    {% if site.footer-links.steam %}<a href="https://steamcommunity.com/id/{{ site.footer-links.steam }}"><i class="png-icon steam"></i></a>{% endif %}
+    {% if site.footer-links.subify %}<a href="https://www.subify.vip/{{ site.footer-links.subify }}"><i class="png-icon subify"></i></a>{% endif %}
+    {% if site.footer-links.substack %}<a href="https://{{ site.footer-links.substack }}.substack.com/"><i class="png-icon substack"></i></a>{% endif %}
+    {% if site.footer-links.teams %}<a href="https://teams.microsoft.com/{{ site.footer-links.teams }}"><i class="png-icon teams"></i></a>{% endif %}
+    {% if site.footer-links.telegram %}<a href="https://t.me/{{ site.footer-links.telegram }}"><i class="png-icon telegram"></i></a>{% endif %}
+    {% if site.footer-links.threads %}<a href="https://www.threads.com/@{{ site.footer-links.threads }}"><i class="png-icon threads"></i></a>{% endif %}
+    {% if site.footer-links.tiktok %}<a href="https://www.tiktok.com/@{{ site.footer-links.tiktok }}"><i class="png-icon tiktok"></i></a>{% endif %}
+    {% if site.footer-links.trovo %}<a href="https://www.trovo.live/{{ site.footer-links.trovo }}"><i class="png-icon trovo"></i></a>{% endif %}
+    {% if site.footer-links.twitch %}<a href="https://www.twitch.tv/{{ site.footer-links.twitch }}"><i class="png-icon twitch"></i></a>{% endif %}
+    {% if site.footer-links.twitter %}<a href="https://www.twitter.com/{{ site.footer-links.twitter }}"><i class="png-icon twitter"></i></a>{% endif %}
+    {% if site.footer-links.venmo %}<a href="https://account.venmo.com/u/{{ site.footer-links.venmo }}"><i class="png-icon venmo"></i></a>{% endif %}
+    {% if site.footer-links.vk %}<a href="https://www.vk.com/{{ site.footer-links.vk }}"><i class="png-icon vk"></i></a>{% endif %}
+    {% if site.footer-links.wefunder %}<a href="https://www.wefunder.com/{{ site.footer-links.wefunder }}"><i class="png-icon wefunder"></i></a>{% endif %}
+    {% if site.footer-links.whatsapp %}<a href="https://wa.me/{{ site.footer-links.whatsapp }}"><i class="png-icon whatsapp"></i></a>{% endif %}
+    {% if site.footer-links.windows %}<a href="https://apps.microsoft.com/{{ site.footer-links.windows }}"><i class="png-icon windows"></i></a>{% endif %}
+    {% if site.footer-links.x %}<a href="https://www.x.com/{{ site.footer-links.x }}"><i class="png-icon x"></i></a>{% endif %}
+    {% if site.footer-links.xbox %}<a href="https://www.xbox.com/{{ site.footer-links.xbox }}"><i class="png-icon xbox"></i></a>{% endif %}
+    {% if site.footer-links.youtube %}<a href="https://www.youtube.com/{{ site.footer-links.youtube }}"><i class="png-icon youtube"></i></a>{% endif %}
+    {% if site.footer-links.zelle %}<a href="https://www.zelle.com/"><i class="png-icon zelle"></i></a>{% endif %}
+    {% if site.footer-links.zoom %}<a href="https://zoom.us/j/{{ site.footer-links.zoom }}"><i class="png-icon zoom"></i></a>{% endif %}
+
+    <!-- FontAwesome Icons -->
+    {% if site.footer-links.email-fa %}<a href="mailto:{{ site.footer-links.email-fa }}"><i class="fa fa-free fa-envelope email-fa"></i></a>{% endif %}
+    {% if site.footer-links.amino-fa %}<a href="https://www.aminoapps.com/u/{{ site.footer-links.amino-fa }}"><i class="fa fa-free fa-users amino-fa"></i></a>{% endif %}
+    {% if site.footer-links.apple-fa %}<a href="https://apps.apple.com/{{ site.footer-links.apple-fa }}"><i class="fa-brands fa-apple apple-fa"></i></a>{% endif %}
+    {% if site.footer-links.bandcamp-fa %}<a href="https://{{ site.footer-links.bandcamp-fa }}.bandcamp.com"><i class="fa-brands fa-bandcamp bandcamp-fa"></i></a>{% endif %}
+    {% if site.footer-links.beacons-fa %}<a href="https://www.beacons.ai/{{ site.footer-links.beacons-fa }}"><i class="fa fa-free fa-link beacons-fa"></i></a>{% endif %}
+    {% if site.footer-links.beehiiv-fa %}<a href="https://{{ site.footer-links.beehiiv-fa }}.beehiiv.com"><i class="fa fa-free fa-envelope beehiiv-fa"></i></a>{% endif %}
+    {% if site.footer-links.bitbucket-fa %}<a href="https://www.bitbucket.org/{{ site.footer-links.bitbucket-fa }}"><i class="fa-brands fa-bitbucket bitbucket-fa"></i></a>{% endif %}
+    {% if site.footer-links.bsky-fa %}<a href="https://bsky.app/profile/{{ site.footer-links.bsky-fa }}"><i class="fa-brands fa-bluesky bsky-fa"></i></a>{% endif %}
+    {% if site.footer-links.buymeacoffee-fa %}<a href="https://www.buymeacoffee.com/{{ site.footer-links.buymeacoffee-fa}}"><i class="fa fa-free fa-coffee buymeacoffee-fa"></i></a>{% endif %}
+    {% if site.footer-links.discord-fa %}<a href="https://www.discord.com/invite/{{ site.footer-links.discord-fa}}"><i class="fa-brands fa-discord discord-fa"></i></a>{% endif %}
+    {% if site.footer-links.dribbble-fa %}<a href="https://www.dribbble.com/{{ site.footer-links.dribbble-fa }}"><i class="fa-brands fa-dribbble dribbble-fa"></i></a>{% endif %}
+    {% if site.footer-links.facebook-fa %}<a href="https://www.facebook.com/{{ site.footer-links.facebook-fa }}"><i class="fa-brands fa-facebook-f facebook-fa"></i></a>{% endif %}
+    {% if site.footer-links.fiverr-fa %}<a href="https://www.fiverr.com/{{ site.footer-links.fiverr-fa }}"><i class="fa fa-free fa-briefcase fiverr-fa"></i></a>{% endif %}
+    {% if site.footer-links.flickr-fa %}<a href="https://www.flickr.com/photos/{{ site.footer-links.flickr-fa }}"><i class="fa-brands fa-flickr flickr-fa"></i></a>{% endif %}
+    {% if site.footer-links.gamespot-fa %}<a href="https://www.gamespot.com/profile/{{ site.footer-links.gamespot-fa }}"><i class="fa fa-free fa-gamepad gamespot-fa"></i></a>{% endif %}
+    {% if site.footer-links.github-fa %}<a href="https://www.github.com/{{ site.footer-links.github-fa }}"><i class="fa-brands fa-github github-fa"></i></a>{% endif %}
+    {% if site.footer-links.gitlab-fa %}<a href="https://www.gitlab.com/{{ site.footer-links.gitlab-fa }}"><i class="fa-brands fa-gitlab gitlab-fa"></i></a>{% endif %}
+    {% if site.footer-links.givesendgo-fa %}<a href="https://www.givesendgo.com/{{ site.footer-links.givesendgo-fa }}"><i class="fa fa-free fa-gift givesendgo-fa"></i></a>{% endif %}
+    {% if site.footer-links.glassdoor-fa %}<a href="https://www.glassdoor.com/{{ site.footer-links.glassdoor-fa }}"><i class="fa fa-free fa-building glassdoor-fa"></i></a>{% endif %}
+    {% if site.footer-links.gofundme-fa %}<a href="https://www.gofundme.com/f/{{ site.footer-links.gofundme-fa }}"><i class="fa fa-free fa-gift gofundme-fa"></i></a>{% endif %}
+    {% if site.footer-links.gog-fa %}<a href="https://www.gog.com/u/{{ site.footer-links.gog-fa }}"><i class="fa fa-free fa-gamepad gog-fa"></i></a>{% endif %}
+    {% if site.footer-links.goodreads-fa %}<a href="https://www.goodreads.com/{{ site.footer-links.goodreads-fa }}"><i class="fa-brands fa-goodreads-g goodreads-fa"></i></a>{% endif %}
+    {% if site.footer-links.googleplay-fa %}<a href="https://play.google.com/store/apps/{{ site.footer-links.googleplay-fa }}"><i class="fa-brands fa-google-play googleplay-fa"></i></a>{% endif %}
+    {% if site.footer-links.guilded-fa %}<a href="https://www.guilded.gg/u/{{ site.footer-links.guilded-fa }}"><i class="fa-brands fa-guilded guilded-fa"></i></a>{% endif %}
+    {% if site.footer-links.indiegogo-fa %}<a href="https://www.indiegogo.com/projects/{{ site.footer-links.indiegogo-fa }}"><i class="fa fa-free fa-rocket indiegogo-fa"></i></a>{% endif %}
+    {% if site.footer-links.instagram-fa %}<a href="https://www.instagram.com/{{ site.footer-links.instagram-fa }}"><i class="fa-brands fa-instagram instagram-fa"></i></a>{% endif %}
+    {% if site.footer-links.kick-fa %}<a href="https://www.kick.com/{{ site.footer-links.kick-fa }}"><i class="fa fa-free fa-tv kick-fa"></i></a>{% endif %}
+    {% if site.footer-links.kickstarter-fa %}<a href="https://www.kickstarter.com/projects/{{ site.footer-links.kickstarter-fa }}"><i class="fa-brands fa-kickstarter kickstarter-fa"></i></a>{% endif %}
+    {% if site.footer-links.kofi-fa %}<a href="https://ko-fi.com/{{ site.footer-links.kofi-fa }}"><i class="fa fa-free fa-coffee kofi-fa"></i></a>{% endif %}
+    {% if site.footer-links.linkedin-fa %}<a href="https://www.linkedin.com/in/{{ site.footer-links.linkedin-fa }}"><i class="fa-brands fa-linkedin-in linkedin-fa"></i></a>{% endif %}
+    {% if site.footer-links.linktree-fa %}<a href="https://linktr.ee/{{ site.footer-links.linktree-fa }}"><i class="fa-brands fa-linktree linktree-fa"></i></a>{% endif %}
+    {% if site.footer-links.mastodon-fa %}<a href="https://{{ site.footer-links.mastodon-fa }}"><i class="fa-brands fa-mastodon mastodon-fa"></i></a>{% endif %}
+    {% if site.footer-links.medium-fa %}<a href="https://www.medium.com/@{{ site.footer-links.medium-fa }}"><i class="fa-brands fa-medium-m medium-fa"></i></a>{% endif %}
+    {% if site.footer-links.nintendo-fa %}<a href="https://www.nintendo.com/{{ site.footer-links.nintendo-fa }}"><i class="fa fa-free fa-gamepad nintendo-fa"></i></a>{% endif %}
+    {% if site.footer-links.nintendoswitch-fa %}<a href="https://www.nintendo.com/{{ site.footer-links.nintendoswitch-fa }}"><i class="fa fa-free fa-gamepad nintendoswitch-fa"></i></a>{% endif %}
+    {% if site.footer-links.odysee-fa %}<a href="https://odysee.com/@{{ site.footer-links.odysee-fa }}"><i class="fa-brands fa-odysee odysee-fa"></i></a>{% endif %}
+    {% if site.footer-links.onlyfans-fa %}<a href="https://www.onlyfans.com/@{{ site.footer-links.onlyfans-fa }}"><i class="fa fa-free fa-users onlyfans-fa"></i></a>{% endif %}
+    {% if site.footer-links.patreon-fa %}<a href="https://www.patreon.com/{{ site.footer-links.patreon-fa }}"><i class="fa-brands fa-patreon patreon-fa"></i></a>{% endif %}
+    {% if site.footer-links.paypal-fa %}<a href="https://www.paypal.com/paypalme/{{ site.footer-links.paypal-fa }}"><i class="fa-brands fa-paypal paypal-fa"></i></a>{% endif %}
+    {% if site.footer-links.pinterest-fa %}<a href="https://www.pinterest.com/{{ site.footer-links.pinterest-fa }}"><i class="fa-brands fa-pinterest pinterest-fa"></i></a>{% endif %}
+    {% if site.footer-links.playstation-fa %}<a href="https://store.playstation.com/{{ site.footer-links.playstation-fa }}"><i class="fa-brands fa-playstation playstation-fa"></i></a>{% endif %}
+    {% if site.footer-links.polywork-fa %}<a href="https://www.polywork.com/{{ site.footer-links.polywork-fa }}"><i class="fa fa-free fa-briefcase polywork-fa"></i></a>{% endif %}
+    {% if site.footer-links.reddit-fa %}<a href="https://www.reddit.com/r/{{ site.footer-links.reddit-fa }}"><i class="fa-brands fa-reddit reddit-fa"></i></a>{% endif %}
+    {% if site.footer-links.rss-fa %}<a href="{{ site.baseurl }}/feed.xml"><i class="fa fa-free fa-rss rss-fa"></i></a>{% endif %}
+    {% if site.footer-links.rumble-fa %}<a href="https://rumble.com/{{ site.footer-links.rumble-fa }}"><i class="fa fa-free fa-video rumble-fa"></i></a>{% endif %}
+    {% if site.footer-links.skype-fa %}<a href="https://www.skype.com/{{ site.footer-links.skype-fa }}"><i class="fa-brands fa-skype skype-fa"></i></a>{% endif %}
+    {% if site.footer-links.snapchat-fa %}<a href="https://www.snapchat.com/@{{ site.footer-links.snapchat-fa }}"><i class="fa-brands fa-snapchat snapchat-fa"></i></a>{% endif %}
+    {% if site.footer-links.soundcloud-fa %}<a href="https://soundcloud.com/@{{ site.footer-links.soundcloud-fa }}"><i class="fa-brands fa-soundcloud soundcloud-fa"></i></a>{% endif %}
+    {% if site.footer-links.spotify-fa %}<a href="https://open.spotify.com/user/{{ site.footer-links.spotify-fa }}"><i class="fa-brands fa-spotify spotify-fa"></i></a>{% endif %}
+    {% if site.footer-links.stackoverflow-fa %}<a href="http://www.stackoverflow.com/{{ site.footer-links.stackoverflow-fa }}"><i class="fa-brands fa-stack-overflow stackoverflow-fa"></i></a>{% endif %}
+    {% if site.footer-links.steam-fa %}<a href="https://steamcommunity.com/id/{{ site.footer-links.steam-fa }}"><i class="fa-brands fa-steam steam-fa"></i></a>{% endif %}
+    {% if site.footer-links.subify-fa %}<a href="https://www.subify.vip/{{ site.footer-links.subify-fa }}"><i class="fa fa-free fa-users subify-fa"></i></a>{% endif %}
+    {% if site.footer-links.substack-fa %}<a href="https://{{ site.footer-links.substack-fa }}.substack.com/"><i class="fa fa-free fa-newspaper substack-fa"></i></a>{% endif %}
+    {% if site.footer-links.teams-fa %}<a href="https://teams.microsoft.com/{{ site.footer-links.teams-fa }}"><i class="fa-brands fa-microsoft teams-fa"></i></a>{% endif %}
+    {% if site.footer-links.telegram-fa %}<a href="https://t.me/{{ site.footer-links.telegram-fa }}"><i class="fa-brands fa-telegram telegram-fa"></i></a>{% endif %}
+    {% if site.footer-links.threads-fa %}<a href="https://www.threads.com/@{{ site.footer-links.threads-fa }}"><i class="fa-brands fa-threads threads-fa"></i></a>{% endif %}
+    {% if site.footer-links.tiktok-fa %}<a href="https://www.tiktok.com/@{{ site.footer-links.tiktok-fa }}"><i class="fa-brands fa-tiktok tiktok-fa"></i></a>{% endif %}
+    {% if site.footer-links.trovo-fa %}<a href="https://www.trovo.live/{{ site.footer-links.trovo-fa }}"><i class="fa fa-free fa-tv trovo-fa"></i></a>{% endif %}
+    {% if site.footer-links.twitch-fa %}<a href="https://www.twitch.tv/{{ site.footer-links.twitch-fa }}"><i class="fa-brands fa-twitch twitch-fa"></i></a>{% endif %}
+    {% if site.footer-links.twitter-fa %}<a href="https://www.twitter.com/{{ site.footer-links.twitter-fa }}"><i class="fa-brands fa-twitter twitter-fa"></i></a>{% endif %}
+    {% if site.footer-links.venmo-fa %}<a href="https://account.venmo.com/u/{{ site.footer-links.venmo-fa }}"><i class="fa fa-free fa-credit-card venmo-fa"></i></a>{% endif %}
+    {% if site.footer-links.vk-fa %}<a href="https://www.vk.com/{{ site.footer-links.vk-fa }}"><i class="fa-brands fa-vk vk-fa"></i></a>{% endif %}
+    {% if site.footer-links.wefunder-fa %}<a href="https://www.wefunder.com/{{ site.footer-links.wefunder-fa }}"><i class="fa fa-free fa-rocket wefunder-fa"></i></a>{% endif %}
+    {% if site.footer-links.whatsapp-fa %}<a href="https://wa.me/{{ site.footer-links.whatsapp-fa }}"><i class="fa-brands fa-whatsapp whatsapp-fa"></i></a>{% endif %}
+    {% if site.footer-links.windows-fa %}<a href="https://apps.microsoft.com/{{ site.footer-links.windows-fa }}"><i class="fa-brands fa-windows windows-fa"></i></a>{% endif %}
+    {% if site.footer-links.x-fa %}<a href="https://www.x.com/{{ site.footer-links.x-fa }}"><i class="fa-brands fa-x-twitter x-fa"></i></a>{% endif %}
+    {% if site.footer-links.xbox-fa %}<a href="https://www.xbox.com/{{ site.footer-links.xbox-fa }}"><i class="fa-brands fa-xbox xbox-fa"></i></a>{% endif %}
+    {% if site.footer-links.youtube-fa %}<a href="https://www.youtube.com/{{ site.footer-links.youtube-fa }}"><i class="fa-brands fa-youtube youtube-fa"></i></a>{% endif %}
+    {% if site.footer-links.zelle-fa %}<a href="https://www.zelle.com/"><i class="fa fa-free fa-money-bill zelle-fa"></i></a>{% endif %}
+    {% if site.footer-links.zoom-fa %}<a href="https://zoom.us/j/{{ site.footer-links.zoom-fa }}"><i class="fa fa-free fa-video zoom-fa"></i></a>{% endif %}
+</div>

@@ -1,0 +1,72 @@
+---
+layout: default
+---
+
+<article class="post">
+  <div class="current-title">
+    <p>
+      <span>
+        <a href="../..#{{ page.guide }}-{{ page.chapter | remove: "M" }}">Guide</a>
+      </span>
+      {% if page.written %}
+        <span>
+          Written {{ page.written | date: "%b %e, %Y" }}
+          {% if page.updated %} &nbsp;•&nbsp; Updated {{ page.updated | date: "%b %e, %Y" }}{% endif %}
+        </span>
+      {% endif %}
+    </p>
+    {% assign full_title = page.chapter | append: ": " | append: page.title %}
+    <h2>{{ full_title }}</h2>
+  </div>
+
+  {% if page.description %}
+  <p class="summary">{{ page.description }}</p>
+  {% endif %}
+
+  <hr>
+
+  <div class="entry">
+    {{ page.quote | markdownify }}
+    {{ content }}
+  </div>
+  
+  <br/><br/>
+  
+  <figcaption>This guide is licensed under <strong>CC BY 4.0</strong> by {{ site.name }}.</figcaption>
+
+  <hr>
+
+  <!-- Previous/Next Article Navigation -->
+  <nav class="post-pagination">
+    {% if page.previous %}
+      {% if page.previous.guide == page.guide %}
+        <a href="{{ site.baseurl }}{{ page.previous.url }}" class="prev-article">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span class="article-title">{{ page.previous.chapter }} {{ page.previous.title }}</span>
+        </a>
+      {% else %}
+        <span class="nav-placeholder">GUIDE STARTED</span>
+      {% endif %}
+    {% else %}
+      <span class="nav-placeholder">GUIDE STARTED</span>
+    {% endif %}
+    {% if page.next %}
+      {% if page.next.guide == page.guide %}
+        <a href="{{ site.baseurl }}{{ page.next.url }}" class="next-article">
+          <span class="article-title">{{ page.next.chapter }} {{ page.next.title }}</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      {% else %}
+        <span class="nav-placeholder">GUIDE COMPLETED</span>
+      {% endif %}
+    {% else %}
+      <span class="nav-placeholder">GUIDE COMPLETED</span>
+    {% endif %}
+  </nav>
+
+  {% include disqus.html %}
+
+  <hr>
+
+  {% include social-share.html %}
+</article>

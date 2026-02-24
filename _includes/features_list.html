@@ -1,0 +1,34 @@
+{% comment %}
+  Features List Widget
+  Usage: {% include features_list.html source="app_features" %}
+  
+  The source parameter should match a YAML file in /_data/ without the extension.
+  Example: source="app_features" loads /_data/app_features.yml
+  
+  The YAML file should have this structure:
+    features:
+      - title: "Feature Title"
+        description: "Feature description"
+        icon: "fa-solid fa-iconname"
+        color: "primary"  (optional: primary, secondary, etc.)
+  
+  Parameters:
+    - source: Data file name (without .yml extension)
+{% endcomment %}
+
+{% assign data_file = include.source | append: ".yml" %}
+{% assign features_data = site.data[include.source].features %}
+
+<div class="features-list">
+  {% for value in features_data %}
+  <div class="feature-card feature-card-{{ value.color | default: 'primary' }}">
+    <div class="feature-card-i">
+      <i class="{{ value.icon | default: 'fa-solid fa-star' }}"></i>
+    </div>
+    <div class="feature-card-content">
+      <h3 class="feature-card-title">{{ value.title }}</h3>
+      <p class="feature-card-description">{{ value.description }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>

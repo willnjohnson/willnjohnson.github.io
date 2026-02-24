@@ -1,0 +1,150 @@
+# Latin quotes
+- text: "Per aspera ad astra — Through hardships to the stars"
+  lang: latin
+- text: "Dum spiro, spero — While I breathe, I hope"
+  lang: latin
+- text: "Labor omnia vincit — Work conquers all"
+  lang: latin
+- text: "Sapere aude — Dare to know"
+  lang: latin
+- text: "Lux in tenebris — Light in the darkness"
+  lang: latin
+- text: "Festina lente — Make haste slowly"
+  lang: latin
+- text: "Gutta cavat lapidem — A drop hollows a stone"
+  lang: latin
+- text: "Fortis et honestus — Brave and honorable"
+  lang: latin
+- text: "Amicus certus in re incerta cernitur — A sure friend is known in unsure times"
+  lang: latin
+- text: "Carpe diem — Seize the day"
+  lang: latin
+- text: "Diliculo surgere saluberrimum est — To rise at dawn is most healthy"
+  lang: latin
+- text: "Aut inveniam viam aut faciam — I'll either find a way or make one"
+  lang: latin
+- text: "Tempus fugit — Time flies"
+  lang: latin
+- text: "Quidquid discis, tibi discis — Whatever you learn, you learn for yourself"
+  lang: latin
+- text: "In vino veritas — In wine there is truth"
+  lang: latin
+
+# Italian quotes
+- text: "Rosso di sera, bel tempo si spera — Red sky at night, fair weather hoped for"
+  lang: italian
+- text: "Chi dorme non piglia pesci — The one who sleeps catches no fish"
+  lang: italian
+- text: "Finché c’è vita c’è speranza — As long as there is life, there is hope"
+  lang: italian
+- text: "La calma è la virtù dei forti — Calmness is the virtue of the strong"
+  lang: italian
+- text: "Piano piano si va lontano — Slowly, slowly one goes far"
+  lang: italian
+- text: "Meglio tardi che mai — Better late than never"
+  lang: italian
+- text: "Chi va piano va sano e va lontano — The one who goes slowly goes safely and goes far"
+  lang: italian
+- text: "Chi ha tempo non aspetti tempo — If you have time, don’t waste it"
+  lang: italian
+- text: "Chi la dura, la vince — The one who perseveres wins it"
+  lang: italian
+- text: "Ogni morte di papa — Once in a blue moon"
+  lang: italian
+- text: "Il tempo vola — Time flies"
+  lang: italian
+
+# Greek quotes
+- text: "Γνῶθι σεαυτόν (Gnothi seauton) — Know thyself"
+  lang: greek
+- text: "Μηδὲν ἄγαν (Meden agan) — Nothing in excess"
+  lang: greek
+- text: "Κάλλιον ὀψὲ ἢ ποτέ — Better late than never"
+  lang: greek
+- text: "Πάντα ῥεῖ (Panta rhei) — Everything flows"
+  lang: greek
+
+# Japanese Kotowaza
+- text: "七転び八起き (Nanakorobi yaoki) — Fall seven times, rise eight"
+  lang: japanese
+- text: "雨降って地固まる (Ame futte ji katamaru) — After the rain, the earth hardens"
+  lang: japanese
+- text: "石の上にも三年 (Ishi no ue ni mo sannen) — Sit on a stone for three years"
+  lang: japanese
+- text: "桜梅桃李 (Oubai touri) — Cherry, plum, peach, apricot (each blossoms in their own way)"
+  lang: japanese
+- text: "一石二鳥 (Isseki nichou) — Kill two birds with one stone"
+  lang: japanese
+
+# French quotes
+- text: "Après la pluie, le beau temps — After the rain, fair weather"
+  lang: french
+- text: "L’espoir fait vivre — Hope keeps us alive"
+  lang: french
+- text: "Petit à petit, l’oiseau fait son nid — Little by little, the bird builds its nest"
+  lang: french
+- text: "À cœur vaillant rien d’impossible — To a valiant heart, nothing is impossible"
+  lang: french
+- text: "Qui ne risque rien n’a rien — Nothing ventured, nothing gained"
+  lang: french
+- text: "Je me souviens — I remember"
+  lang: french
+- text: "Laissez les bons temps rouler — Let the good times roll"
+  lang: french
+- text: "Savoir, penser, rêver. Tout est là — To know, to think, to dream. That is all"
+  lang: french
+- text: "Tous les trente-six du mois — Once in a blue moon"
+  lang: french
+
+# English Proverbs / Old Sayings
+- text: "This too shall pass"
+  lang: english
+- text: "Hope springs eternal"
+  lang: english
+- text: "No bees, no honey; no work, no money"
+  lang: english
+- text: "A smooth sea never made a skilled sailor"
+  lang: english
+- text: "Great oaks from little acorns grow"
+  lang: english
+- text: "Slow and steady wins the race"
+  lang: english
+- text: "The darkest hour is just before the dawn"
+  lang: english
+- text: "Actions speak louder than words"
+  lang: english
+- text: "The early bird catches the worm"
+  lang: english
+- text: "When in Rome, do as the Romans do"
+  lang: english
+- text: "Let the good times roll"
+  lang: english
+
+# Spanish quotes
+- text: "Vive el momento — Live the moment"
+  lang: spanish
+- text: "No hay mal que por bien no venga — Every cloud has a silver lining"
+  lang: spanish
+
+# German quotes
+- text: "Lebe den Moment — Live the moment"
+  lang: german
+- text: "Genieße den Augenblick — Enjoy the moment"
+  lang: german
+- text: "Wer nicht wagt, der nicht gewinnt — Nothing ventured, nothing gained"
+  lang: german
+
+# Chinese quotes
+- text: "活在當下 — Live in the present"
+  lang: chinese
+- text: "千里之行，始於足下 — A journey of a thousand miles begins with a single step"
+  lang: chinese
+- text: "塞翁失馬，焉知非福 — A loss may turn out to be a gain"
+  lang: chinese
+
+# Arabic quotes
+  lang: arabic
+- text: "الصبر مفتاح الفرج — Patience is the key to relief"
+  lang: arabic
+- text: "من جد وجد — The one who strives finds"
+  lang: arabic

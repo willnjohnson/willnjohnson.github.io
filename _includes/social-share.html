@@ -1,0 +1,26 @@
+{% comment %}
+  Social Share Buttons
+  Usage: {% include social-share.html %}
+  
+  Displays share buttons for X (Twitter), Facebook, LinkedIn, and Email.
+  Automatically uses page.title and page.url for share links.
+  No parameters required.
+{% endcomment %}
+
+<div class="social-share">
+  <h4>Share this post</h4>
+  <div class="share-buttons">
+    <a href="https://x.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener noreferrer" class="share-btn twitter">
+      <i class="fab fa-x-twitter"></i> X
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener noreferrer" class="share-btn facebook">
+      <i class="fab fa-facebook-f"></i> Facebook
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener noreferrer" class="share-btn linkedin">
+      <i class="fab fa-linkedin-in"></i> LinkedIn
+    </a>
+    <a href="mailto:?subject={{ page.title | url_encode }}&body={{ page.url | absolute_url | url_encode }}" class="share-btn email">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+  </div>
+</div>

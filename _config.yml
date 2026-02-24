@@ -1,0 +1,127 @@
+# ============================================================
+#   SITE IDENTITY (RECOMMENDED TO EDIT)
+# ============================================================
+# These define your public identity on the site.
+# It can be your brand or it could even be YOU.
+
+name: William N. Johnson
+description: "Computer Scientist | Programmer"
+avatar: https://avatars.githubusercontent.com/u/26980980?v=4
+
+# ============================================================
+#   LOCATION / TIME SETTINGS (OPTIONAL)
+# ============================================================
+# Configure the time display in the site header.
+
+location: "Knoxville, TN"
+time_settings:
+  timeZone: "America/New_York"
+  hour: "2-digit"
+  minute: "2-digit"
+  second: "2-digit"
+  hour12: false
+
+
+# ============================================================
+#   NAVIGATION (RECOMMENDED TO EDIT)
+# ============================================================
+# Controls main navigation menu items.
+
+nav-links:
+  blog: "/blog"
+  apropos: "/apropos"
+  projects: "/projects"
+  freelance: "/freelance"
+  guides: "/guides"
+  status: "https://status.willnj.com/ Status"
+
+
+# ============================================================
+#   FOOTER & SOCIAL LINKS (OPTIONAL)
+# ============================================================
+# Add or remove social accounts as needed.
+
+footer-links:
+  email-fa: "will@willnj.com"
+  instagram-fa: "dilucular"
+  telegram-fa: "willnj"
+  threads-fa: "dilucular"
+  x-fa: "willnjohnson"
+
+# ============================================================
+#   PATTERNS SETTINGS (OPTIONAL)
+# ============================================================
+# Set a pattern for your nav and footer (e.g., pattern1)
+# Place CSS files in /patterns/ directory
+
+pattern: pattern1
+
+# ============================================================
+#   COMMENTS & ANALYTICS (OPTIONAL)
+# ============================================================
+# Only needed if you want comments or tracking enabled.
+
+disqus: "wnj"
+ga4_measurement_id: G-R8XS1BVTSW
+
+
+# ============================================================
+#   SITE URL CONFIGURATION (ADVANCED)
+# ============================================================
+# EDIT ONLY IF DEPLOYMENT CHANGES
+
+# Required for sitemap.xml and RSS feed
+url:
+
+# Only change if hosting at:
+# username.github.io/repository-name
+baseurl: ""
+
+
+# ============================================================
+#   CORE SITE SETTINGS (!! DO NOT CHANGE !!)
+# ============================================================
+# These are theme and build-level configurations.
+# Modifying them may break routing, tags, or layouts.
+
+permalink: /:title/
+version: v1.2.0
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    block:
+      line_numbers: true
+
+sass:
+  style: :expanded
+
+gems:
+  - jekyll-sitemap
+  - jekyll-feed
+
+collections:
+  tags:
+    output: true
+    permalink: /tag/:name/
+  guides:
+    output: true
+    permalink: /guides/:path/
+
+defaults:
+  - scope:
+      type: posts
+    values:
+      layout: post
+      permalink: /blog/:title/
+
+# These files are excluded from production build.
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - CNAME

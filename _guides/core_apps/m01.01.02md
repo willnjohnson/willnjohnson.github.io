@@ -1,0 +1,7 @@
+---
+layout: guide-content
+chapter: "M1.1.2"
+title: "Design Book Data Structures"
+guide: "core_apps"
+description: "Define structs for books (title, author, image, URL) and unique IDs via ISBN. Storage inventory as JSON format."
+---
