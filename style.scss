@@ -1273,13 +1273,9 @@ footer {
 
 .cheek {
   display: inline-block;
-  font-size: 14px;
-  margin: 0 -2px;
+  font-size: 12px;
   opacity: 0.8;
-}
-
-.cheek-right {
-  transform: scaleX(-1);
+  margin: 0;
 }
 
 @keyframes eyeLogic {
