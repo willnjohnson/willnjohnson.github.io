@@ -1248,21 +1248,29 @@ footer {
   50% { transform: rotate(15deg); }
 }
 
-@keyframes earTwitchLeft {
-  0%, 75%, 100% { transform: translateY(-5px) rotate(-25deg); }
-  85% { transform: translateY(-8px) rotate(-40deg); }
+@keyframes earTwitchLeftSync {
+  0%, 48%, 56%, 83%, 100% { transform: translateY(-5px) rotate(-25deg); }
+  52% { transform: translateY(-8px) rotate(-35deg); } /* Short twitch */
+  90% { transform: translateY(-8px) rotate(-40deg); } /* Long twitch */
 }
 
-@keyframes earTwitchRight {
-  0%, 75%, 100% { transform: translateY(-5px) rotate(25deg); }
-  85% { transform: translateY(-8px) rotate(40deg); }
+@keyframes earTwitchRightSync {
+  0%, 48%, 56%, 83%, 100% { transform: translateY(-5px) rotate(25deg); }
+  52% { transform: translateY(-8px) rotate(35deg); }
+  90% { transform: translateY(-8px) rotate(40deg); }
 }
 
-@keyframes eyeLogic {
-  0%, 45%, 55%, 100% { content: "•"; transform: translateX(0); }
+@keyframes eyeLogicSync {
+  0%, 45%, 55%, 84% { content: "•"; transform: translateX(0); }
   10%, 30% { content: "•"; transform: translateX(-2px); }
-  70%, 85% { content: "•"; transform: translateX(2px); }
-  50%, 95% { content: "-"; transform: translateX(0); }
+  70% { content: "•"; transform: translateX(2px); }
+  
+  /* Short Blink: Eyes close at 50%, Twitch starts at 51% */
+  50% { content: "-"; transform: translateX(0); } 
+  
+  /* Long Blink: Eyes close at 85%, Twitch starts at 86% */
+  85%, 96% { content: "-"; transform: translateX(0); }
+  100% { content: "•"; }
 }
 
 .paw, .ear, .cheek, .eye, .mouth { display: inline-block; }
@@ -1294,12 +1302,13 @@ footer {
 .mouth { margin: 0 1px; position: relative; }
 
 .animated .paw { animation: pawSway 2s ease-in-out infinite; }
-.animated .ear-left { animation: earTwitchLeft 4s ease-in-out infinite; }
-.animated .ear-right { animation: earTwitchRight 4s ease-in-out infinite; animation-delay: 0.1s; }
+.animated .ear-left { animation: earTwitchLeftSync 6s ease-in-out infinite; }
+.animated .ear-right { animation: earTwitchRightSync 6s ease-in-out infinite; animation-delay: 0.05s; }
+
 .animated .eye-active::after { 
   content: "•"; 
   display: inline-block; 
-  animation: eyeLogic 6s step-end infinite; 
+  animation: eyeLogicSync 6s step-end infinite; 
 }
 
 .eye-sleep { font-size: 24px; }
