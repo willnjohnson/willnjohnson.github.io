@@ -33,7 +33,7 @@ nav-links:
   projects: "/projects"
   freelance: "/freelance"
   guides: "/guides"
-  status: "https://status.willnj.com/ Status"
+#  status: "https://status.willnj.com/ Status"
 
 
 # ============================================================
@@ -43,7 +43,6 @@ nav-links:
 
 footer-links:
   email-fa: "will@willnj.com"
-  instagram-fa: "lucidulus"
   telegram-fa: "willnj"
   threads-fa: "lucidulus"
   x-fa: "willnjohnson"
