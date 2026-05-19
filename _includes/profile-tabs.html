@@ -1,0 +1,451 @@
+{% comment %}
+  Usage:
+  {% include profile-tabs.html
+     mbti="INFJ"
+     disc_d="21.63" disc_i="22.07" disc_s="28.48" disc_c="27.81"
+     archetype="sage"
+     theriotype="fox"
+     zodiac="Gemini"
+  %}
+{% endcomment %}
+
+{% assign _uid = include.mbti | append: include.archetype | append: include.theriotype | downcase | replace: " ", "" %}
+
+{% comment %}── DISC math ──{% endcomment %}
+{% assign _d = include.disc_d | plus: 0 %}
+{% assign _i = include.disc_i | plus: 0 %}
+{% assign _s = include.disc_s | plus: 0 %}
+{% assign _c = include.disc_c | plus: 0 %}
+{% assign _i_plus_s = _i | plus: _s %}
+{% assign _d_plus_c = _d | plus: _c %}
+{% assign _dot_x_raw = _i_plus_s | minus: _d_plus_c %}
+{% assign _dot_x = _dot_x_raw | times: 5 %}
+{% assign _c_plus_s = _c | plus: _s %}
+{% assign _d_plus_i = _d | plus: _i %}
+{% assign _dot_y_raw = _c_plus_s | minus: _d_plus_i %}
+{% assign _dot_y = _dot_y_raw | times: 5 %}
+
+{% comment %}── Archetype lookup ──{% endcomment %}
+{% assign _arch = include.archetype | downcase %}
+{% case _arch %}
+  {% when "innocent" %}
+    {% assign _arch_bg = "#f59f00" %} {% assign _arch_icon = "☀" %}
+  {% when "sage" or "wise old man" %}
+    {% assign _arch_bg = "#4263eb" %} {% assign _arch_icon = "✦" %}
+  {% when "explorer" or "seeker" %}
+    {% assign _arch_bg = "#2b8a3e" %} {% assign _arch_icon = "⟡" %}
+  {% when "outlaw" or "rebel" or "revolutionary" %}
+    {% assign _arch_bg = "#c92a2a" %} {% assign _arch_icon = "☇" %}
+  {% when "magician" or "alchemist" %}
+    {% assign _arch_bg = "#6741d9" %} {% assign _arch_icon = "☾" %}
+  {% when "hero" or "warrior" %}
+    {% assign _arch_bg = "#1864ab" %} {% assign _arch_icon = "⚔" %}
+  {% when "lover" %}
+    {% assign _arch_bg = "#a61e4d" %} {% assign _arch_icon = "♡" %}
+  {% when "jester" or "trickster" or "fool" %}
+    {% assign _arch_bg = "#e67700" %} {% assign _arch_icon = "⁂" %}
+  {% when "everyman" or "regular guy" or "orphan" %}
+    {% assign _arch_bg = "#5c7a3e" %} {% assign _arch_icon = "⌂" %}
+  {% when "caregiver" or "mother" %}
+    {% assign _arch_bg = "#c2255c" %} {% assign _arch_icon = "❋" %}
+  {% when "ruler" or "king" or "queen" %}
+    {% assign _arch_bg = "#b5770d" %} {% assign _arch_icon = "♛" %}
+  {% when "creator" or "artist" %}
+    {% assign _arch_bg = "#9c36b5" %} {% assign _arch_icon = "✎" %}
+  {% else %}
+    {% assign _arch_bg = "#495057" %} {% assign _arch_icon = "✧" %}
+{% endcase %}
+
+{% comment %}── Theriotype lookup ──{% endcomment %}
+{% assign _animal = include.theriotype | downcase %}
+{% case _animal %}
+  {% when "dog" %}            {% assign _ther_bg = "#6d4c41" %} {% assign _ther_icon = "🐶" %}
+  {% when "cat" %}            {% assign _ther_bg = "#5f3dc4" %} {% assign _ther_icon = "🐈" %}
+  {% when "black cat" %}      {% assign _ther_bg = "#212529" %} {% assign _ther_icon = "🐈‍⬛" %}
+  {% when "mouse" %}          {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🐭" %}
+  {% when "hamster" %}        {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐹" %}
+  {% when "rabbit" %}         {% assign _ther_bg = "#c2255c" %} {% assign _ther_icon = "🐰" %}
+  {% when "fox" %}            {% assign _ther_bg = "#d9480f" %} {% assign _ther_icon = "🦊" %}
+  {% when "bear" %}           {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🐻" %}
+  {% when "polar bear" %}     {% assign _ther_bg = "#74c0fc" %} {% assign _ther_icon = "🐻‍❄️" %}
+  {% when "panda" %}          {% assign _ther_bg = "#343a40" %} {% assign _ther_icon = "🐼" %}
+  {% when "koala" %}          {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🐨" %}
+  {% when "tiger" %}          {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐯" %}
+  {% when "lion" %}           {% assign _ther_bg = "#f59f00" %} {% assign _ther_icon = "🦁" %}
+  {% when "cow" %}            {% assign _ther_bg = "#5c7a3e" %} {% assign _ther_icon = "🐮" %}
+  {% when "pig" %}            {% assign _ther_bg = "#f783ac" %} {% assign _ther_icon = "🐷" %}
+  {% when "frog" %}           {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🐸" %}
+  {% when "monkey" %}         {% assign _ther_bg = "#a0522d" %} {% assign _ther_icon = "🐵" %}
+  {% when "chicken" %}        {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐔" %}
+  {% when "penguin" %}        {% assign _ther_bg = "#1c7ed6" %} {% assign _ther_icon = "🐧" %}
+  {% when "bird" %}           {% assign _ther_bg = "#1971c2" %} {% assign _ther_icon = "🐦" %}
+  {% when "duck" %}           {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🦆" %}
+  {% when "eagle" %}          {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🦅" %}
+  {% when "owl" %}            {% assign _ther_bg = "#6d4c41" %} {% assign _ther_icon = "🦉" %}
+  {% when "bat" %}            {% assign _ther_bg = "#5f3dc4" %} {% assign _ther_icon = "🦇" %}
+  {% when "wolf" %}           {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "🐺" %}
+  {% when "boar" %}           {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🐗" %}
+  {% when "horse" %}          {% assign _ther_bg = "#a0522d" %} {% assign _ther_icon = "🐴" %}
+  {% when "unicorn" %}        {% assign _ther_bg = "#cc5de8" %} {% assign _ther_icon = "🦄" %}
+  {% when "bee" %}            {% assign _ther_bg = "#f59f00" %} {% assign _ther_icon = "🐝" %}
+  {% when "butterfly" %}      {% assign _ther_bg = "#e64980" %} {% assign _ther_icon = "🦋" %}
+  {% when "snail" %}          {% assign _ther_bg = "#5c7a3e" %} {% assign _ther_icon = "🐌" %}
+  {% when "ladybug" %}        {% assign _ther_bg = "#c92a2a" %} {% assign _ther_icon = "🐞" %}
+  {% when "ant" %}            {% assign _ther_bg = "#a61e4d" %} {% assign _ther_icon = "🐜" %}
+  {% when "mosquito" %}       {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "🦟" %}
+  {% when "cricket" %}        {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🦗" %}
+  {% when "scorpion" %}       {% assign _ther_bg = "#862e9c" %} {% assign _ther_icon = "🦂" %}
+  {% when "turtle" %}         {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🐢" %}
+  {% when "snake" %}          {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🐍" %}
+  {% when "dragon" %}         {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🐉" %}
+  {% when "dragon face" %}    {% assign _ther_bg = "#c92a2a" %} {% assign _ther_icon = "🐲" %}
+  {% when "sauropod" or "dinosaur" or "brontosaurus" %} {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🦕" %}
+  {% when "t-rex" or "trex" %}{% assign _ther_bg = "#862e9c" %} {% assign _ther_icon = "🦖" %}
+  {% when "whale" %}          {% assign _ther_bg = "#1971c2" %} {% assign _ther_icon = "🐳" %}
+  {% when "dolphin" %}        {% assign _ther_bg = "#1c7ed6" %} {% assign _ther_icon = "🐬" %}
+  {% when "seal" %}           {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🦭" %}
+  {% when "fish" %}           {% assign _ther_bg = "#1971c2" %} {% assign _ther_icon = "🐟" %}
+  {% when "shark" %}          {% assign _ther_bg = "#1971c2" %} {% assign _ther_icon = "🦈" %}
+  {% when "octopus" %}        {% assign _ther_bg = "#c92a2a" %} {% assign _ther_icon = "🐙" %}
+  {% when "crab" %}           {% assign _ther_bg = "#e03131" %} {% assign _ther_icon = "🦀" %}
+  {% when "lobster" %}        {% assign _ther_bg = "#c92a2a" %} {% assign _ther_icon = "🦞" %}
+  {% when "shrimp" %}         {% assign _ther_bg = "#f783ac" %} {% assign _ther_icon = "🦐" %}
+  {% when "flamingo" %}       {% assign _ther_bg = "#f783ac" %} {% assign _ther_icon = "🦩" %}
+  {% when "parrot" %}         {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🦜" %}
+  {% when "peacock" %}        {% assign _ther_bg = "#1971c2" %} {% assign _ther_icon = "🦚" %}
+  {% when "swan" %}           {% assign _ther_bg = "#74c0fc" %} {% assign _ther_icon = "🦢" %}
+  {% when "turkey" %}         {% assign _ther_bg = "#a0522d" %} {% assign _ther_icon = "🦃" %}
+  {% when "dove" %}           {% assign _ther_bg = "#74c0fc" %} {% assign _ther_icon = "🕊️" %}
+  {% when "goose" %}          {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🪿" %}
+  {% when "phoenix" %}        {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐦‍🔥" %}
+  {% when "elephant" %}       {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🐘" %}
+  {% when "mammoth" %}        {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🦣" %}
+  {% when "rhino" or "rhinoceros" %} {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🦏" %}
+  {% when "hippo" or "hippopotamus" %} {% assign _ther_bg = "#c2255c" %} {% assign _ther_icon = "🦛" %}
+  {% when "giraffe" %}        {% assign _ther_bg = "#f59f00" %} {% assign _ther_icon = "🦒" %}
+  {% when "zebra" %}          {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "🦓" %}
+  {% when "deer" %}           {% assign _ther_bg = "#a0522d" %} {% assign _ther_icon = "🦌" %}
+  {% when "bison" %}          {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🦬" %}
+  {% when "camel" %}          {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐫" %}
+  {% when "llama" or "alpaca" %} {% assign _ther_bg = "#f59f00" %} {% assign _ther_icon = "🦙" %}
+  {% when "kangaroo" %}       {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🦘" %}
+  {% when "badger" %}         {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "🦡" %}
+  {% when "otter" %}          {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🦦" %}
+  {% when "skunk" %}          {% assign _ther_bg = "#343a40" %} {% assign _ther_icon = "🦨" %}
+  {% when "raccoon" %}        {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🦝" %}
+  {% when "sloth" %}          {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🦥" %}
+  {% when "hedgehog" %}       {% assign _ther_bg = "#a0522d" %} {% assign _ther_icon = "🦔" %}
+  {% when "gorilla" %}        {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "🦍" %}
+  {% when "orangutan" %}      {% assign _ther_bg = "#d9480f" %} {% assign _ther_icon = "🦧" %}
+  {% when "goat" %}           {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🐐" %}
+  {% when "sheep" %}          {% assign _ther_bg = "#adb5bd" %} {% assign _ther_icon = "🐑" %}
+  {% when "crocodile" or "alligator" %} {% assign _ther_bg = "#2b8a3e" %} {% assign _ther_icon = "🐊" %}
+  {% when "leopard" %}        {% assign _ther_bg = "#e67700" %} {% assign _ther_icon = "🐆" %}
+  {% when "moose" %}          {% assign _ther_bg = "#7d4f32" %} {% assign _ther_icon = "🫎" %}
+  {% when "donkey" %}         {% assign _ther_bg = "#868e96" %} {% assign _ther_icon = "🫏" %}
+  {% when "spider" %}         {% assign _ther_bg = "#343a40" %} {% assign _ther_icon = "🕷️" %}
+  {% when "worm" %}           {% assign _ther_bg = "#c92a2a" %} {% assign _ther_icon = "🪱" %}
+  {% when "jellyfish" %}      {% assign _ther_bg = "#cc5de8" %} {% assign _ther_icon = "🪼" %}
+  {% else %}
+    {% assign _ther_bg = "#495057" %} {% assign _ther_icon = "✧" %}
+{% endcase %}
+
+{% comment %}── Zodiac lookup ──{% endcomment %}
+{% assign _zodiac = include.zodiac | downcase %}
+{% case _zodiac %}
+  {% when "aries" %}      {% assign _zod_bg = "#c92a2a" %} {% assign _zod_icon = "♈" %}
+  {% when "taurus" %}     {% assign _zod_bg = "#5c7a3e" %} {% assign _zod_icon = "♉" %}
+  {% when "gemini" %}     {% assign _zod_bg = "#f59f00" %} {% assign _zod_icon = "♊" %}
+  {% when "cancer" %}     {% assign _zod_bg = "#1971c2" %} {% assign _zod_icon = "♋" %}
+  {% when "leo" %}        {% assign _zod_bg = "#e67700" %} {% assign _zod_icon = "♌" %}
+  {% when "virgo" %}      {% assign _zod_bg = "#2b8a3e" %} {% assign _zod_icon = "♍" %}
+  {% when "libra" %}      {% assign _zod_bg = "#c2255c" %} {% assign _zod_icon = "♎" %}
+  {% when "scorpio" %}    {% assign _zod_bg = "#862e9c" %} {% assign _zod_icon = "♏" %}
+  {% when "sagittarius" %}{% assign _zod_bg = "#d9480f" %} {% assign _zod_icon = "♐" %}
+  {% when "capricorn" %}  {% assign _zod_bg = "#495057" %} {% assign _zod_icon = "♑" %}
+  {% when "aquarius" %}   {% assign _zod_bg = "#1864ab" %} {% assign _zod_icon = "♒" %}
+  {% when "pisces" %}     {% assign _zod_bg = "#0c8599" %} {% assign _zod_icon = "♓" %}
+  {% else %}              {% assign _zod_bg = "#495057" %} {% assign _zod_icon = "✧" %}
+{% endcase %}
+
+{% comment %}── MBTI color ──{% endcomment %}
+{% assign _mbti = include.mbti | upcase %}
+{% assign _mbti_first = _mbti | slice: 0 %}
+{% assign _mbti_last2 = _mbti | slice: 2, 2 %}
+{% if _mbti_first == "I" %}
+  {% if _mbti_last2 == "TJ" or _mbti_last2 == "TP" %}
+    {% assign _mbti_bg = "#1864ab" %}
+  {% else %}
+    {% assign _mbti_bg = "#5f3dc4" %}
+  {% endif %}
+{% else %}
+  {% if _mbti_last2 == "TJ" or _mbti_last2 == "TP" %}
+    {% assign _mbti_bg = "#2b8a3e" %}
+  {% else %}
+    {% assign _mbti_bg = "#c2255c" %}
+  {% endif %}
+{% endif %}
+
+<style>
+.ptabs-wrapper {
+  margin: 1.5rem 0;
+  font-family: system-ui, sans-serif;
+}
+
+.ptabs-nav {
+  display: inline-flex;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.ptabs-btn {
+  flex-shrink: 0;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  border-radius: 4px 4px 0 0;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.ptabs-btn:hover { color: var(--accent-color); }
+
+.ptabs-btn.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
+.ptabs-content {
+  min-width: 0;
+}
+
+.ptabs-panel { display: none; }
+.ptabs-panel.active { display: block; }
+
+/* ── MBTI ── */
+.ptabs-mbti-panel {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.ptabs-mbti-panel.active { display: flex; }
+
+.ptabs-mbti-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.ptabs-mbti-label {
+  font-size: 0.85rem;
+  color: #868e96;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/* ── Banner style (archetype / theriotype / zodiac) ── */
+.ptabs-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  color: white;
+}
+
+.ptabs-banner-icon { font-size: 1.8rem; }
+
+.ptabs-banner-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.ptabs-banner-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ── DISC ── */
+.ptabs-disc-chart {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 1rem auto;
+  border-radius: 50%;
+  background: conic-gradient(
+    #f08c00 0deg 90deg,
+    #2f9e44 90deg 180deg,
+    #1971c2 180deg 270deg,
+    #e03131 270deg 360deg
+  );
+  border: 2px solid #495057;
+}
+
+.ptabs-disc-cross-x,
+.ptabs-disc-cross-y {
+  position: absolute;
+  background: rgba(255,255,255,0.65);
+}
+
+.ptabs-disc-cross-x {
+  top: 50%; left: 0; width: 100%; height: 2px;
+  transform: translateY(-50%);
+}
+
+.ptabs-disc-cross-y {
+  left: 50%; top: 0; width: 2px; height: 100%;
+  transform: translateX(-50%);
+}
+
+.ptabs-disc-label {
+  position: absolute;
+  font-weight: 700;
+  color: white;
+  font-size: 1rem;
+}
+
+.ptabs-disc-d { top: 18%;    left: 22%;  }
+.ptabs-disc-i { top: 18%;    right: 22%; }
+.ptabs-disc-s { bottom: 18%; right: 22%; }
+.ptabs-disc-c { bottom: 18%; left: 22%;  }
+
+.ptabs-disc-dot {
+  position: absolute;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #212529;
+  transform: translate(-50%, -50%);
+}
+
+.ptabs-disc-values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  max-width: 240px;
+  margin: auto;
+}
+
+.ptabs-disc-values div {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.ptabs-dv-d { background: #e03131; }
+.ptabs-dv-i { background: #f08c00; }
+.ptabs-dv-s { background: #2f9e44; }
+.ptabs-dv-c { background: #1971c2; }
+</style>
+
+<div class="ptabs-wrapper">
+
+  <nav class="ptabs-nav" role="tablist" aria-label="Personality profile tabs">
+    <button class="ptabs-btn active" role="tab" onclick="ptabsShow('{{ _uid }}', 'mbti', this)">MBTI</button>
+    <button class="ptabs-btn"        role="tab" onclick="ptabsShow('{{ _uid }}', 'disc', this)">DISC</button>
+    <button class="ptabs-btn"        role="tab" onclick="ptabsShow('{{ _uid }}', 'archetype', this)">Archetype</button>
+    <button class="ptabs-btn"        role="tab" onclick="ptabsShow('{{ _uid }}', 'theriotype', this)">Theriotype</button>
+    <button class="ptabs-btn"        role="tab" onclick="ptabsShow('{{ _uid }}', 'zodiac', this)">Zodiac</button>
+  </nav>
+
+  <div class="ptabs-content">
+
+    <!-- MBTI -->
+    <div class="ptabs-mbti-panel active" id="ptab-{{ _uid }}-mbti">
+      <div class="ptabs-mbti-badge" style="background: {{ _mbti_bg }};">{{ _mbti }}</div>
+      <div class="ptabs-mbti-label">MBTI Type</div>
+    </div>
+
+    <!-- DISC -->
+    <div class="ptabs-panel" id="ptab-{{ _uid }}-disc">
+      <div class="ptabs-disc-chart">
+        <div class="ptabs-disc-cross-x"></div>
+        <div class="ptabs-disc-cross-y"></div>
+        <div class="ptabs-disc-label ptabs-disc-d">D</div>
+        <div class="ptabs-disc-label ptabs-disc-i">I</div>
+        <div class="ptabs-disc-label ptabs-disc-s">S</div>
+        <div class="ptabs-disc-label ptabs-disc-c">C</div>
+        <div class="ptabs-disc-dot"
+          style="left: calc(50% + {{ _dot_x }}px); top: calc(50% + {{ _dot_y }}px);"></div>
+      </div>
+      <div class="ptabs-disc-values">
+        <div class="ptabs-dv-d">D · {{ _d }}%</div>
+        <div class="ptabs-dv-i">I · {{ _i }}%</div>
+        <div class="ptabs-dv-c">C · {{ _c }}%</div>
+        <div class="ptabs-dv-s">S · {{ _s }}%</div>
+      </div>
+    </div>
+
+    <!-- Archetype -->
+    <div class="ptabs-panel" id="ptab-{{ _uid }}-archetype">
+      <div class="ptabs-banner" style="background: {{ _arch_bg }};">
+        <div class="ptabs-banner-icon">{{ _arch_icon }}</div>
+        <div>
+          <div class="ptabs-banner-title">{{ include.archetype }}</div>
+          <div class="ptabs-banner-subtitle">Archetype</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theriotype -->
+    <div class="ptabs-panel" id="ptab-{{ _uid }}-theriotype">
+      <div class="ptabs-banner" style="background: {{ _ther_bg }};">
+        <div class="ptabs-banner-icon">{{ _ther_icon }}</div>
+        <div>
+          <div class="ptabs-banner-title">{{ include.theriotype }}</div>
+          <div class="ptabs-banner-subtitle">Theriotype</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zodiac -->
+    <div class="ptabs-panel" id="ptab-{{ _uid }}-zodiac">
+      <div class="ptabs-banner" style="background: {{ _zod_bg }};">
+        <div class="ptabs-banner-icon">{{ _zod_icon }}</div>
+        <div>
+          <div class="ptabs-banner-title">{{ include.zodiac }}</div>
+          <div class="ptabs-banner-subtitle">Zodiac</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .ptabs-content -->
+
+</div><!-- .ptabs-wrapper -->
+
+<script>
+function ptabsShow(uid, tab, btn) {
+  var prefix = 'ptab-' + uid + '-';
+  // hide all panels — both .ptabs-panel and .ptabs-mbti-panel
+  document.querySelectorAll('[id^="' + prefix + '"]').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.getElementById(prefix + tab).classList.add('active');
+  btn.closest('.ptabs-nav').querySelectorAll('.ptabs-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+}
+</script>
