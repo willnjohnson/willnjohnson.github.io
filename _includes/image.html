@@ -11,17 +11,20 @@
     - caption: Optional caption text
     - max-width: Optional max-width CSS value
     - max-height: Optional max-height CSS value
+    - zoom-src: Optional high-res URL to use when zoomed (defaults to image src)
 {% endcomment %}
 
 <figure class="post-image">
   {% if include.imgur %}
     <img src="https://i.imgur.com/{{ include.imgur }}" 
+         data-zoom-src="{% if include.zoom-src %}{{ include.zoom-src }}{% else %}https://i.imgur.com/{{ include.imgur }}{% endif %}"
          alt="{{ include.alt | default: '' }}" 
          {% if include.max-width %} width="{{ include.max-width }}"{% endif %}
          {% if include.max-height %} height="{{ include.max-height }}"{% endif %}
          loading="lazy" />
   {% elsif include.src %}
     <img src="{{ include.src }}" 
+         data-zoom-src="{% if include.zoom-src %}{{ include.zoom-src }}{% else %}{{ include.src }}{% endif %}"
          alt="{{ include.alt | default: '' }}" 
          {% if include.max-width %} width="{{ include.max-width }}"{% endif %}
          {% if include.max-height %} height="{{ include.max-height }}"{% endif %}

@@ -287,3 +287,37 @@ function collapseTimeline(id) {
     behavior: 'smooth' 
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const progressBar = document.createElement("div");
+  progressBar.className = "reading-progress-bar";
+  document.body.appendChild(progressBar);
+
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = `${scrollPercent}%`;
+  }, { passive: true });
+
+  const selector = "article .entry img, .post-image img, .article-content img, figure img, .entry-content img";
+  const images = Array.from(document.querySelectorAll(selector)).filter(img => {
+    return !img.closest("a") &&
+           !img.classList.contains("author-image") &&
+           !img.classList.contains("site-avatar") &&
+           !img.classList.contains("png-icon") &&
+           !img.closest(".nozoom") &&
+           !img.closest("nav") &&
+           !img.closest(".head");
+  });
+
+  images.forEach(img => {
+    img.classList.add("zoomable");
+    img.style.cursor = "zoom-in";
+    img.addEventListener("click", e => {
+      e.preventDefault();
+      openImageZoom(img);
+    });
+  });
+});
