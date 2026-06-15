@@ -6,7 +6,7 @@ stylesheet: memhier
 ---
 
 <div id="memh-root" class="memh">
-  <p>Download <a href="/resources/test_cases.tar.gz">test cases</a> containing various trace.config and trace.dat files. <strong>Note: </strong>Larger traces make take longer to run in this JS simulation.</p>
+  <p>Download <a href="/resources/test_cases.tar.gz">test cases</a> containing various trace.config and trace.dat files. <strong>Note: </strong>Larger traces may take longer to run in this JS simulation.</p>
   <div class="memh-panel memh-panel--top">
     <h2>Configuration</h2>
     <div class="memh-controls">
