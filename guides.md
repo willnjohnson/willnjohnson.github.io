@@ -3,13 +3,36 @@ layout: guides
 title: "Guides"
 ---
 
+{% assign categories = "" | split: "" %}
+{% for item in site.guides %}
+  {% unless categories contains item.guide %}
+    {% assign categories = categories | push: item.guide %}
+  {% endunless %}
+{% endfor %}
+
 <h1>Guides</h1>
 
-<div class="guides-container">
-  {% assign guide_courses = site.guides | group_by: "guide" %}
+<div class="ptabs-card">
+  <div class="ptabs-card__perspective" onclick="flipCard()">
+    <div class="ptabs-card__inner" id="card">
+      <div class="ptabs-card__face ptabs-card__face--front" id="card-front">
+        <div class="ptabs-card__icon"></div>
+        <span class="ptabs-card__label" id="front-label">MBTI</span>
+      </div>
+      <div class="ptabs-card__face ptabs-card__face--back" id="card-back">
+        <div class="ptabs-card__icon"></div>
+        <span class="ptabs-card__label" id="back-label">MBTI</span>
+      </div>
+    </div>
+  </div>
+  <p class="ptabs-card__hint">Click to flip</p>
+</div>
+
+<div class="guides-container" id="guides-container">
+  {% assign guide_courses = site.guides | sort: "guide" | group_by: "guide" %}
   
   {% for course in guide_courses %}
-  <div class="guide-card" onclick="toggleGuide(this)">
+  <div class="guide-card" data-guide-name="{{ course.name }}" onclick="toggleGuide(this)">
     <div class="guide-card-header">
       {% assign display_name = course.items.first.display_name %}
       <h2>{{ display_name | default: course.name }}</h2>
@@ -37,78 +60,115 @@ title: "Guides"
       </div>
         {% assign prev_chapter = module_chapter %}
       {% endfor %}
-    </div>
-  </div>
-  {% endfor %}
+</div>
+</div>
+{% endfor %}
+
+<div id="no-guides-message" style="display:none;text-align:center;padding:2rem;color:#666;">
+  <p>No guides available for this section yet.</p>
+</div>
+
 </div>
 
 <script>
-  // Expand/collapse guide for modules
-  function toggleGuide(card) {
-    const header = card.querySelector('.guide-card-header');
-    const modules = card.querySelector('.guide-modules');
-    if (header) {
-      header.classList.toggle('expanded');
-    }
-    if (modules) {
-      modules.classList.toggle('expanded');
-    }
+  let currentRotation = 0;
+  let currentIndex = 0;
+
+  const categories = [
+    {% for item in site.guides %}
+      {% assign cat = item.guide %}
+      {% unless forloop.first %}, {% endunless %}"{{ cat }}"
+    {% endfor %}
+  ].filter(function(v, i, a){ return a.indexOf(v) === i; });
+
+  function updateVisibility() {
+    var visibleCat = currentIndex < categories.length ? categories[currentIndex] : categories[0];
+    var cards = document.querySelectorAll('.guide-card');
+    var anyVisible = false;
+    cards.forEach(function(card) {
+      if (card.getAttribute('data-guide-name') === visibleCat) {
+        card.style.display = '';
+        anyVisible = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    var msg = document.getElementById('no-guides-message');
+    if (msg) msg.style.display = anyVisible ? 'none' : 'block';
   }
 
-  // Sort modules numerically after page load
+  function flipCard() {
+    var card = document.getElementById('card');
+    currentRotation += 180;
+    card.style.transform = 'rotateY(' + currentRotation + 'deg)';
+    card.classList.toggle('is-flipped', currentRotation % 360 === 180);
+
+    var nextIndex = (currentIndex + 1) % categories.length;
+    var nextCat = categories[nextIndex];
+
+    setTimeout(function() {
+      document.getElementById('front-label').textContent = categories[currentIndex];
+      document.getElementById('back-label').textContent = nextCat;
+    }, 400);
+
+    setTimeout(function() {
+      currentIndex = nextIndex;
+      updateVisibility();
+    }, 800);
+  }
+
+  // Toggle accordion-style guides
+  function toggleGuide(card) {
+    var header = card.querySelector('.guide-card-header');
+    var mods = card.querySelector('.guide-modules');
+    if (header) header.classList.toggle('expanded');
+    if (mods) mods.classList.toggle('expanded');
+  }
+
+  // Init: show only first category
   document.addEventListener('DOMContentLoaded', function() {
+    if (categories.length > 0) {
+      document.getElementById('front-label').textContent = categories[0];
+      if (categories.length > 1) {
+        document.getElementById('back-label').textContent = categories[1];
+      }
+      updateVisibility();
+    }
+
     document.querySelectorAll('.guide-modules').forEach(function(container) {
-      const items = container.querySelectorAll('.module-item');
-      const separators = container.querySelectorAll('.module-separator');
-      
-      // Sort items by chapter number
-      const sortedItems = Array.from(items).sort(function(a, b) {
-        return parseInt(a.dataset.chapter) - parseInt(b.dataset.chapter);
-      });
-      
-      // Sort separators by module number
-      const sortedSeps = Array.from(separators).sort(function(a, b) {
-        return parseInt(a.dataset.module) - parseInt(b.dataset.module);
-      });
-      
-      // Clear and re-append in sorted order
-      container.innerHTML = '';
-      let prevChapter = null;
-      
-      sortedItems.forEach(function(item) {
-        const chapter = parseInt(item.dataset.chapter);
-        const sep = sortedSeps.find(function(s) { return parseInt(s.dataset.module) === chapter; });
-        
-        if (sep && chapter !== prevChapter) {
-          container.appendChild(sep.cloneNode(true));
-          prevChapter = chapter;
-        }
-        container.appendChild(item);
-      });
+      // Sort/expand logic preserved for first visible guide
+      var items = container.querySelectorAll('.module-item');
+      var separators = container.querySelectorAll('.module-separator');
+      if (items.length === 0) return;
+
+      var sortChildren = function() {
+        var sorted = Array.from(items).sort(function(a, b) {
+          return parseInt(a.getAttribute('data-chapter')) - parseInt(b.getAttribute('data-chapter'));
+        });
+        sorted.forEach(function(item) {
+          var ch = parseInt(item.getAttribute('data-chapter'));
+          var sep = container.querySelector('.module-separator[data-module="' + ch + '"]');
+          if (sep && sep.parentNode !== container) container.appendChild(sep);
+          container.appendChild(item);
+        });
+      };
+      sortChildren();
     });
 
-    // Unfold guide and scroll to module of directed hash
     if (window.location.hash) {
-      const targetId = window.location.hash.substring(1);
-      const targetItem = document.getElementById(targetId);
-      
-      if (targetItem) {
-        // Find parent guide-card and expand it
-        const guideCard = targetItem.closest('.guide-card');
-        if (guideCard) {
-          const header = guideCard.querySelector('.guide-card-header');
-          const modules = guideCard.querySelector('.guide-modules');
-          if (header && !header.classList.contains('expanded')) {
-            header.classList.add('expanded');
-          }
-          if (modules && !modules.classList.contains('expanded')) {
-            modules.classList.add('expanded');
-          }
+      var tid = window.location.hash.substring(1);
+      var target = document.getElementById(tid);
+      if (target) {
+        var parent = target.closest('.guide-card');
+        if (parent) {
+          var h = parent.querySelector('.guide-card-header');
+          var m = parent.querySelector('.guide-modules');
+          if (h && !h.classList.contains('expanded')) h.classList.add('expanded');
+          if (m && !m.classList.contains('expanded')) m.classList.add('expanded');
         }
-        
         setTimeout(function() {
-          targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          targetItem.classList.add('active');
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('active');
         }, 100);
       }
     }
