@@ -19,6 +19,7 @@
     {% if page.layout == 'post' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/post.css" />{% endif %}
     {% if page.layout == 'guide-module' or page.layout == 'guide-content' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/post.css" />{% endif %}
     {% if page.layout == 'guides' %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/guides.css" />{% endif %}
+    {% if page.stylesheet %}<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/{{ page.stylesheet }}.css" />{% endif %}
     <link rel="stylesheet" href="{{ '/fonts/fontawesome/css/all.min.css' | relative_url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
     <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">

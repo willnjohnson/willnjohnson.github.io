@@ -1,0 +1,254 @@
+---
+---
+
+@import "variables";
+
+.matchless {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+  }
+
+  .matchless-host-field {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-light);
+
+    input[type="text"],
+    input[type="password"] {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .matchless-footnote {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+    margin: 0;
+
+    code {
+      font-family: "Quantico", $helveticaNeue, monospace;
+      font-size: 0.85em;
+      color: var(--text-secondary);
+    }
+  }
+
+  .matchless-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .matchless-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .matchless-player-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+  }
+
+  .matchless-roster {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .matchless-roster-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.85rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+
+    &--host {
+      border-color: var(--border-medium);
+    }
+
+    &--out {
+      opacity: 0.55;
+
+      .matchless-roster-name {
+        text-decoration: line-through;
+        color: var(--text-muted);
+      }
+    }
+  }
+
+  .matchless-roster-name {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .matchless-roster-tags {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .matchless-tag {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+
+    &--out {
+      color: var(--text-muted);
+      border-color: var(--border-medium);
+    }
+  }
+
+  .matchless-category {
+    text-align: center;
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .matchless-status {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+    min-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .matchless-player-words {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .matchless-word-row {
+    input {
+      margin-bottom: 0;
+    }
+  }
+
+  .matchless-empty {
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+  }
+
+  .matchless-result-box {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+
+    p {
+      margin: 0 0 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    strong {
+      color: var(--text-primary);
+    }
+  }
+
+  .matchless-winner-text {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .matchless-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .btn {
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .matchless-hidden {
+    display: none !important;
+  }
+
+  .matchless-rules {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+  }
+}

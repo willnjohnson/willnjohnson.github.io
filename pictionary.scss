@@ -1,0 +1,410 @@
+---
+---
+
+@import "variables";
+
+.pictionary {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+
+  h2, h3 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+  }
+
+  input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.75rem;
+    accent-color: var(--accent-color);
+  }
+
+  .pictionary-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .pictionary-rules {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+
+    li { margin-bottom: 0.35rem; }
+  }
+
+  .pictionary-footnote {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+    margin: 0 0 1rem;
+
+    code {
+      font-family: "Quantico", $helveticaNeue, monospace;
+      font-size: 0.85em;
+      color: var(--text-secondary);
+    }
+  }
+
+  .pictionary-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .pictionary-player-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    input { flex: 1; margin-bottom: 0; }
+  }
+
+  .pictionary-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .pictionary-scoreboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .pictionary-score-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.85rem;
+
+    &--drawing {
+      border-color: var(--accent-color);
+      background: var(--bg-highlight);
+    }
+
+    .pictionary-score-num {
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+  }
+
+  .pictionary-status {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1rem;
+  }
+
+  .pictionary-draw-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1rem;
+    align-items: start;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pictionary-canvas-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pictionary-canvas-wrap {
+    background: #fff;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    line-height: 0;
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+  }
+
+  .pictionary-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pictionary-timer-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .pictionary-timer {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .pictionary-timer-bg {
+    fill: #888;
+    stroke: none;
+    transition: fill 0.3s ease;
+
+    &.urgent {
+      fill: #e53935;
+    }
+  }
+
+  .pictionary-timer-elapsed {
+    fill: #fff;
+    stroke: none;
+    transition: d 0.9s linear;
+  }
+
+  .pictionary-timer-text {
+    display: none;
+  }
+
+  .pictionary-canvas-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+
+    .btn {
+      cursor: pointer;
+      flex: 1;
+      min-width: 7rem;
+      font-size: 12px;
+      padding: 8px 12px;
+
+      &:disabled { cursor: not-allowed; }
+    }
+  }
+
+  .pictionary-hints {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 0.85rem;
+  }
+
+  .pictionary-hint-display {
+    min-height: 2.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    font-family: "Quantico", $helveticaNeue, monospace;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    word-break: break-word;
+    white-space: pre-wrap;
+    line-height: 1.8;
+  }
+
+  .pictionary-hint-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 12px;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .pictionary-tools {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 0.85rem;
+  }
+
+  .pictionary-tool-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .pictionary-tool {
+    flex: 1;
+    padding: 0.5rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover, &.active {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      background: var(--bg-highlight);
+    }
+  }
+
+  .pictionary-palette {
+    display: grid;
+    grid-template-columns: repeat(6, 0.2fr);
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pictionary-swatch {
+    aspect-ratio: 1;
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0;
+
+    &.active {
+      border-color: var(--text-primary);
+      box-shadow: 0 0 0 2px var(--accent-color);
+    }
+  }
+
+  .pictionary-brush-size-label {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pictionary-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+
+    .btn {
+      cursor: pointer;
+
+      &:disabled { cursor: not-allowed; }
+    }
+  }
+
+  .pictionary-modal {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .pictionary-guesser-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pictionary-guesser-btn {
+    width: 100%;
+    padding: 0.65rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--accent-color);
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--accent-color);
+      color: var(--bg-primary);
+    }
+  }
+
+  .pictionary-result-box {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+
+    p { margin: 0 0 0.5rem; &:last-child { margin-bottom: 0; } }
+    strong { color: var(--text-primary); }
+  }
+
+  #pictionary-final-scores {
+    text-align: left;
+    margin-bottom: 1rem;
+
+    .pictionary-final-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+      font-family: "Quantico", $helveticaNeue, sans-serif;
+      color: var(--text-primary);
+
+      &:last-child { border-bottom: none; }
+    }
+  }
+
+  .pictionary-hidden {
+    display: none !important;
+  }
+}

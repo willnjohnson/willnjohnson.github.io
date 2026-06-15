@@ -8,7 +8,7 @@ I'm William, a computer scientist who graduated with a Master's degree in Decemb
 
 I enjoy STEM, especially Computer Science (from DevOps and AI/ML to Cybersecurity and beyond). I love staying up-to-date with tech trends, diving into beta testing, and occasionally reading academic papers. When I'm not coding or exploring new ideas, you'll find me enjoying brain teasers, reading, or experimenting in the kitchen. 
 
-Feel free to explore my {% include badge.html icon="blog" text="blog" link="/blog" %} for posts on various topics, or check out my {% include badge.html icon="user" text="about page" link="/apropos" %} to learn more about me. Thanks for stopping by!
+Feel free to explore my {% include badge.html icon="blog" text="blog" link="/blog" %} for posts on various topics, try out my {% include badge.html icon="compass-drafting" text="apps" link="/apps" %} on this site, or check out my {% include badge.html icon="user" text="about page" link="/apropos" %} to learn more about me. Thanks for stopping by!
 
 {% include profile-tabs.html
    mbti="INFJ"
