@@ -5,7 +5,7 @@ title: Apps
 
 ### Utilities
 
-- No items yet
+- [Memory Hierarchy Simulator](/apps/memhier/)
 
 ### Games
 

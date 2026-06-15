@@ -12,22 +12,6 @@ title: "Guides"
 
 <h1>Guides</h1>
 
-<div class="ptabs-card">
-  <div class="ptabs-card__perspective" onclick="flipCard()">
-    <div class="ptabs-card__inner" id="card">
-      <div class="ptabs-card__face ptabs-card__face--front" id="card-front">
-        <div class="ptabs-card__icon"></div>
-        <span class="ptabs-card__label" id="front-label">MBTI</span>
-      </div>
-      <div class="ptabs-card__face ptabs-card__face--back" id="card-back">
-        <div class="ptabs-card__icon"></div>
-        <span class="ptabs-card__label" id="back-label">MBTI</span>
-      </div>
-    </div>
-  </div>
-  <p class="ptabs-card__hint">Click to flip</p>
-</div>
-
 <div class="guides-container" id="guides-container">
   {% assign guide_courses = site.guides | sort: "guide" | group_by: "guide" %}
   
