@@ -1,0 +1,196 @@
+---
+---
+
+@import "variables";
+
+.cfgpda {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 0 6rem;
+  color: var(--text-secondary);
+
+  .cfgpda-back {
+    margin-top: -0.5rem;
+  }
+
+  h2,
+  h3 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    margin: 0 0 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.45rem;
+  }
+
+  textarea,
+  input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Quantico", $helveticaNeue, monospace;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.08);
+    }
+  }
+
+  textarea {
+    height: 115px;
+    resize: none;
+    padding: 0.75rem;
+    line-height: 1.5;
+  }
+
+  input[type="text"] {
+    padding: 0.65rem 0.75rem;
+  }
+
+  code {
+    font-family: "Quantico", $helveticaNeue, monospace;
+    color: var(--text-primary);
+  }
+
+  .cfgpda-sidebar {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .cfgpda-control-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .cfgpda-column-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cfgpda-column-block .btn {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  #cfgpda-fit-btn {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 9999;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #111111;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, transform 0.15s ease;
+
+    i {
+      font-size: 16px;
+      color: inherit;
+    }
+
+    &:hover {
+      color: var(--accent-color);
+      transform: scale(1.25);
+    }
+  }
+
+  .cfgpda-footnote {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    margin: 0;
+  }
+
+  .cfgpda-canvas-container {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: calc(100vh - 410px);
+    min-height: 420px;
+    background-color: #ffffff;
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .cfgpda-cy {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .cfgpda-node-overlay-label {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    font-family: "New Computer Modern Math", "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #111111;
+    user-select: none;
+    white-space: nowrap;
+
+    sub {
+      font-size: 11px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      vertical-align: sub;
+      margin-left: 1px;
+      color: #4b5563;
+    }
+  }
+
+  @include mobile {
+    .cfgpda-control-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cfgpda-canvas-container {
+      height: 60vh;
+      min-height: 360px;
+    }
+  }
+}

@@ -5,6 +5,7 @@ title: Apps
 
 ### Utilities / Education
 
+- [CFG to PDA Converter](/apps/cfg-to-pda)
 - [Memory Hierarchy Simulator](/apps/memhier/)
 
 ### Games

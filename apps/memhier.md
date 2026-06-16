@@ -128,7 +128,7 @@ stylesheet: memhier
   </div>
 
   <p style="text-align: center;">
-    Created for UTK COSC530 Computer Organization. 
+    Created for UTK COSC530 Computer Organization for students to use. 
     <a href="/guides/memhier/m01.00.01/">Guide here</a> for those who are lost.
   </p>
 
