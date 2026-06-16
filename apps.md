@@ -3,7 +3,7 @@ layout: page
 title: Apps
 ---
 
-### Utilities
+### Utilities / Education
 
 - [Memory Hierarchy Simulator](/apps/memhier/)
 
