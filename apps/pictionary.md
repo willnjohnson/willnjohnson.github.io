@@ -86,7 +86,7 @@ stylesheet: pictionary
             <h3>Hints <span id="pictionary-hint-count">0/5</span></h3>
             <div class="pictionary-hint-display" id="pictionary-hint-display">No hints yet</div>
             <button type="button" class="btn pictionary-hint-btn" id="pictionary-hint-btn">Give Hint</button>
-            <br/>
+            <br/><br/>
             <p class="pictionary-footnote">Each hint costs the drawer 1 point. Guessers always earn 10.</p>
           </div>
 

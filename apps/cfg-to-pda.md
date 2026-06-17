@@ -5,7 +5,8 @@ permalink: /apps/cfg-to-pda
 stylesheet: cfg-to-pda
 ---
 
-<p class="cfgpda-back"><a href="/apps/">← Back to Apps</a></p>
+<p><a href="/apps/">← Back to Apps</a></p>
+
 <p>Takes in rules from a Context-Free Grammar and displays a Pushdown Automata as a state diagram.</p>
 <div class="cfgpda">
   <section class="cfgpda-sidebar" aria-label="CFG to PDA controls">

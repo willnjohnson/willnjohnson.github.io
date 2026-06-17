@@ -232,16 +232,6 @@
     justify-content: center;
     gap: 0.75rem;
     flex-wrap: wrap;
-
-    .btn {
-      cursor: pointer;
-      flex: 1;
-      min-width: 7rem;
-      font-size: 12px;
-      padding: 8px 12px;
-
-      &:disabled { cursor: not-allowed; }
-    }
   }
 
   .pictionary-hints {
@@ -264,17 +254,6 @@
     word-break: break-word;
     white-space: pre-wrap;
     line-height: 1.8;
-  }
-
-  .pictionary-hint-btn {
-    width: 100%;
-    font-size: 12px;
-    padding: 6px 12px;
-    cursor: pointer;
-
-    &:disabled {
-      cursor: not-allowed;
-    }
   }
 
   .pictionary-tools {
@@ -327,6 +306,10 @@
     }
   }
 
+  #pictionary-brush-size {
+    cursor: pointer;
+  }
+
   .pictionary-brush-size-label {
     font-size: 0.8rem;
     margin-bottom: 0.25rem;
@@ -337,12 +320,6 @@
     justify-content: center;
     gap: 0.75rem;
     flex-wrap: wrap;
-
-    .btn {
-      cursor: pointer;
-
-      &:disabled { cursor: not-allowed; }
-    }
   }
 
   .pictionary-modal {
@@ -355,24 +332,6 @@
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1rem;
-  }
-
-  .pictionary-guesser-btn {
-    width: 100%;
-    padding: 0.65rem;
-    border: 2px solid var(--accent-color);
-    border-radius: 10px;
-    background: transparent;
-    color: var(--accent-color);
-    font-family: "Quantico", $helveticaNeue, sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--accent-color);
-      color: var(--bg-primary);
-    }
   }
 
   .pictionary-result-box {

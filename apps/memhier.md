@@ -5,6 +5,8 @@ permalink: /apps/memhier/
 stylesheet: memhier
 ---
 
+<p><a href="/apps/">← Back to Apps</a></p>
+
 <div id="memh-root" class="memh">
   <p>Download <a href="/resources/test_cases.tar.gz">test cases</a> containing various trace.config and trace.dat files. <strong>Note: </strong>Larger traces may take longer to run in this JS simulation.</p>
   <div class="memh-panel memh-panel--top">
@@ -83,27 +85,27 @@ stylesheet: memhier
           <div id="breakdown" class="memh-breakdown"></div>
         </div>
         <div id="tab-tlb" class="memh-tab-panel" role="tabpanel">
-          <h3>TLB Translation Matrix</h3>
+          <h3>Translation Lookaside Buffer</h3>
           <div id="tlb-contents" class="memh-table-wrap"></div>
         </div>
         <div id="tab-pt" class="memh-tab-panel" role="tabpanel">
-          <h3>Page Table Mappings</h3>
+          <h3>Page Table</h3>
           <div id="pt-contents" class="memh-table-wrap"></div>
         </div>
         <div id="tab-dc" class="memh-tab-panel" role="tabpanel">
-          <h3>D-Cache Line State</h3>
+          <h3>Data Cache</h3>
           <div id="dc-contents" class="memh-table-wrap"></div>
         </div>
         <div id="tab-l2" class="memh-tab-panel" role="tabpanel">
-          <h3>L2 Cache Secondary Matrix</h3>
+          <h3>L2 Cache</h3>
           <div id="l2-contents" class="memh-table-wrap"></div>
         </div>
         <div id="tab-mem" class="memh-tab-panel" role="tabpanel">
-          <h3>Physical Page Memory Array</h3>
+          <h3>Main Memory</h3>
           <div id="mem-contents" class="memh-table-wrap"></div>
         </div>
         <div id="tab-stats" class="memh-tab-panel" role="tabpanel">
-          <h3>Simulation Metrics</h3>
+          <h3>Simulation Statistics</h3>
           <div id="stats" class="memh-table-wrap"></div>
         </div>
       </div>

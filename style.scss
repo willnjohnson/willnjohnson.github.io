@@ -1135,6 +1135,7 @@ figure.highlight.no-line-numbers td.code {
   -moz-box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
   &:hover,
   &:active {
@@ -1144,6 +1145,10 @@ figure.highlight.no-line-numbers td.code {
     -moz-box-shadow: 3px 3px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 3px 3px rgba(0, 0, 0, 0.3);
     box-shadow: 3px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 }
 

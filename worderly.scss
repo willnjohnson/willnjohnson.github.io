@@ -211,14 +211,6 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
-
-    .btn {
-      cursor: pointer;
-
-      &:disabled {
-        cursor: not-allowed;
-      }
-    }
   }
 
   .worderly-hidden {

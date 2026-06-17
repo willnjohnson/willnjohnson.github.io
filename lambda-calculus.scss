@@ -1,0 +1,174 @@
+---
+---
+
+@import "variables";
+
+.lambda-calculus {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 0 6rem;
+  color: var(--text-secondary);
+
+  h2 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.35rem;
+    margin: 0 0 1rem;
+    color: var(--text-primary);
+  }
+
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.45rem;
+  }
+
+  select,
+  input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.9rem;
+    height: 41px;
+    padding: 0.55rem 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.08);
+    }
+  }
+
+  .lambda-calculus-sidebar {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .lambda-calculus-control-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .lambda-calculus-column-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lambda-calculus-column-block-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .lambda-calculus-input-row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .lambda-calculus-input-row > div {
+    flex: 1;
+  }
+
+  .lambda-calculus-actions {
+    margin-top: 1rem;
+  }
+
+  .lambda-calculus-workspace {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  .lambda-calculus-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+    border-radius: 10px;
+    display: none;
+  }
+
+  .lambda-calculus-card.is-visible {
+    display: block;
+  }
+
+  .lambda-calculus-card-header {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .lambda-calculus-step-block {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .lambda-calculus-step-math {
+    font-family: "Fira Code", Monaco, "Courier New", monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .lambda-calculus-step-num {
+    color: var(--text-tertiary);
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+
+  .lambda-calculus-step-desc {
+    font-size: 0.88rem;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+
+  .lambda-calculus-emphasis {
+    color: var(--text-primary);
+    font-family: "Fira Code", Monaco, monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: var(--bg-secondary);
+    padding: 0.05rem 0.25rem;
+    border-radius: 3px;
+  }
+
+  .lambda-calculus-abbr {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  @include mobile {
+    .lambda-calculus-control-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .lambda-calculus-input-row {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+}

@@ -6,6 +6,7 @@ title: Apps
 ### Utilities / Education
 
 - [CFG to PDA Converter](/apps/cfg-to-pda)
+- [Lambda Calculus Evaluator](/apps/lambda-calculus)
 - [Memory Hierarchy Simulator](/apps/memhier/)
 
 ### Games
