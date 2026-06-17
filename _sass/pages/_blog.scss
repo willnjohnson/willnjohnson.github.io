@@ -125,16 +125,7 @@
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 20px;
-        pointer-events: none;
-      }
+      max-height: 6.9em;
 
       p {
         font-size: 14px;
