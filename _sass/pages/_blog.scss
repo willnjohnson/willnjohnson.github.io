@@ -119,17 +119,17 @@
       color: var(--text-secondary);
       font-size: 14px;
       line-height: 1.5;
-      flex: 1;
-      position: relative;
-      overflow: hidden;
+
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      max-height: 6.9em;
+
+      overflow: hidden;
 
       p {
-        font-size: 14px;
         margin: 0;
+        font-size: inherit;
+        line-height: inherit;
       }
     }
   }
