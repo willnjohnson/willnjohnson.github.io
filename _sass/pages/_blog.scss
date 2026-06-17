@@ -121,7 +121,7 @@
       line-height: 1.5;
       flex: 1;
       overflow: hidden;
-      max-height: 4.5em;
+      max-height: 5.5em;
 
       p {
         font-size: 14px;
@@ -132,8 +132,12 @@
         overflow: hidden;
       }
           
-      p ~ p {
-        display: none;
+      p ~ p, 
+      h2, 
+      figure, 
+      .post-image,
+      a ~ p {
+        display: none !important;
       }
     }
   }
