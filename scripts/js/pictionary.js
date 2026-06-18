@@ -476,7 +476,7 @@
       .map((p, i) => {
         const idx = players.indexOf(p);
         return (
-          '<button type="button" class="pictionary-guesser-btn" data-index="' + idx + '">' +
+          '<button type="button" class="pictionary-guesser-btn btn" data-index="' + idx + '">' +
           escapeHtml(p.name) + " guessed it</button>"
         );
       })

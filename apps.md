@@ -11,6 +11,7 @@ title: Apps
 
 ### Games
 
+- [Alchemy!](/apps/alchemy/)
 - [Matchless!](/apps/matchless/)
 - [Pictionary](/apps/pictionary/)
 - [Worderly](/apps/worderly/)
