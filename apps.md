@@ -7,14 +7,14 @@ title: Apps
 
 - [CFG to PDA Converter](/apps/cfg-to-pda)
 - [Lambda Calculus Evaluator](/apps/lambda-calculus)
-- [Memory Hierarchy Simulator](/apps/memhier/)
+- [Memory Hierarchy Simulator](/apps/memhier)
 
 ### Games
 
-- [Alchemy!](/apps/alchemy/)
-- [Matchless!](/apps/matchless/)
-- [Pictionary](/apps/pictionary/)
-- [Worderly](/apps/worderly/)
+- [Alchemy!](/apps/alchemy)
+- [Matchless!](/apps/matchless)
+- [Pictionary](/apps/pictionary)
+- [Worderly](/apps/worderly)
 
 ### Productivity
 
