@@ -1,6 +1,7 @@
 ---
-layout: page
 title: Matchless!
+layout: page
+permalink: /apps/matchless
 stylesheet: matchless
 ---
 

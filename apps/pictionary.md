@@ -1,6 +1,7 @@
 ---
-layout: page
 title: Pictionary
+layout: page
+permalink: /apps/pictionary
 stylesheet: pictionary
 ---
 

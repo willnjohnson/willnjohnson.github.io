@@ -1,7 +1,7 @@
 ---
 title: Memory Hierarchy Simulator
 layout: page
-permalink: /apps/memhier/
+permalink: /apps/memhier
 stylesheet: memhier
 ---
 

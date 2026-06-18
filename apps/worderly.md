@@ -1,6 +1,7 @@
 ---
-layout: page
 title: Worderly
+layout: page
+permalink: /apps/worderly
 stylesheet: worderly
 ---
 
