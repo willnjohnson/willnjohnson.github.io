@@ -1,0 +1,53 @@
+<div class="email-reveal">
+
+  <!-- Turnstile (invisible trigger) -->
+  <div
+    class="cf-turnstile"
+    data-sitekey="0x4AAAAAADmxT-6Upf7nDGcT"
+    data-callback="onTurnstileSuccess">
+  </div>
+
+  <span id="email-output">
+    <span class="badge">
+      {% include fa.html icon="envelope" %}
+      ••••••••••
+    </span>
+  </span>
+  <br/><br/>
+</div>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+let turnstileToken = null;
+
+async function revealEmail(token) {
+
+  const response = await fetch('https://email.wnj.workers.dev/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token })
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || !data.email) {
+    return;
+  }
+
+  document.getElementById('email-output').innerHTML =
+    `<a href="mailto:${data.email}" class="badge">
+      <i class="fa-solid fa-envelope"></i>
+      ${data.email}
+    </a>`;
+}
+
+// Turnstile callback
+function onTurnstileSuccess(token) {
+  turnstileToken = token;
+
+  revealEmail(token);
+}
+</script>

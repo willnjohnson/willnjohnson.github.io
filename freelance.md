@@ -56,4 +56,4 @@ Other Notes:
 ---
 
 ## Contact Me
-{% include badge.html icon="envelope" text="will@willnj.com" link="mailto:will@willnj.com" %}
+{% include email_reveal.html %}

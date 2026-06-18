@@ -86,5 +86,5 @@ You agree that the original English text shall prevail in the case of a dispute.
 <h2>Contact Us</h2>
 <p>If you have any questions about these Terms of Use, You can contact us:</p>
 <ul>
-<li>By email: will@willnj.com</li>
+{% include email_reveal.html %}
 </ul>
