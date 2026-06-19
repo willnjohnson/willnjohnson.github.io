@@ -24,7 +24,7 @@
     });
   }
 
-  // --- Shared Cytoscape Graph Rendering ---
+  // Shared Cytoscape Graph Rendering
   function createGraph(containerId, elements, startStateId, phantomId) {
     const container = document.getElementById(containerId);
     if (!container) return null;
@@ -140,9 +140,7 @@
     container.innerHTML = html;
   }
 
-  // ==========================================
   // TAB 1: Regex to DFA
-  // ==========================================
   function handleRegexToDFA() {
     const regex = document.getElementById('regex-input').value.trim();
     const sigmaInput = document.getElementById('regex-sigma-input').value;
@@ -202,7 +200,6 @@
     cyTab1 = createGraph('dfa-cy', elements, resultData.startState, phantomId);
   }
 
-  // ==========================================================================
   // REGEX -> DFA ALGORITHM
   // Pipeline: tokenize -> recursive-descent parse -> Thompson's Construction
   //           (regex AST -> epsilon-NFA) -> Subset Construction (NFA -> DFA)
@@ -213,7 +210,6 @@
   //   Term   := Factor* (juxtaposition = concatenation)
   //   Factor := Base '*'*
   //   Base   := SYMBOL | EPSILON | '(' Expr ')'
-  // ==========================================================================
   function tokenizeRegex(regex, alphabet) {
     // Longest-match-first so multi-character alphabet symbols (e.g. "ab") tokenize correctly
     const sortedAlphabet = [...alphabet].sort((a, b) => b.length - a.length);
@@ -457,47 +453,80 @@
       allKeys.filter(k => !acceptingKeys.has(k))
     ].filter(p => p.length > 0);
 
-    const blockIndexOf = (key, part) => part.findIndex(block => block.includes(key));
+    const blockIndexOf = (key, part) =>
+      part.findIndex(block => block.includes(key));
 
     let changed = true;
+
     while (changed) {
       changed = false;
       const newPartition = [];
+
       partition.forEach(block => {
         const groups = new Map();
+
         block.forEach(key => {
-          const sig = alphabet.map(sym => blockIndexOf(transMap[key][sym], partition)).join(',');
-          if (!groups.has(sig)) groups.set(sig, []);
-          groups.get(sig).push(key);
+          const signature = alphabet
+            .map(sym => blockIndexOf(transMap[key][sym], partition))
+            .join(',');
+
+          if (!groups.has(signature))
+            groups.set(signature, []);
+
+          groups.get(signature).push(key);
         });
-        if (groups.size > 1) changed = true;
-        groups.forEach(g => newPartition.push(g));
+
+        if (groups.size > 1)
+          changed = true;
+
+        groups.forEach(group => newPartition.push(group));
       });
+
       partition = newPartition;
     }
 
     const blockOf = {};
-    partition.forEach((block, idx) => block.forEach(key => { blockOf[key] = idx; }));
+
+    partition.forEach((block, idx) => {
+      block.forEach(key => {
+        blockOf[key] = idx;
+      });
+    });
+
     const trapBlock = blockOf[TRAP];
 
-    const minStates = partition.map((_, idx) => idx).filter(idx => idx !== trapBlock);
+    const minStates = partition.map((_, idx) => idx);
+
     const minStart = blockOf[startKey];
+
     const minAccepting = partition
       .map((block, idx) => idx)
-      .filter(idx => idx !== trapBlock && partition[idx].some(k => acceptingKeys.has(k)));
+      .filter(idx =>
+        partition[idx].some(k => acceptingKeys.has(k))
+      );
 
     const minTransitions = [];
+
     partition.forEach((block, idx) => {
-      if (idx === trapBlock) return;
       const repKey = block[0];
+
       alphabet.forEach(sym => {
         const destBlock = blockOf[transMap[repKey][sym]];
-        if (destBlock !== trapBlock) minTransitions.push({ src: idx, symbol: sym, target: destBlock });
+
+        minTransitions.push({
+          src: idx,
+          symbol: sym,
+          target: destBlock
+        });
       });
     });
 
     return {
-      minStates, minStart, minAccepting, minTransitions,
+      minStates,
+      minStart,
+      minAccepting,
+      minTransitions,
+      trapBlock,
       originalCount: dfaStates.size,
       minimizedCount: minStates.length
     };
@@ -551,11 +580,21 @@
     steps.push(`<strong>4. Subset Construction:</strong> determinized into a DFA with ${dfaStates.size} reachable state(s).`);
 
     const min = minimizeDFA(dfaStates, dfaTransitions, startKey, acceptingKeys, alphabet);
-    steps.push(min.minimizedCount < min.originalCount
-      ? `<strong>5. Minimization:</strong> merged equivalent states, reducing ${min.originalCount} state(s) down to ${min.minimizedCount}.`
-      : `<strong>5. Minimization:</strong> the DFA was already minimal (${min.minimizedCount} state(s)).`);
+    steps.push(
+      min.minimizedCount < min.originalCount
+        ? `<strong>5. Minimization:</strong> merged equivalent states, reducing ${min.originalCount} state(s) down to ${min.minimizedCount}.`
+        : `<strong>5. Minimization:</strong> the DFA is already minimal with ${min.minimizedCount} state(s).`
+    );
 
     const relabeled = relabelStates(min.minStates, min.minStart, min.minAccepting, min.minTransitions);
+
+    if (min.trapBlock !== undefined) {
+      const trapState = relabeled.states[min.trapBlock];
+
+      steps.push(
+        `<strong>6. Trap State:</strong> ${trapState} is the trap (dead) state.`
+      );
+    }
 
     return {
       states: relabeled.states,
