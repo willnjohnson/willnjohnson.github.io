@@ -8,6 +8,7 @@ title: Apps
 - [CFG to PDA Converter](/apps/cfg-to-pda)
 - [Lambda Calculus Evaluator](/apps/lambda-calculus)
 - [Memory Hierarchy Simulator](/apps/memhier)
+- [RegExp & DFA Converter](/apps/regexp-dfa)
 
 ### Games
 
