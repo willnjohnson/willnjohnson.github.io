@@ -58,6 +58,10 @@
     }
   }
 
+  .memh-panel--notes {
+    height: 300px;
+  }
+
   .memh-dashboard-grid {
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
@@ -279,17 +283,18 @@
     font-size: 0.85rem;
   }
 
-  .memh-log {
+  .memh-output, .memh-log {
     background: var(--bg-primary);
     border: 1px solid var(--border-light);
     border-radius: 6px;
     padding: 0.5rem 0.75rem;
-    max-height: 150px;
-    overflow-y: auto;
-    font-family: "Quantico", $helveticaNeue, monospace;
+    height: 450px;
+    overflow: auto;
+    font-family: "Courier New", monospace;
     font-size: 0.75rem;
+    line-height: 1.4;
     color: var(--text-secondary);
-    white-space: pre-wrap;
+    white-space: pre;
     margin: 0;
   }
 }

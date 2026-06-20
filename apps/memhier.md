@@ -117,6 +117,11 @@ stylesheet: memhier
     <ul id="step-notes" class="memh-notes"></ul>
   </div>
 
+  <div class="memh-panel memh-panel--output">
+    <h3>Output</h3>
+    <pre id="output" class="memh-output"></pre>
+  </div>
+
   <div class="memh-panel memh-panel--log">
     <h3>System Trace Log</h3>
     <pre id="log" class="memh-log"></pre>
