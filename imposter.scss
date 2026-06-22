@@ -1,0 +1,153 @@
+---
+---
+
+@import "variables";
+
+.imposter {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+
+  h2, h3 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+  }
+
+  .imposter-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .imposter-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .imposter-player-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    input[type="text"] {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    input[type="checkbox"] {
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
+  .imposter-scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .imposter-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.85rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+  }
+
+  .imposter-score-name {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .imposter-score-value {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+  }
+
+  .imposter-word-display {
+    text-align: center;
+    font-family: "Quantico Bold", $helveticaNeue, sans-serif;
+    font-size: 2rem;
+    color: var(--accent-color);
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .imposter-status {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+    min-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .imposter-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .imposter-hidden {
+    display: none !important;
+  }
+
+  .imposter-rules {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+  }
+}
