@@ -243,7 +243,7 @@
 
   .wire { fill: none; stroke: var(--border-medium); stroke-width: 3; transition: stroke 0.15s ease; }
   .wire.active { stroke: #e53935; stroke-width: 5; stroke-dasharray: 10 8; animation: memh-flow 0.6s linear infinite; }
-  .wire.disabled { stroke: var(--border-light); stroke-dasharray: 2 6; opacity: 0.35; }
+  .wire.disabled { stroke: none; pointer-events: none; }
 
   @keyframes memh-flow { to { stroke-dashoffset: -18; } }
 

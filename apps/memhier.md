@@ -42,16 +42,22 @@ stylesheet: memhier
 
         <div class="memh-diagram-wrap">
           <svg id="memh-diagram" class="memh-diagram" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Virtual address wires -->
             <path id="wire-cpu-tlb" class="wire" d="M 410 70 L 190 120"></path>
             <path id="wire-cpu-pt" class="wire" d="M 490 70 L 710 120"></path>
             <path id="wire-tlb-pt" class="wire" d="M 270 150 L 630 150"></path>
             <path id="wire-pt-disk" class="wire" d="M 790 150 L 830 150"></path>
             <path id="wire-tlb-dc" class="wire" d="M 190 180 L 410 230"></path>
             <path id="wire-pt-dc" class="wire" d="M 710 180 L 490 230"></path>
+            <!-- Physical address direct wire: CPU straight down to D-Cache -->
+            <path id="wire-cpu-dc" class="wire" d="M 450 70 L 450 230"></path>
+            <!-- Cache/memory wires -->
             <path id="wire-dc-l2" class="wire" d="M 450 290 L 450 340"></path>
             <path id="wire-l2-mem" class="wire" d="M 450 400 L 450 450"></path>
             <path id="wire-dc-mem" class="wire" d="M 530 260 C 660 260, 660 480, 550 480"></path>
 
+            <!-- Hidden MMU placeholder so JS box-mmu lookups don't fail -->
+            <g id="box-mmu" style="display:none"></g>
             <g id="box-cpu" class="box"><rect x="370" y="10" width="160" height="60" rx="10"></rect><text x="450" y="45">CPU</text></g>
             <g id="box-tlb" class="box"><rect x="110" y="120" width="160" height="60" rx="10"></rect><text x="190" y="155">TLB</text></g>
             <g id="box-pagetable" class="box"><rect x="630" y="120" width="160" height="60" rx="10"></rect><text x="710" y="155">Page Table</text></g>
