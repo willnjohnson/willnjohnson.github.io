@@ -7,9 +7,8 @@ stylesheet: lambda-calculus
 
 <p><a href="/apps/">← Back to Apps</a></p>
 
-<p>Walks through successor, addition, and multiplication over Church numerals with a step-by-step derivation trace.</p>
-
 <div class="lambda-calculus" id="lambda-calculus-app">
+  <p>Walks through successor, addition, and multiplication over Church numerals with a step-by-step derivation trace.</p>
   <section class="lambda-calculus-sidebar" aria-label="Lambda calculus controls">
     <div class="lambda-calculus-control-grid">
       <div class="lambda-calculus-column-block">
@@ -49,7 +48,7 @@ stylesheet: lambda-calculus
   </div>
 
   <p style="text-align: center;">
-    Created for UTK COSC312 Algorithm Analysis and Automata for students to use.
+    Created for UTK COSC312 Algorithm Analysis and Automata.
   </p>
 
 </div>

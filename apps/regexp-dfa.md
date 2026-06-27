@@ -7,9 +7,8 @@ stylesheet: regexp-dfa
 
 <p><a href="/apps/">← Back to Apps</a></p>
 
-<p>Convert Regular Expressions to Deterministic Finite Automata (DFA) and vice versa. Includes step-by-step simplification and state diagram rendering.</p>
-
 <div class="regexdfa">
+  <p>Convert Regular Expressions to Deterministic Finite Automata (DFA) and vice versa. Includes step-by-step simplification and state diagram rendering.</p>
   <div class="regexdfa-tabs">
     <button class="tab-btn active" data-target="tab-regex-to-dfa">RegExp to DFA</button>
     <button class="tab-btn" data-target="tab-dfa-to-regex">DFA to RegExp</button>
@@ -99,7 +98,7 @@ stylesheet: regexp-dfa
   </div>
 
   <p style="text-align: center; margin-top: 2rem;">
-    Created for UTK COSC312 Algorithm Analysis and Automata and COSC580 Foundations for students to use.
+    Created for UTK COSC312 Algorithm Analysis and Automata and for COSC580 Foundations.
   </p>
 </div>
 

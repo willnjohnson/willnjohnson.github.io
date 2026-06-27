@@ -7,9 +7,8 @@ stylesheet: macattack
 
 <p class="macattack-back"><a href="/apps/">← Back to Apps</a></p>
 
-<p>This interactive visualizer demonstrates a length extension vulnerability on a <strong>SHA-1</strong> Message Authentication Code (MAC) where a Keyed-Hash construction <code>MAC = SHA-1(Secret ∥ Message)</code> is improperly implemented.</p>
-
 <div class="macattack">
+  <p>This interactive visualizer demonstrates a length extension vulnerability on a <strong>SHA-1</strong> Message Authentication Code (MAC) where a Keyed-Hash construction <code>MAC = SHA-1(Secret ∥ Message)</code> is improperly implemented.</p>
   <section class="macattack-sidebar" aria-label="Attack configuration controls">
     <div class="macattack-control-grid">
       <div class="macattack-column-block">
@@ -110,7 +109,7 @@ stylesheet: macattack
   </div>
 
   <p style="text-align: center;">
-    Created for UTK COSC483/583 Applied Cryptography for students to use.
+    Created for UTK COSC483/583 Applied Cryptography.
   </p>
 
 </div>

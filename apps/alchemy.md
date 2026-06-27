@@ -6,11 +6,11 @@ stylesheet: alchemy
 ---
 
 <p><a href="/apps/">← Back to Apps</a></p>
-<p>
-  Select two emojis (same or different) on the board or within your recipe book to combine them. Discover and unlock new recipes!
-</p>
 
 <div class="alchemy">
+  <p>
+  Select two emojis (same or different) on the board or within your recipe book to combine them. Discover and unlock new recipes!
+  </p>
   <div class="alchemy-canvas-container" id="alchemy-canvas-container">
     <div id="alchemy-cy" class="alchemy-cy" role="img" aria-label="Alchemy board workspace"></div>
     

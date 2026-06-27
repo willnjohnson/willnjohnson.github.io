@@ -7,8 +7,8 @@ stylesheet: cfg-to-pda
 
 <p><a href="/apps/">← Back to Apps</a></p>
 
-<p>Takes in rules from a Context-Free Grammar and displays a Pushdown Automata as a state diagram.</p>
 <div class="cfgpda">
+  <p>Takes in rules from a Context-Free Grammar and displays a Pushdown Automata as a state diagram.</p>
   <section class="cfgpda-sidebar" aria-label="CFG to PDA controls">
     <div class="cfgpda-control-grid">
       <div class="cfgpda-column-block">
@@ -33,7 +33,7 @@ F->(E)|a</textarea>
   </div>
 
   <p style="text-align: center;">
-    Created for UTK COSC312 Algorithm Analysis and Automata for students to use.
+    Created for UTK COSC312 Algorithm Analysis and Automata.
   </p>
 
 </div>

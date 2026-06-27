@@ -18,7 +18,7 @@ stylesheet: memhier
       <label>trace.dat
         <input id="trace-file" type="file" accept="text/plain,.dat,.txt">
       </label>
-      <label class="memh-speed">Speed (ms)
+      <label class="memh-speed">Play Speed (ms)
         <input id="speed" type="number" value="500" min="50" step="50">
       </label>
     </div>
@@ -141,7 +141,7 @@ stylesheet: memhier
   </div>
 
   <p style="text-align: center;">
-    Created for UTK COSC530 Computer Organization for students to use. 
+    Created for UTK COSC530 Computer Organization. 
     <a href="/guides/memhier/m01.00.01/">Guide here</a> for those who are lost.
   </p>
 
