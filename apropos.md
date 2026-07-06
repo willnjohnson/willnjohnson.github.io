@@ -44,5 +44,17 @@ As an undergraduate research assistant, I investigated the stability of altcoins
 
 ---
 
+## Other
+
+{% include profile-tabs.html
+   mbti="INFJ"
+   disc_d="21.63" disc_i="22.07" disc_s="28.48" disc_c="27.81"
+   archetype="sage"
+   theriotype="fox"
+   zodiac="Gemini"
+%}
+
+---
+
 ## Contact Me
 {% include email_reveal.html %}

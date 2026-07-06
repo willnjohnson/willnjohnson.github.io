@@ -1,0 +1,268 @@
+---
+---
+
+@import "variables";
+
+$sidebar-w: 320px;
+
+.aesthetic {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  p { color: var(--text-secondary); margin: 0 0 1rem; }
+
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="file"],
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    &:focus { outline: none; border-color: var(--accent-color); }
+  }
+
+  input[type="color"] { width: 100%; height: 38px; border: none; border-radius: 8px; background: transparent; cursor: pointer; }
+  input[type="range"] { width: 100%; cursor: pointer; accent-color: var(--accent-color); margin-bottom: 0; }
+
+  .aesthetic-slider-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    input[type="range"] { flex: 1; }
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.25s;
+    &:hover { color: var(--accent-color); transform: rotate(-45deg); }
+  }
+
+  .aesthetic-divider  { border: 0; height: 1px; background: var(--border-light); margin: 1.25rem 0; }
+  .aesthetic-hidden   { display: none !important; }
+
+  .aesthetic-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .btn-secondary { background: transparent; border: 2px solid var(--text-tertiary); color: var(--text-tertiary); }
+
+  .aesthetic-fade-row {
+    display: flex;
+    gap: 8px;
+    input[type="number"] { margin-bottom: 0; }
+  }
+
+  #aesthetic-setup {
+    max-width: 500px;
+    margin: 2rem auto;
+    .aesthetic-panel {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+  }
+
+  #aesthetic-editor { display: flex; flex-direction: column; gap: 1rem; }
+
+  .aesthetic-studio-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .aesthetic-preview-wrap {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aesthetic-preview-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .aesthetic-bg-layer {
+    position: absolute;
+    inset: -10%;
+    width: 120%;
+    height: 120%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px);
+    opacity: 0.6;
+    z-index: 1;
+    transition: background 0.3s;
+  }
+
+  .aesthetic-gif-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .aesthetic-waveform {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  .aesthetic-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .aesthetic-play-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    &:hover { opacity: 0.75; }
+  }
+
+  #aesthetic-time-current,
+  #aesthetic-time-total  { font-size: 0.8rem; font-family: monospace; color: var(--text-tertiary); flex-shrink: 0; }
+  #aesthetic-scrubber    { flex: 1; min-width: 0; }
+
+  .aesthetic-sidebar {
+    flex: 0 0 $sidebar-w;
+    width: $sidebar-w;
+    max-height: 80vh;
+    margin-bottom: 1em;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+
+    &::-webkit-scrollbar       { width: 6px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+  }
+
+  .aesthetic-sidebar-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border-light);
+    flex-shrink: 0;
+
+    .aesthetic-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.7rem 1rem;
+      font-family: "Quantico", $helveticaNeue, sans-serif;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-bottom-color 0.2s;
+      &:hover  { color: var(--accent-color); }
+      &.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+    }
+  }
+
+  .aesthetic-tab-panel {
+    display: none;
+    padding: 1.1rem 1.1rem 1rem;
+    &.active { display: block; }
+  }
+
+  .aesthetic-gif-start-wrap { margin-bottom: 1rem; }
+
+  .aesthetic-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .aesthetic-score-btn {
+    flex: 1;
+    min-width: 56px;
+    padding: 0.4rem 0.4rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--accent-color);
+    font-size: 0.6rem;
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    &:hover, &.active { background: var(--accent-color); color: var(--bg-primary); }
+  }
+
+  @media (max-width: 860px) {
+    .aesthetic-studio-row { flex-direction: column; }
+    .aesthetic-sidebar    { flex: none; width: 100%; max-height: none; }
+    .aesthetic-preview-wrap { width: 100%; }
+  }
+}
