@@ -1,0 +1,222 @@
+---
+---
+
+@import "variables";
+
+.pixie {
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 0 1rem 4rem 1rem;
+
+  .pixie-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.25rem;
+    align-items: stretch;
+
+    @media (max-width: 980px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Fixed height so the editor scrolls instead of growing to fit
+     every line of the loaded program. */
+  .pixie-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 620px;
+
+    @media (max-width: 980px) {
+      height: auto;
+    }
+  }
+
+  .pixie-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--border-light);
+    flex-shrink: 0;
+
+    h2 {
+      font-family: "Quantico", $helveticaNeue, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      margin: 0;
+    }
+  }
+
+  .pixie-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  select {
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.1s ease;
+
+    &:hover { border-color: var(--text-primary); }
+  }
+
+  .btn {
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background-color 0.1s ease, border-color 0.1s ease;
+
+    &:hover {
+      border-color: var(--text-primary);
+      background: var(--border-light);
+    }
+  }
+
+  /* ---- Editor body: gutter + highlight layer + textarea ----
+     The editor surface stays dark (Monokai Soda) in both site
+     themes, like any code block. The highlight layer renders
+     colored HTML; the textarea sits on top with transparent text
+     so only the caret and selection show. All three share the
+     same font metrics so lines stay pixel-aligned. */
+  .pixie-editor-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background: #131313;
+    min-height: 0;
+
+    @media (max-width: 980px) {
+      flex: none;
+      height: 420px;
+    }
+  }
+
+  .pixie-gutter {
+    width: 44px;
+    flex-shrink: 0;
+    padding: 16px 8px 16px 0;
+    text-align: right;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #555;
+    background: #131313;
+    border-right: 1px solid #262626;
+    user-select: none;
+    overflow: hidden;
+    pointer-events: none;
+    white-space: pre;
+  }
+
+  .pixie-code-wrap {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .pixie-highlight,
+  textarea#pixie-code {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 16px 16px 16px 12px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    tab-size: 4;
+    white-space: pre;
+    overflow: auto;
+    border-radius: 0;
+  }
+
+  .pixie-highlight {
+    color: #f8f8f2;
+    background: #131313;
+    border: none;
+    pointer-events: none;
+    z-index: 1;
+
+    .hl-line { min-height: 1em; }
+  }
+
+  textarea#pixie-code {
+    z-index: 2;
+    background: transparent;
+    color: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    box-shadow: none;
+    caret-color: #f8f8f0;
+
+    &::selection { background: #49483e; color: transparent; }
+  }
+
+  /* Monokai Soda token palette (fixed — independent of site theme) */
+  .tok-comment    { color: #75715e; font-style: italic; }
+  .tok-string     { color: #e6db74; }
+  .tok-number     { color: #ae81ff; }
+  .tok-keyword    { color: #f92672; }
+  .tok-command    { color: #66d9ef; }
+  .tok-builtin    { color: #a6e22e; }
+  .tok-identifier { color: #f8f8f2; }
+  .tok-operator   { color: #f92672; }
+  .tok-punct      { color: rgba(248, 248, 242, 0.8); }
+
+  .pixie-statusbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.3rem 1rem;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    background: var(--bg-primary);
+    border-top: 2px solid var(--border-light);
+    flex-shrink: 0;
+
+    &.error #pixie-status-msg { color: #e53e3e; }
+  }
+
+  /* ---- Preview pane ---- */
+  .pixie-preview-body {
+    flex: 1;
+    display: flex;
+    background: #111;
+    min-height: 420px;
+
+    @media (max-width: 980px) {
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+    }
+  }
+
+  iframe#pixie-preview {
+    flex: 1;
+    width: 100%;
+    border: none;
+    display: block;
+  }
+}

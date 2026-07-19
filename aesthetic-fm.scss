@@ -132,12 +132,10 @@ $sidebar-w: 320px;
     inset: -10%;
     width: 120%;
     height: 120%;
-    background-size: cover;
-    background-position: center;
+    display: block;
     filter: blur(15px);
     opacity: 0.6;
     z-index: 1;
-    transition: background 0.3s;
   }
 
   .aesthetic-gif-canvas {
@@ -146,6 +144,15 @@ $sidebar-w: 320px;
     width: 100%;
     height: 100%;
     z-index: 2;
+  }
+
+  .aesthetic-effects-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
   }
 
   .aesthetic-waveform {

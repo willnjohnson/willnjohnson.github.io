@@ -194,7 +194,7 @@
       return { type: 'hit', blk, si, slot, rw, evicted: null };
     }
 
-    // Miss — record first-ever touch
+    // Miss - record first-ever touch
     const isFirst = !cs.firstSeen.has(blk);
     if (isFirst) cs.firstSeen.add(blk);
 
@@ -264,7 +264,7 @@
         const sd    = sortedDims();
         const total = sd.reduce((a, d) => a * dimIterCount(d), 1) * kd.accesses.length;
         if (total > 50000) {
-          wb.textContent = `Too many accesses (${total.toLocaleString()}) for step mode — reduce bounds or increase stride.`;
+          wb.textContent = `Too many accesses (${total.toLocaleString()}) for step mode - reduce bounds or increase stride.`;
           wb.style.display = '';
         } else {
           wb.style.display = 'none';
@@ -458,25 +458,32 @@
     if (lbl)  lbl.textContent  = `${cur.toLocaleString()} / ${tot.toLocaleString()}`;
   }
 
-  function renderCacheTable(p, hiSi, flashType) {
+  function renderCacheTable(p, lastResults) {
     const el = $('cls-cache-table');
     if (!el) return;
     const { numSets, ways } = p;
     const show = Math.min(numSets, 32);
     const kd   = KERNELS[state.kernel];
 
+    // Map each way touched this step to its hit/miss outcome
+    const flash = new Map();
+    if (lastResults) {
+      for (const r of lastResults) flash.set(`${r.si}:${r.slot}`, r.type);
+    }
+
     let html = '<thead><tr><th class="set-lbl">set</th>';
     for (let w = 0; w < ways; w++) html += `<th>way ${w}</th>`;
     html += '</tr></thead><tbody>';
 
     for (let si = 0; si < show; si++) {
-      const isHi = si === hiSi;
+      const isHi = lastResults ? lastResults.some(r => r.si === si) : false;
       html += `<tr${isHi ? ' class="active-row"' : ''}>`;
       html += `<td class="set-lbl">${si}</td>`;
 
       for (let w = 0; w < ways; w++) {
         const slot     = state.cache.sets[si][w];
-        const flashCls = isHi ? (flashType === 'hit' ? ' fl-hit' : ' fl-miss') : '';
+        const ft       = flash.get(`${si}:${w}`);
+        const flashCls = ft ? (ft === 'hit' ? ' fl-hit' : ' fl-miss') : '';
         if (slot) {
           const an  = kd.arrays[slot.arr] || `a${slot.arr}`;
           const ac  = kd.accesses.find(a => a.arr === slot.arr);
@@ -500,7 +507,7 @@
     const desc = $('cls-cache-desc');
     if (desc) {
       desc.textContent =
-        `— ${p.numSets} set${p.numSets > 1 ? 's' : ''} × ${p.ways} way${p.ways > 1 ? 's' : ''} · ${p.elemsPerBlock} elem/block`;
+        `- ${p.numSets} set${p.numSets > 1 ? 's' : ''} × ${p.ways} way${p.ways > 1 ? 's' : ''} · ${p.elemsPerBlock} elem/block`;
     }
   }
 
@@ -561,7 +568,7 @@
     renderCodePreview(hiLine, hiType);
     renderConfigSummary();
     renderProgress();
-    renderCacheTable(p, lastResults ? lastResults[lastResults.length - 1].si : -1, hiType);
+    renderCacheTable(p, lastResults);
     renderBars();
     renderLog();
 
@@ -607,7 +614,7 @@
       onConfigChange();
     });
 
-    // Dimension list — inputs, selects, delete buttons (event delegation)
+    // Dimension list - inputs, selects, delete buttons
     $('cls-dlist').addEventListener('input', e => {
       const el    = e.target;
       const i     = parseInt(el.dataset.dim, 10);
@@ -636,7 +643,7 @@
       onConfigChange();
     });
 
-    // Cache config — fire onConfigChange on every change event
+    // Cache config - fire onConfigChange on every change event
     ['cls-cache-kb', 'cls-block-bytes', 'cls-dtype', 'cls-assoc', 'cls-ways', 'cls-policy']
       .forEach(id => {
         const el = $(id);

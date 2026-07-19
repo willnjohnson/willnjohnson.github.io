@@ -8,11 +8,12 @@ title: Apps
 - [Branch Predictor Visualizer](/apps/branch-predictor)
 - [Cache Locality Simulator](/apps/cache-locality)
 - [CFG to PDA Converter](/apps/cfg-to-pda)
-- DRAM Access Simulator (WIP)
+- [DRAM Access Simulator](/apps/dram)
 - [Lambda Calculus Evaluator](/apps/lambda-calculus)
 - [MAC Attack Visualizer](/apps/macattack)
 - [Memory Hierarchy Simulator](/apps/memhier)
 - [RegExp & DFA Converter](/apps/regexp-dfa)
+- [Speculative Dynamically Scheduled Pipeline Simulator](/apps/dynamsched)
 
 ### Games
 
@@ -20,7 +21,7 @@ title: Apps
 - [Imposter](/apps/imposter)
 - [Matchless!](/apps/matchless)
 - [Pictionary](/apps/pictionary)
-- Pipe Patcher (WIP) ৻( •̀ ᗜ •́ ৻)
+- [Pipe Patcher ৻( •̀ ᗜ •́ ৻)](/apps/pipe-patcher)
 - [Worderly](/apps/worderly)
 
 ### Productivity
@@ -30,3 +31,4 @@ title: Apps
 ### Creativity
 
 - [【 ᴀ ᴇ ꜱ ᴛ ʜ ᴇ ᴛ ɪ ᴄ . ꜰ ᴍ 】](/apps/aesthetic-fm)
+- [Pixie Compiler ✧｡⋆.-*⋆⊹˚٩(•̀ 𐃷< )っ](/apps/pixie)

@@ -32,9 +32,10 @@ stylesheet: aesthetic-fm
 
       <div class="aesthetic-preview-wrap">
         <div class="aesthetic-preview-container" id="aesthetic-preview-box">
-          <div class="aesthetic-bg-layer"  id="aesthetic-bg-layer"></div>
-          <canvas class="aesthetic-gif-canvas" id="aesthetic-gif-canvas"></canvas>
-          <canvas class="aesthetic-waveform"   id="aesthetic-waveform"></canvas>
+          <canvas class="aesthetic-bg-layer"      id="aesthetic-bg-layer"></canvas>
+          <canvas class="aesthetic-gif-canvas"    id="aesthetic-gif-canvas"></canvas>
+          <canvas class="aesthetic-effects-canvas" id="aesthetic-effects-canvas"></canvas>
+          <canvas class="aesthetic-waveform"      id="aesthetic-waveform"></canvas>
         </div>
 
         <div class="aesthetic-player-controls">
@@ -70,6 +71,7 @@ stylesheet: aesthetic-fm
           <label for="aesthetic-bg-mode">Backdrop</label>
           <select id="aesthetic-bg-mode">
             <option value="blur">Blurred GIF</option>
+            <option value="fit">Fit GIF (Crop to Fill)</option>
             <option value="color">Solid Colour</option>
             <option value="black">Classic Black</option>
           </select>
@@ -77,14 +79,36 @@ stylesheet: aesthetic-fm
             <input type="color" id="aesthetic-bg-color" value="#ff00ff" style="margin-top:0.5rem;" />
           </div>
 
+          <label for="aesthetic-effects">Effects</label>
+          <select id="aesthetic-effects">
+            <option value="none">None</option>
+            <option value="ash">Ash</option>
+            <option value="snow">Snow</option>
+            <option value="rain">Rain</option>
+            <option value="firefly">Firefly</option>
+            <option value="glitter">Glitter</option>
+          </select>
+
+          <label for="aesthetic-animation">Animations</label>
+          <select id="aesthetic-animation">
+            <option value="none">None</option>
+            <option value="bounce">Bounce — Beat Zoom</option>
+            <option value="sway">Sway — Gentle Rock</option>
+            <option value="glitch">Glitch — Beat Distort</option>
+          </select>
+
           <hr class="aesthetic-divider" />
 
           <label for="aesthetic-vis-type">Visualizer</label>
           <select id="aesthetic-vis-type">
+            <option value="none">None</option>
             <option value="waveform">Waveform (Line)</option>
             <option value="circular">Circular Waveform</option>
             <option value="eq">Equalizer (Bands)</option>
-            <option value="none">None</option>
+            <option value="mirror">Mirrored Bars</option>
+            <option value="radial">Radial Spectrum</option>
+            <option value="spectrum">Spectrum Area</option>
+            <option value="pulse">Pulse Ring</option>
           </select>
 
           <label for="aesthetic-vis-theme">Theme</label>
@@ -96,6 +120,13 @@ stylesheet: aesthetic-fm
             <option value="rainbow">Rainbow</option>
             <option value="forest">Forest — Greens</option>
             <option value="glass">Glass — 50% White</option>
+            <option value="cyberpunk">Cyberpunk — Pink → Cyan</option>
+            <option value="fire">Fire — Red → Orange → Gold</option>
+            <option value="ocean">Ocean — Navy → Teal → Aqua</option>
+            <option value="gold">Gold — Black → Gold</option>
+            <option value="mono">Mono — White → Grey</option>
+            <option value="pastel">Pastel — Pink → Mint</option>
+            <option value="acid">Acid — Black → Neon Green</option>
           </select>
 
           <label for="aesthetic-vis-stroke">Stroke / Band (<span id="val-vis-stroke">2</span>px)</label>

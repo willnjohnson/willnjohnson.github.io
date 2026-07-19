@@ -1,0 +1,172 @@
+// SNAKE - Pixie game
+
+GRID 256 256
+
+VAR x = 128
+VAR y = 128
+VAR dx = 16
+VAR dy = 0
+VAR nextDx = 16
+VAR nextDy = 0
+VAR appleX = 64
+VAR appleY = 64
+VAR score = 0
+VAR tailLength = 1
+VAR timer = 0
+VAR gameOver = 0
+VAR tickRate = 10
+VAR tail = ARRAY
+
+UPDATE:
+    IF gameOver == 1:
+        CLEAR
+
+        // Ghost board – dim snake remains visible underneath
+        COLOR 255 0 0
+        BOX appleX appleY 16 16
+
+        COLOR 0 60 0
+        FOR_EACH segment IN tail:
+            BOX segment.x segment.y 16 16
+        END
+
+        COLOR 0 100 0
+        BOX x y 16 16
+
+        // Dark overlay — centered in the 256x256 grid
+        COLOR 0 0 0 0.65
+        BOX 28 85 200 100
+
+        // GAME OVER text — horizontally centered on grid midpoint (128)
+        FONT_SIZE 20
+        COLOR 255 50 50
+        TEXT_CENTER "GAME OVER" AT 128 100
+
+        // Score — centered
+        FONT_SIZE 11
+        COLOR 220 220 220
+        TEXT_CENTER "SCORE  " + score AT 128 128
+
+        FONT_SIZE 9
+        COLOR 120 120 120
+        TEXT_CENTER "PRESS ANY KEY" AT 128 155
+
+        IF BTN ANY:
+            x = 128
+            y = 128
+            dx = 16
+            dy = 0
+            nextDx = 16
+            nextDy = 0
+            score = 0
+            tailLength = 1
+            gameOver = 0
+            tickRate = 10
+            appleX = RANDOM(16) * 16
+            appleY = RANDOM(16) * 16
+            tail = ARRAY
+        END
+    END
+
+    IF gameOver == 0:
+        // Poll direction-change keys EVERY frame (not just on tick
+        // frames). Movement only happens once every tickRate frames,
+        // but a keypress can land on ANY frame in between — if we only
+        // checked BTN on the single gated tick frame, a press on any
+        // of the other (tickRate - 1) frames would be invisible to
+        // this logic even though the runtime delivered it correctly.
+        // Buffering the requested direction here and applying it once
+        // per tick (below) means no press is ever missed regardless
+        // of which frame it lands on.
+        IF BTN UP:
+            IF dy == 0:
+                nextDx = 0
+                nextDy = -16
+            END
+        END
+        IF BTN DOWN:
+            IF dy == 0:
+                nextDx = 0
+                nextDy = 16
+            END
+        END
+        IF BTN LEFT:
+            IF dx == 0:
+                nextDx = -16
+                nextDy = 0
+            END
+        END
+        IF BTN RIGHT:
+            IF dx == 0:
+                nextDx = 16
+                nextDy = 0
+            END
+        END
+
+        timer = timer + 1
+        IF timer > tickRate:
+            timer = 0
+
+            dx = nextDx
+            dy = nextDy
+
+            VAR headPos = POINT(x y)
+            ARR_UNSHIFT tail headPos
+
+            IF LEN(tail) > tailLength:
+                ARR_POP tail
+            END
+
+            x = x + dx
+            y = y + dy
+
+            IF x < 0:
+                gameOver = 1
+            END
+            IF x > 240:
+                gameOver = 1
+            END
+            IF y < 0:
+                gameOver = 1
+            END
+            IF y > 240:
+                gameOver = 1
+            END
+
+            FOR_EACH segment IN tail:
+                IF segment.x == x:
+                    IF segment.y == y:
+                        gameOver = 1
+                    END
+                END
+            END
+
+            IF x == appleX:
+                IF y == appleY:
+                    score = score + 1
+                    tailLength = tailLength + 1
+                    appleX = RANDOM(16) * 16
+                    appleY = RANDOM(16) * 16
+                    tickRate = MAX(2, 10 - FLOOR(score / 3))
+                END
+            END
+        END
+
+        CLEAR
+
+        COLOR 255 0 0
+        BOX appleX appleY 16 16
+
+        COLOR 0 180 0
+        FOR_EACH segment IN tail:
+            BOX segment.x segment.y 16 16
+        END
+
+        COLOR 0 255 0
+        BOX x y 16 16
+
+        FONT_SIZE 10
+        COLOR 255 255 255
+        TEXT "SCORE: " + score AT 8 8
+    END
+END

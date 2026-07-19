@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixie Editor</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    background: #111;
+    color: #f8f8f2;
+    overflow: hidden;
+}
+
+/* Left: editor pane */
+#editor-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #2a2a2a;
+    background: #131313;
+}
+
+#header {
+    padding: 10px 16px;
+    background: #1c1c1c;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+#header-title {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #c8a2ff;
+    white-space: nowrap;
+}
+
+#header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#game-select {
+    background: #111;
+    color: #f8f8f2;
+    border: 1px solid #3a3a3a;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    padding: 5px 10px;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+#game-select:hover { border-color: #888; }
+
+#run-btn {
+    background: #c8a2ff22;
+    color: #c8a2ff;
+    border: 1px solid #c8a2ff55;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.15s, border-color 0.15s;
+}
+#run-btn:hover {
+    background: #c8a2ff44;
+    border-color: #c8a2ffaa;
+}
+
+/* Line-number gutter + textarea wrapper */
+#editor-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+#gutter {
+    width: 44px;
+    flex-shrink: 0;
+    padding: 20px 8px 20px 0;
+    text-align: right;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #444;
+    background: #131313;
+    border-right: 1px solid #1e1e1e;
+    user-select: none;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Highlight + textarea share one scroll region: the highlight
+   layer renders colored HTML, the textarea sits on top with
+   transparent text so only the caret/selection are visible. */
+#code-wrap {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+#highlight-layer,
+#code {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 20px 20px 20px 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    tab-size: 4;
+    white-space: pre;
+    overflow: auto;
+}
+
+#highlight-layer {
+    color: #f8f8f2;
+    background: #131313;
+    pointer-events: none;
+    z-index: 1;
+}
+#highlight-layer .hl-line { min-height: 1em; }
+
+#code {
+    z-index: 2;
+    background: transparent;
+    color: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    caret-color: #f8f8f0;
+}
+#code::selection { background: #49483e; color: transparent; }
+
+/* Monokai Soda (Dark) token palette */
+.tok-comment    { color: #75715e; font-style: italic; }
+.tok-string     { color: #e6db74; }
+.tok-number     { color: #ae81ff; }
+.tok-keyword    { color: #f92672; }
+.tok-command    { color: #66d9ef; }
+.tok-builtin    { color: #a6e22e; }
+.tok-identifier { color: #f8f8f2; }
+.tok-operator   { color: #f92672; }
+.tok-punct      { color: #f8f8f2cc; }
+
+/* Status bar */
+#statusbar {
+    padding: 4px 16px;
+    font-size: 11px;
+    color: #555;
+    background: #111;
+    border-top: 1px solid #1e1e1e;
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+#statusbar.error { color: #ff6060; }
+
+/* Right: preview pane */
+#preview-container {
+    width: 50%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#preview-label {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #333;
+    pointer-events: none;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+</style>
+</head>
+<body>
+
+<div id="editor-container">
+    <div id="header">
+        <span id="header-title">PIXIE COMPILER ⋆｡°✩</span>
+        <div id="header-right">
+            <select id="game-select">
+                <option value="snake">Snake</option>
+                <option value="tetris">Tetris</option>
+            </select>
+            <button id="run-btn">▶ RUN</button>
+        </div>
+    </div>
+
+    <div id="editor-body">
+        <div id="gutter"></div>
+        <div id="code-wrap">
+            <pre id="highlight-layer" aria-hidden="true"></pre>
+            <textarea id="code" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+        </div>
+    </div>
+
+    <div id="statusbar">
+        <span id="status-msg">Ready.</span>
+        <span id="cursor-pos">Ln 1, Col 1</span>
+    </div>
+</div>
+
+<div id="preview-container">
+    <div id="preview-label">PREVIEW</div>
+    <iframe id="preview" sandbox="allow-scripts"></iframe>
+</div>
+
+<!-- Load compiler, runtime helper, and syntax highlighter -->
+<script src="pixie-compiler.js"></script>
+<script src="pixie-highlighter.js"></script>
+<script>
+/* ============================================================
+   EDITOR  –  orchestration layer
+============================================================ */
+
+// The pixie runtime source is fetched once and inlined into
+// each sandboxed iframe at compile time.
+let runtimeSource = null;
+
+async function loadRuntime() {
+    const res = await fetch('pixie-runtime.js');
+    if (!res.ok) throw new Error(`pixie-runtime.js responded ${res.status}`);
+    runtimeSource = await res.text();
+}
+
+// Game sources (loaded from .pixie files on demand, cached)
+const gameCache = {};
+const GAME_FILES = {
+    snake:  'games/snake.pixie',
+    tetris: 'games/tetris.pixie',
+};
+
+async function loadGame(name) {
+    if (gameCache[name]) return gameCache[name];
+    const res = await fetch(GAME_FILES[name]);
+    if (!res.ok) throw new Error(`${GAME_FILES[name]} responded ${res.status}`);
+    const src = await res.text();
+    gameCache[name] = src;
+    return src;
+}
+
+/* DOM refs */
+const editor      = document.getElementById('code');
+const highlightEl = document.getElementById('highlight-layer');
+const preview     = document.getElementById('preview');
+const gameSelect  = document.getElementById('game-select');
+const runBtn      = document.getElementById('run-btn');
+const gutter      = document.getElementById('gutter');
+const statusMsg   = document.getElementById('status-msg');
+const cursorPos   = document.getElementById('cursor-pos');
+const statusbar   = document.getElementById('statusbar');
+
+/* Line-number gutter sync */
+function updateGutter() {
+    const lineCount = editor.value.split('\n').length;
+    let html = '';
+    for (let i = 1; i <= lineCount; i++) html += i + '\n';
+    gutter.textContent = html;
+    gutter.scrollTop = editor.scrollTop;
+}
+
+/* Syntax highlight repaint */
+function updateHighlight() {
+    highlightEl.innerHTML = highlightPixie(editor.value);
+    highlightEl.scrollTop  = editor.scrollTop;
+    highlightEl.scrollLeft = editor.scrollLeft;
+}
+
+editor.addEventListener('scroll', () => {
+    gutter.scrollTop       = editor.scrollTop;
+    highlightEl.scrollTop  = editor.scrollTop;
+    highlightEl.scrollLeft = editor.scrollLeft;
+});
+editor.addEventListener('input', () => {
+    updateGutter();
+    updateHighlight();
+});
+
+/* Cursor position */
+editor.addEventListener('keyup',   updateCursor);
+editor.addEventListener('mouseup', updateCursor);
+function updateCursor() {
+    const before = editor.value.slice(0, editor.selectionStart);
+    const lines  = before.split('\n');
+    const ln     = lines.length;
+    const col    = lines[ln - 1].length + 1;
+    cursorPos.textContent = `Ln ${ln}, Col ${col}`;
+}
+
+/* Tab key support */
+editor.addEventListener('keydown', e => {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        const s = editor.selectionStart;
+        editor.value = editor.value.slice(0, s) + '    ' + editor.value.slice(editor.selectionEnd);
+        editor.selectionStart = editor.selectionEnd = s + 4;
+        updateGutter();
+        updateHighlight();
+    }
+});
+
+/* Compile & preview */
+function buildAndPreview() {
+    if (!runtimeSource) return;
+
+    statusbar.className = '';
+    statusMsg.textContent = 'Compiling…';
+
+    try {
+        const generated = pixieCompile(editor.value);
+
+        const boilerplate = `
+if (typeof _setup === 'function') _setup();
+(function _loop() {
+    _pollInput();
+    if (typeof _update === 'function') _update();
+    requestAnimationFrame(_loop);
+})();
+`;
+
+        const html = `<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin:0; overflow:hidden; background:#111;
+       display:flex; justify-content:center; align-items:center; height:100vh; }
+</style>
+</head>
+<body>
+<script>
+${runtimeSource}
+<\/script>
+<script>
+${generated}
+${boilerplate}
+<\/script>
+</body>
+</html>`;
+
+        const blob = new Blob([html], { type: 'text/html' });
+        preview.src = URL.createObjectURL(blob);
+
+        statusMsg.textContent = 'OK - running.';
+    } catch (e) {
+        statusMsg.textContent = '⚠ ' + e.message;
+        statusbar.className   = 'error';
+    }
+}
+
+// Typing only updates highlighting/gutter. It never recompiles or
+// reruns the preview. The preview is frozen until RUN is pressed.
+runBtn.addEventListener('click', buildAndPreview);
+
+/* Game switching
+   Loads the chosen game's source into the editor so it can be
+   read or edited. Press RUN to play. */
+gameSelect.addEventListener('change', async (e) => {
+    try {
+        const src = await loadGame(e.target.value);
+        editor.value = src;
+        updateGutter();
+        updateHighlight();
+        statusMsg.textContent = 'Loaded. Press RUN to play.';
+        statusbar.className = '';
+    } catch (err) {
+        statusMsg.textContent = '⚠ Failed to load ' + e.target.value + ': ' + err.message;
+        statusbar.className = 'error';
+        console.error('Game switch failed:', err);
+    }
+});
+
+/* Bootstrap
+   Loads Snake's source as a starting point but leaves the preview
+   blank until the user explicitly presses RUN. */
+(async () => {
+    try {
+        await loadRuntime();
+        const initialSrc = await loadGame('snake');
+        editor.value = initialSrc;
+        updateGutter();
+        updateHighlight();
+        statusMsg.textContent = 'Loaded. Press RUN to play.';
+    } catch (err) {
+        statusMsg.textContent = 'Failed to load - see message above.';
+        statusbar.className = 'error';
+        console.error('Pixie Editor startup failed:', err);
+    }
+})();
+</script>
+
+</body>
+</html>

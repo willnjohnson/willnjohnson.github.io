@@ -1,0 +1,647 @@
+// TETRIS - Pixie game
+//   Layout (320 wide × 320 tall):
+//     [0..79]   = left HUD  (score, lines)
+//     [80..239] = playfield (10×20 cells × 16px)
+//     [240..319] = right HUD (next piece)
+//
+//   Controls:
+//     LEFT / RIGHT  – fire on key RELEASE
+//     UP            – rotate on key RELEASE
+//     DOWN          – soft drop
+//     DOWN x2       – hard drop
+
+GRID 320 320
+
+// Board state
+VAR board = NEW_ARRAY(200)
+
+// Active piece
+VAR pieceX = 4
+VAR pieceY = 0
+VAR blocks = ARRAY
+VAR colorType = 1
+
+// Next piece
+VAR nextType = 0
+VAR nextBlocks = ARRAY
+VAR nextColor = 1
+
+// Scoring
+VAR score = 0
+VAR lines = 0
+
+// Timing
+VAR timer = 0
+VAR tickRate = 30
+
+// State flags
+VAR gameOver = 0
+VAR spawnNew = 1
+
+// Hard-drop double-tap detection
+//   Starts far in the past so the first tap after a (re)start can
+//   never read as the second half of a double-tap.
+VAR lastDownTap = -100
+VAR frameClock = 0
+
+// Board origin (pixels)
+VAR BX = 80
+VAR BY = 0
+
+UPDATE:
+    frameClock = frameClock + 1
+
+    // GAME OVER SCREEN
+    IF gameOver == 1:
+        CLEAR
+
+        // Left HUD
+        COLOR 15 15 15
+        BOX 0 0 80 320
+        COLOR 60 60 60
+        LINE 79 0 79 320
+
+        FONT_SIZE 9
+        COLOR 160 160 160
+        TEXT "SCORE" AT 12 20
+        FONT_SIZE 13
+        COLOR 255 255 255
+        TEXT score AT 12 34
+
+        FONT_SIZE 9
+        COLOR 160 160 160
+        TEXT "LINES" AT 12 70
+        FONT_SIZE 13
+        COLOR 255 255 255
+        TEXT lines AT 12 84
+
+        // Right HUD
+        COLOR 15 15 15
+        BOX 240 0 80 320
+        COLOR 60 60 60
+        LINE 240 0 240 320
+
+        // Dark board
+        COLOR 10 10 10
+        BOX BX BY 160 320
+
+        // Ghost board cells (faded)
+        FOR y FROM 0 TO 19:
+            FOR x FROM 0 TO 9:
+                VAR idx = y * 10 + x
+                VAR val = board[idx]
+                IF val > 0:
+                    IF val == 1:
+                        COLOR 60 60 0
+                    END
+                    IF val == 2:
+                        COLOR 0 60 60
+                    END
+                    IF val == 3:
+                        COLOR 60 0 60
+                    END
+                    IF val == 4:
+                        COLOR 60 40 0
+                    END
+                    IF val == 5:
+                        COLOR 0 0 60
+                    END
+                    IF val == 6:
+                        COLOR 0 60 0
+                    END
+                    IF val == 7:
+                        COLOR 60 0 0
+                    END
+                    BOX BX + x*16 BY + y*16 15 15
+                END
+            END
+        END
+
+        // Dark overlay over centre strip (centered in the 160px playfield)
+        COLOR 0 0 0 0.65
+        BOX BX 105 160 110
+
+        // GAME OVER text — horizontally centered on playfield midpoint
+        FONT_SIZE 20
+        COLOR 255 50 50
+        TEXT_CENTER "GAME OVER" AT BX + 80 120
+
+        // Final score / lines — centered
+        FONT_SIZE 11
+        COLOR 220 220 220
+        TEXT_CENTER "SCORE  " + score AT BX + 80 150
+        TEXT_CENTER "LINES  " + lines AT BX + 80 165
+
+        FONT_SIZE 9
+        COLOR 120 120 120
+        TEXT_CENTER "PRESS ANY KEY" AT BX + 80 195
+
+        // Board outline
+        COLOR 255 255 255 0.15
+        LINE BX 0 BX 320
+        LINE 240 0 240 320
+        LINE BX 0 240 0
+        LINE BX 319 240 319
+
+        IF BTN ANY:
+            board = NEW_ARRAY(200)
+            score = 0
+            lines = 0
+            tickRate = 30
+            gameOver = 0
+            spawnNew = 1
+            frameClock = 0
+            lastDownTap = -100
+        END
+    END
+
+    // ACTIVE GAMEPLAY
+    IF gameOver == 0:
+
+        // Spawn new piece
+        IF spawnNew == 1:
+            pieceX = 4
+            pieceY = 0
+
+            // Promote queued next piece
+            IF LEN(nextBlocks) > 0:
+                blocks = nextBlocks
+                colorType = nextColor
+            END
+            IF LEN(nextBlocks) == 0:
+                blocks = ARRAY
+                VAR firstType = RANDOM(7)
+                colorType = firstType + 1
+                IF firstType == 0:
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(0 1)
+                    ARR_PUSH blocks POINT(1 1)
+                END
+                IF firstType == 1:
+                    ARR_PUSH blocks POINT(-1 0)
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(2 0)
+                END
+                IF firstType == 2:
+                    ARR_PUSH blocks POINT(-1 0)
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(0 -1)
+                END
+                IF firstType == 3:
+                    ARR_PUSH blocks POINT(-1 0)
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(1 -1)
+                END
+                IF firstType == 4:
+                    ARR_PUSH blocks POINT(-1 0)
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(-1 -1)
+                END
+                IF firstType == 5:
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(1 0)
+                    ARR_PUSH blocks POINT(0 -1)
+                    ARR_PUSH blocks POINT(-1 -1)
+                END
+                IF firstType == 6:
+                    ARR_PUSH blocks POINT(0 0)
+                    ARR_PUSH blocks POINT(-1 0)
+                    ARR_PUSH blocks POINT(0 -1)
+                    ARR_PUSH blocks POINT(1 -1)
+                END
+            END
+
+            // Queue next piece
+            nextBlocks = ARRAY
+            nextType = RANDOM(7)
+            nextColor = nextType + 1
+            IF nextType == 0:
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(0 1)
+                ARR_PUSH nextBlocks POINT(1 1)
+            END
+            IF nextType == 1:
+                ARR_PUSH nextBlocks POINT(-1 0)
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(2 0)
+            END
+            IF nextType == 2:
+                ARR_PUSH nextBlocks POINT(-1 0)
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(0 -1)
+            END
+            IF nextType == 3:
+                ARR_PUSH nextBlocks POINT(-1 0)
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(1 -1)
+            END
+            IF nextType == 4:
+                ARR_PUSH nextBlocks POINT(-1 0)
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(-1 -1)
+            END
+            IF nextType == 5:
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(1 0)
+                ARR_PUSH nextBlocks POINT(0 -1)
+                ARR_PUSH nextBlocks POINT(-1 -1)
+            END
+            IF nextType == 6:
+                ARR_PUSH nextBlocks POINT(0 0)
+                ARR_PUSH nextBlocks POINT(-1 0)
+                ARR_PUSH nextBlocks POINT(0 -1)
+                ARR_PUSH nextBlocks POINT(1 -1)
+            END
+
+            spawnNew = 0
+
+            // Spawn collision = game over
+            VAR startCollide = 0
+            FOR_EACH b IN blocks:
+                VAR checkIdx = (pieceY + b.y) * 10 + (pieceX + b.x)
+                IF checkIdx >= 0:
+                    IF board[checkIdx] > 0:
+                        startCollide = 1
+                    END
+                END
+            END
+            IF startCollide == 1:
+                gameOver = 1
+            END
+        END
+
+        //  INPUT – lateral & rotate fire on KEY RELEASE (BTN_RELEASED)
+        //          so holding a key does nothing extra; you must tap.
+        //          Drop fires on keydown (BTN) for snappier feel.
+
+        // Rotate – fires when UP key is released
+        IF BTN_RELEASED UP:
+            VAR tempRot = ARRAY
+            FOR_EACH b IN blocks:
+                VAR nx = 0 - b.y
+                VAR ny = b.x
+                // O-piece: no rotation
+                IF colorType == 1:
+                    nx = b.x
+                    ny = b.y
+                END
+                ARR_PUSH tempRot POINT(nx ny)
+            END
+            VAR rotCollides = 0
+            FOR_EACH b IN tempRot:
+                VAR gx = pieceX + b.x
+                VAR gy = pieceY + b.y
+                IF gx < 0:
+                    rotCollides = 1
+                END
+                IF gx > 9:
+                    rotCollides = 1
+                END
+                IF gy > 19:
+                    rotCollides = 1
+                END
+                IF gy >= 0:
+                    VAR rotIdx = gy * 10 + gx
+                    IF board[rotIdx] > 0:
+                        rotCollides = 1
+                    END
+                END
+            END
+            IF rotCollides == 0:
+                blocks = tempRot
+            END
+        END
+
+        // Move left – fires when LEFT key is released
+        IF BTN_RELEASED LEFT:
+            VAR leftCollides = 0
+            FOR_EACH b IN blocks:
+                VAR lgx = pieceX + b.x - 1
+                VAR lgy = pieceY + b.y
+                IF lgx < 0:
+                    leftCollides = 1
+                END
+                IF lgy >= 0:
+                    IF lgy < 20:
+                        VAR lIdx = lgy * 10 + lgx
+                        IF board[lIdx] > 0:
+                            leftCollides = 1
+                        END
+                    END
+                END
+            END
+            IF leftCollides == 0:
+                pieceX = pieceX - 1
+            END
+        END
+
+        // Move right – fires when RIGHT key is released
+        IF BTN_RELEASED RIGHT:
+            VAR rightCollides = 0
+            FOR_EACH b IN blocks:
+                VAR rgx = pieceX + b.x + 1
+                VAR rgy = pieceY + b.y
+                IF rgx > 9:
+                    rightCollides = 1
+                END
+                IF rgy >= 0:
+                    IF rgy < 20:
+                        VAR rIdx = rgy * 10 + rgx
+                        IF board[rIdx] > 0:
+                            rightCollides = 1
+                        END
+                    END
+                END
+            END
+            IF rightCollides == 0:
+                pieceX = pieceX + 1
+            END
+        END
+
+        // Down – fires on keydown for immediacy.
+        // Double-tap within ~36 frames = hard drop (slam to bottom).
+        // Single tap = soft drop one row.
+        IF BTN DOWN:
+            VAR tapGap = frameClock - lastDownTap
+
+            IF tapGap < 36:
+                // Hard drop: descend one row per iteration until the
+                // next row down collides; 20 iterations covers the
+                // full board height, so the piece lands on the stack.
+                FOR hardDrop FROM 1 TO 20:
+                    VAR hCollides = 0
+                    FOR_EACH b IN blocks:
+                        VAR hgx = pieceX + b.x
+                        VAR hgy = pieceY + b.y + 1
+                        IF hgy > 19:
+                            hCollides = 1
+                        END
+                        IF hgy >= 0:
+                            IF hgy < 20:
+                                VAR hIdx = hgy * 10 + hgx
+                                IF board[hIdx] > 0:
+                                    hCollides = 1
+                                END
+                            END
+                        END
+                    END
+                    IF hCollides == 0:
+                        pieceY = pieceY + 1
+                    END
+                END
+                // Trigger immediate lock on next gravity tick
+                timer = tickRate
+                lastDownTap = -100
+            END
+
+            IF tapGap >= 36:
+                // Soft drop: move down one cell
+                VAR softCollides = 0
+                FOR_EACH b IN blocks:
+                    VAR sgx = pieceX + b.x
+                    VAR sgy = pieceY + b.y + 1
+                    IF sgy > 19:
+                        softCollides = 1
+                    END
+                    IF sgy >= 0:
+                        IF sgy < 20:
+                            VAR sIdx = sgy * 10 + sgx
+                            IF board[sIdx] > 0:
+                                softCollides = 1
+                            END
+                        END
+                    END
+                END
+                IF softCollides == 0:
+                    pieceY = pieceY + 1
+                END
+                lastDownTap = frameClock
+            END
+        END
+
+        // Gravity
+        timer = timer + 1
+        IF timer >= tickRate:
+            timer = 0
+            VAR dropCollides = 0
+            FOR_EACH b IN blocks:
+                VAR dgx = pieceX + b.x
+                VAR dgy = pieceY + b.y + 1
+                IF dgy > 19:
+                    dropCollides = 1
+                END
+                IF dgy >= 0:
+                    IF dgy < 20:
+                        VAR dIdx = dgy * 10 + dgx
+                        IF board[dIdx] > 0:
+                            dropCollides = 1
+                        END
+                    END
+                END
+            END
+
+            IF dropCollides == 0:
+                pieceY = pieceY + 1
+            END
+
+            IF dropCollides == 1:
+                // Lock piece into board
+                FOR_EACH b IN blocks:
+                    VAR lbgx = pieceX + b.x
+                    VAR lbgy = pieceY + b.y
+                    IF lbgy >= 0:
+                        VAR lbIdx = lbgy * 10 + lbgx
+                        board[lbIdx] = colorType
+                    END
+                END
+                spawnNew = 1
+
+                // Clear full lines
+                VAR cleared = 0
+                FOR ry FROM 0 TO 19:
+                    VAR isFull = 1
+                    FOR rx FROM 0 TO 9:
+                        VAR rIdx = ry * 10 + rx
+                        IF board[rIdx] == 0:
+                            isFull = 0
+                        END
+                    END
+                    IF isFull == 1:
+                        cleared = cleared + 1
+                        FOR sy FROM ry DOWNTO 1:
+                            FOR sx FROM 0 TO 9:
+                                VAR dest = sy * 10 + sx
+                                VAR src = (sy - 1) * 10 + sx
+                                board[dest] = board[src]
+                            END
+                        END
+                        FOR sx FROM 0 TO 9:
+                            board[sx] = 0
+                        END
+                    END
+                END
+                IF cleared > 0:
+                    lines = lines + cleared
+                    score = score + cleared * 100
+                    tickRate = MAX(2, 30 - FLOOR(lines / 5))
+                END
+            END
+        END
+
+        // DRAW
+        CLEAR
+
+        // Left HUD
+        COLOR 15 15 15
+        BOX 0 0 80 320
+
+        COLOR 60 60 60
+        LINE 79 0 79 320
+
+        FONT_SIZE 9
+        COLOR 160 160 160
+        TEXT "SCORE" AT 12 20
+        FONT_SIZE 13
+        COLOR 255 255 255
+        TEXT score AT 12 34
+
+        FONT_SIZE 9
+        COLOR 160 160 160
+        TEXT "LINES" AT 12 70
+        FONT_SIZE 13
+        COLOR 255 255 255
+        TEXT lines AT 12 84
+
+        // Right HUD
+        COLOR 15 15 15
+        BOX 240 0 80 320
+
+        COLOR 60 60 60
+        LINE 240 0 240 320
+
+        FONT_SIZE 9
+        COLOR 160 160 160
+        TEXT "NEXT" AT 256 20
+
+        // Next piece preview
+        IF nextColor == 1:
+            COLOR 255 255 0
+        END
+        IF nextColor == 2:
+            COLOR 0 255 255
+        END
+        IF nextColor == 3:
+            COLOR 255 0 255
+        END
+        IF nextColor == 4:
+            COLOR 255 165 0
+        END
+        IF nextColor == 5:
+            COLOR 0 0 255
+        END
+        IF nextColor == 6:
+            COLOR 0 255 0
+        END
+        IF nextColor == 7:
+            COLOR 255 0 0
+        END
+        FOR_EACH nb IN nextBlocks:
+            VAR npx = 272 + nb.x * 14
+            VAR npy = 60 + nb.y * 14
+            BOX npx npy 13 13
+        END
+
+        // Playfield
+        COLOR 10 10 10
+        BOX BX BY 160 320
+
+        // Subtle grid
+        COLOR 20 20 20
+        FOR gx FROM 0 TO 9:
+            LINE BX + gx*16 0 BX + gx*16 320
+        END
+        FOR gy FROM 0 TO 19:
+            LINE BX gy*16 240 gy*16
+        END
+
+        // Locked cells
+        FOR y FROM 0 TO 19:
+            FOR x FROM 0 TO 9:
+                VAR idx = y * 10 + x
+                VAR val = board[idx]
+                IF val > 0:
+                    IF val == 1:
+                        COLOR 255 255 0
+                    END
+                    IF val == 2:
+                        COLOR 0 255 255
+                    END
+                    IF val == 3:
+                        COLOR 255 0 255
+                    END
+                    IF val == 4:
+                        COLOR 255 165 0
+                    END
+                    IF val == 5:
+                        COLOR 0 0 255
+                    END
+                    IF val == 6:
+                        COLOR 0 255 0
+                    END
+                    IF val == 7:
+                        COLOR 255 0 0
+                    END
+                    BOX BX + x*16 BY + y*16 15 15
+                END
+            END
+        END
+
+        // Active piece
+        IF spawnNew == 0:
+            IF colorType == 1:
+                COLOR 255 255 0
+            END
+            IF colorType == 2:
+                COLOR 0 255 255
+            END
+            IF colorType == 3:
+                COLOR 255 0 255
+            END
+            IF colorType == 4:
+                COLOR 255 165 0
+            END
+            IF colorType == 5:
+                COLOR 0 0 255
+            END
+            IF colorType == 6:
+                COLOR 0 255 0
+            END
+            IF colorType == 7:
+                COLOR 255 0 0
+            END
+            FOR_EACH b IN blocks:
+                VAR px = BX + (pieceX + b.x) * 16
+                VAR py = BY + (pieceY + b.y) * 16
+                BOX px py 15 15
+            END
+        END
+
+        // Board outline
+        COLOR 255 255 255 0.25
+        LINE BX 0 BX 320
+        LINE 240 0 240 320
+        LINE BX 0 240 0
+        LINE BX 319 240 319
+
+    END
+END

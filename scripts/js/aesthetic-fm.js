@@ -21,6 +21,9 @@
     bgMode: document.getElementById("aesthetic-bg-mode"),
     colorPickerWrap: document.getElementById("aesthetic-color-picker-wrap"),
     bgColor: document.getElementById("aesthetic-bg-color"),
+    effects: document.getElementById("aesthetic-effects"),
+    effectsCanvas: document.getElementById("aesthetic-effects-canvas"),
+    animation: document.getElementById("aesthetic-animation"),
     visType: document.getElementById("aesthetic-vis-type"),
     visTheme: document.getElementById("aesthetic-vis-theme"),
     visStroke: document.getElementById("aesthetic-vis-stroke"),
@@ -73,8 +76,20 @@
     gifLastRaf: 0,
     gifAnimId: null,
     gifCtx: null,
+    bgCtx: null,
     visAnimId: null,
     isScrubbing: false,
+    particles: [],
+    currentEffectType: null,
+    effectsCtx: null,
+    radialAngle: 0,
+    beatData: null,
+    bassEMA: null,
+    bassEnvelope: null,
+    lastBeatTime: 0,
+    beatPulse: 0,
+    swayPhase: 0,
+    animApplied: false,
   };
 
   function fmt(s) {
@@ -124,6 +139,10 @@
       S.gifWidth = parsed.width;
       S.gifHeight = parsed.height;
 
+      S.bgCtx = els.bgLayer.getContext("2d");
+      els.bgLayer.width = 1280;
+      els.bgLayer.height = 720;
+
       const audioBuf = await els.audioUpload.files[0].arrayBuffer();
       S.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       S.audioBuffer = await S.audioCtx.decodeAudioData(audioBuf);
@@ -134,8 +153,8 @@
       els.timeTotal.textContent = fmt(S.duration);
 
       await buildAudioGraph();
-      updateBackground();
       drawGifFrame(0);
+      updateBackground();
 
       els.setup.classList.add("aesthetic-hidden");
       els.editor.classList.remove("aesthetic-hidden");
@@ -280,6 +299,20 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     els.playPauseBtn.textContent = "▶";
   }
 
+  function resetReverbTail() {
+    // ConvolverNode buffers its own reverb tail internally; stopping the
+    // source doesn't clear it, so a seek would otherwise let the old tail
+    // ring into the audio at the new position. Swap in a fresh convolver.
+    if (!S.audioCtx || !S.reverbNode) return;
+    try { S.bitcrushNode.disconnect(S.reverbNode); } catch (_) { }
+    try { S.reverbNode.disconnect(S.wetGain); } catch (_) { }
+    const fresh = S.audioCtx.createConvolver();
+    fresh.buffer = S.reverbNode.buffer;
+    S.reverbNode = fresh;
+    S.bitcrushNode.connect(S.reverbNode);
+    S.reverbNode.connect(S.wetGain);
+  }
+
   function stopForSeek(nextOffset) {
     S.intentionalStop = true;
     try { S.sourceNode.stop(); } catch (_) { }
@@ -288,6 +321,7 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     cancelAnimationFrame(S.visAnimId);
     cancelAnimationFrame(S.gifAnimId);
     S.isPlaying = false;
+    resetReverbTail();
   }
 
   function onNaturalEnd() {
@@ -398,25 +432,33 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     els[id].addEventListener("input", updateLabels);
   });
 
+  function drawBackdropFrame() {
+    if (!S.bgCtx || !S._scratchCanvas || !S._scratchCanvas.width) return;
+    const cw = els.bgLayer.width;
+    const ch = els.bgLayer.height;
+    const sw = S._scratchCanvas.width;
+    const sh = S._scratchCanvas.height;
+    const scale = Math.max(cw / sw, ch / sh);
+    const dw = sw * scale;
+    const dh = sh * scale;
+    const dx = (cw - dw) / 2;
+    const dy = (ch - dh) / 2;
+    S.bgCtx.clearRect(0, 0, cw, ch);
+    S.bgCtx.drawImage(S._scratchCanvas, dx, dy, dw, dh);
+  }
+
   function updateBackground() {
     const mode = els.bgMode.value;
     els.colorPickerWrap.classList.toggle("aesthetic-hidden", mode !== "color");
     if (mode === "blur") {
-      if (S._scratchCanvas && S._scratchCanvas.width > 0) {
-        const tmp = document.createElement("canvas");
-        tmp.width = els.gifCanvas.width;
-        tmp.height = els.gifCanvas.height;
-        tmp.getContext("2d").drawImage(S._scratchCanvas, 0, 0, tmp.width, tmp.height);
-        els.bgLayer.style.backgroundImage = `url(${tmp.toDataURL()})`;
-      } else {
-        els.bgLayer.style.backgroundImage = `url(${els.gifCanvas.toDataURL()})`;
-      }
       els.bgLayer.style.backgroundColor = "transparent";
+      drawBackdropFrame();
     } else if (mode === "color") {
-      els.bgLayer.style.backgroundImage = "none";
+      if (S.bgCtx) S.bgCtx.clearRect(0, 0, els.bgLayer.width, els.bgLayer.height);
       els.bgLayer.style.backgroundColor = els.bgColor.value;
     } else {
-      els.bgLayer.style.backgroundImage = "none";
+      // "black" and "fit" both just show a flat backdrop behind/around the gif
+      if (S.bgCtx) S.bgCtx.clearRect(0, 0, els.bgLayer.width, els.bgLayer.height);
       els.bgLayer.style.backgroundColor = "#000";
     }
   }
@@ -441,7 +483,11 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
 
     const dw = els.gifCanvas.width;
     const dh = els.gifCanvas.height;
-    const scale = Math.min(dw / S.gifWidth, dh / S.gifHeight);
+    // "Fit" crops to fill the frame (like CSS background-size:cover); every
+    // other mode letterboxes to keep the whole gif visible.
+    const scale = els.bgMode.value === "fit"
+      ? Math.max(dw / S.gifWidth, dh / S.gifHeight)
+      : Math.min(dw / S.gifWidth, dh / S.gifHeight);
     const bw = Math.round(S.gifWidth * scale);
     const bh = Math.round(S.gifHeight * scale);
     const bx = Math.round((dw - bw) / 2);
@@ -458,16 +504,21 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     S.gifAccumMs = 0;
     S.gifLastRaf = performance.now();
     drawGifFrame(startI);
+    if (els.bgMode.value === "blur") drawBackdropFrame();
     gifLoop(performance.now());
   }
 
   function gifLoop(now) {
     if (!S.isPlaying) return;
     S.gifAnimId = requestAnimationFrame(gifLoop);
-    if (!S.gifFrames.length) return;
 
     const delta = now - S.gifLastRaf;
     S.gifLastRaf = now;
+    stepParticles();
+    stepAnimation(now, delta);
+
+    if (!S.gifFrames.length) return;
+
     const speedMul = parseFloat(els.gifSpeed.value) / 100;
     S.gifAccumMs += delta * speedMul;
 
@@ -479,7 +530,7 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     }
     if (advanced) {
       drawGifFrame(S.gifFrameIndex);
-      if (els.bgMode.value === "blur") updateBackground();
+      if (els.bgMode.value === "blur") drawBackdropFrame();
     }
   }
 
@@ -491,36 +542,273 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
     drawGifFrame(S.gifFrameIndex);
   });
 
+  function resizeEffectsCanvas() {
+    const rect = els.previewBox.getBoundingClientRect();
+    const tw = Math.round(rect.width);
+    const th = Math.round(rect.height);
+    if (tw > 0 && th > 0 && (els.effectsCanvas.width !== tw || els.effectsCanvas.height !== th)) {
+      els.effectsCanvas.width = tw;
+      els.effectsCanvas.height = th;
+    }
+  }
+
+  function spawnParticle(type, w, h, randomY) {
+    const x = Math.random() * w;
+    const y = randomY ? Math.random() * h : -10;
+    switch (type) {
+      case "ash":
+        return { x, y, vx: (Math.random() - 0.5) * 0.3, vy: 0.3 + Math.random() * 0.5, r: 1 + Math.random() * 2, alpha: 0.25 + Math.random() * 0.35, drift: Math.random() * Math.PI * 2 };
+      case "snow":
+        return { x, y, vx: (Math.random() - 0.5) * 0.4, vy: 0.5 + Math.random() * 1.0, r: 1.5 + Math.random() * 2.5, alpha: 0.5 + Math.random() * 0.5, drift: Math.random() * Math.PI * 2 };
+      case "rain":
+        return { x, y: randomY ? Math.random() * h : -20, vx: -0.5, vy: 8 + Math.random() * 6, len: 10 + Math.random() * 10, alpha: 0.25 + Math.random() * 0.3 };
+      case "firefly":
+        return { x, y, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, r: 1.5 + Math.random() * 1.5, phase: Math.random() * Math.PI * 2, speed: 0.02 + Math.random() * 0.03 };
+      case "glitter":
+        return { x, y, vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2, r: 0.5 + Math.random() * 1.5, phase: Math.random() * Math.PI * 2, speed: 0.05 + Math.random() * 0.08 };
+      default:
+        return null;
+    }
+  }
+
+  const EFFECT_COUNTS = { ash: 40, snow: 60, rain: 90, firefly: 25, glitter: 60 };
+
+  function initParticles(type) {
+    const w = els.effectsCanvas.width, h = els.effectsCanvas.height;
+    const count = EFFECT_COUNTS[type] || 0;
+    S.particles = [];
+    for (let i = 0; i < count; i++) S.particles.push(spawnParticle(type, w, h, true));
+  }
+
+  function stepParticles() {
+    resizeEffectsCanvas();
+    if (!S.effectsCtx) S.effectsCtx = els.effectsCanvas.getContext("2d");
+    const ctx = S.effectsCtx;
+    const w = els.effectsCanvas.width, h = els.effectsCanvas.height;
+    const type = els.effects.value;
+
+    if (type === "none") {
+      ctx.clearRect(0, 0, w, h);
+      S.particles = [];
+      S.currentEffectType = type;
+      return;
+    }
+    if (type !== S.currentEffectType || !S.particles.length) {
+      initParticles(type);
+      S.currentEffectType = type;
+    }
+
+    ctx.clearRect(0, 0, w, h);
+
+    S.particles.forEach(p => {
+      if (type === "ash") {
+        p.drift += 0.01;
+        p.x += p.vx + Math.sin(p.drift) * 0.3;
+        p.y += p.vy;
+        if (p.y > h + 5 || p.x < -5 || p.x > w + 5) Object.assign(p, spawnParticle("ash", w, h, false));
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(150,150,150,${p.alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+      } else if (type === "snow") {
+        p.drift += 0.02;
+        p.x += p.vx + Math.sin(p.drift) * 0.5;
+        p.y += p.vy;
+        if (p.y > h + 5 || p.x < -5 || p.x > w + 5) Object.assign(p, spawnParticle("snow", w, h, false));
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+      } else if (type === "rain") {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y > h + 20) Object.assign(p, spawnParticle("rain", w, h, false));
+        ctx.strokeStyle = `rgba(180,210,255,${p.alpha})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + p.vx * 2, p.y + p.len);
+        ctx.stroke();
+
+      } else if (type === "firefly") {
+        p.phase += p.speed;
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        const a = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(p.phase));
+        ctx.save();
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(210,255,120,0.9)";
+        ctx.fillStyle = `rgba(220,255,150,${a})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+      } else if (type === "glitter") {
+        p.phase += p.speed;
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.x = Math.random() * w;
+        if (p.y < 0 || p.y > h) p.y = Math.random() * h;
+        const a = Math.max(0, Math.sin(p.phase));
+        ctx.save();
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = `rgba(255,255,255,${a})`;
+        ctx.fillStyle = `rgba(255,255,255,${a})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+  }
+
+  els.effects.addEventListener("input", () => {
+    S.currentEffectType = null;
+    if (els.effects.value === "none" && S.effectsCtx) {
+      S.effectsCtx.clearRect(0, 0, els.effectsCanvas.width, els.effectsCanvas.height);
+      S.particles = [];
+    }
+  });
+
+  // Beat-reactive animations read S.beatPulse (0..1), a blend of two
+  // signals so they stay visibly alive even on mellow, non-percussive
+  // vaporwave/lofi material that rarely has sharp transients:
+  //  - bassEnvelope: a fast-following smoothed bass level, so the
+  //    animation continuously "breathes" with the music's loudness.
+  //  - a spike detector on top of that, for an extra kick on real beats
+  //    (with a short cooldown so it doesn't retrigger every frame).
+  function updateBeatPulse(now) {
+    if (!S.analyser) return;
+    const bufLen = S.analyser.frequencyBinCount;
+    if (!S.beatData || S.beatData.length !== bufLen) S.beatData = new Uint8Array(bufLen);
+    S.analyser.getByteFrequencyData(S.beatData);
+
+    const bassBins = Math.max(1, Math.floor(bufLen * 0.12));
+    let sum = 0;
+    for (let i = 0; i < bassBins; i++) sum += S.beatData[i];
+    const bass = (sum / bassBins) / 255;
+
+    if (S.bassEnvelope == null) S.bassEnvelope = bass;
+    S.bassEnvelope += (bass - S.bassEnvelope) * 0.35;
+
+    if (S.bassEMA == null) S.bassEMA = bass;
+    const isBeat = bass > S.bassEMA * 1.10 && bass > 0.12 && (now - S.lastBeatTime) > 140;
+    S.bassEMA = S.bassEMA * 0.9 + bass * 0.1;
+
+    if (isBeat) S.lastBeatTime = now;
+    const kick = isBeat ? 1.0 : S.beatPulse * 0.88;
+    S.beatPulse = Math.max(kick, S.bassEnvelope * 0.85);
+  }
+
+  function resetAnimation() {
+    if (S.animApplied) {
+      els.gifCanvas.style.transform = "";
+      els.gifCanvas.style.filter = "";
+      S.animApplied = false;
+    }
+    S.beatPulse = 0;
+  }
+
+  function stepAnimation(now, delta) {
+    const type = els.animation.value;
+    if (type === "none") {
+      resetAnimation();
+      return;
+    }
+    S.animApplied = true;
+
+    if (type === "bounce" || type === "glitch") updateBeatPulse(now);
+
+    let transform = "";
+    let filter = "";
+
+    if (type === "bounce") {
+      transform = `scale(${(1 + S.beatPulse * 0.28).toFixed(4)})`;
+
+    } else if (type === "sway") {
+      S.swayPhase += delta * 0.0015;
+      transform = `rotate(${(Math.sin(S.swayPhase) * 3).toFixed(2)}deg)`;
+
+    } else if (type === "glitch") {
+      const mag = S.beatPulse;
+      if (mag > 0.12) {
+        const dx = (Math.random() - 0.5) * 8 * mag;
+        const skew = (Math.random() - 0.5) * 2.5 * mag;
+        transform = `translateX(${dx.toFixed(2)}px) skewX(${skew.toFixed(2)}deg)`;
+      }
+      if (mag > 0.35) {
+        filter = `hue-rotate(${Math.round(Math.random() * 24 - 12)}deg) saturate(${(1 + mag * 0.4).toFixed(2)})`;
+      }
+    }
+
+    els.gifCanvas.style.transform = transform;
+    els.gifCanvas.style.filter = filter;
+  }
+
+  els.animation.addEventListener("input", () => {
+    if (els.animation.value === "none") resetAnimation();
+  });
+
+  const VIS_THEMES = {
+    dusk:      { glow: "#8a2be2", linear: [["#4a00e0", 0], ["#1a1a1a", 1]], radial: [["#4a00e0", 0], ["#1a1a1a", 1]] },
+    dawn:      { glow: "#f3904f", linear: [["#f3904f", 0], ["#3b4371", 1]], radial: [["#f3904f", 0], ["#3b4371", 1]] },
+    snow:      { glow: "#ffffff", linear: [["#e0eafc", 0], ["#cfdef3", 1]], radial: [["#e0eafc", 0], ["#cfdef3", 1]] },
+    night:     { glow: "#2c5364", linear: [["#0f2027", 0], ["#203a43", 1]], radial: [["#0f2027", 0], ["#203a43", 1]] },
+    rainbow:   { glow: "#ffffff", linear: [["red", 0], ["orange", .2], ["yellow", .4], ["green", .6], ["blue", .8], ["violet", 1]], radial: [["red", 0], ["orange", .2], ["yellow", .4], ["green", .6], ["blue", .8], ["violet", 1]] },
+    forest:    { glow: "#38ef7d", linear: [["#11998e", 0], ["#38ef7d", 1]], radial: [["#11998e", 0], ["#38ef7d", 1]] },
+    glass:     { glow: "#ffffff", linear: [["rgba(255,255,255,0.5)", 0], ["rgba(255,255,255,0.8)", 1]], radial: [["rgba(255,255,255,0.9)", 0], ["rgba(255,255,255,0.3)", 1]] },
+    cyberpunk: { glow: "#ff00c8", linear: [["#ff00c8", 0], ["#00fff9", 1]], radial: [["#ff00c8", 0], ["#00fff9", 1]] },
+    fire:      { glow: "#ff512f", linear: [["#7f0000", 0], ["#ff512f", .5], ["#ffd200", 1]], radial: [["#ffd200", 0], ["#ff512f", .5], ["#7f0000", 1]] },
+    ocean:     { glow: "#39cccc", linear: [["#001f3f", 0], ["#0074d9", .5], ["#7fdbff", 1]], radial: [["#7fdbff", 0], ["#0074d9", .5], ["#001f3f", 1]] },
+    gold:      { glow: "#ffd700", linear: [["#1a1a1a", 0], ["#ffd700", 1]], radial: [["#ffd700", 0], ["#1a1a1a", 1]] },
+    mono:      { glow: "#ffffff", linear: [["#ffffff", 0], ["#888888", 1]], radial: [["#ffffff", 0], ["#888888", 1]] },
+    pastel:    { glow: "#ffafbd", linear: [["#ffafbd", 0], ["#c9ffbf", 1]], radial: [["#ffafbd", 0], ["#c9ffbf", 1]] },
+    acid:      { glow: "#39ff14", linear: [["#0d0d0d", 0], ["#39ff14", 1]], radial: [["#39ff14", 0], ["#0d0d0d", 1]] },
+  };
+  const DEFAULT_THEME = { glow: "#ff00ff", linear: [["#ff00ff", 0], ["#00ffff", 1]], radial: [["#ff00ff", 0], ["#00ffff", 1]] };
+
+  function themeOf(theme) {
+    return VIS_THEMES[theme] || DEFAULT_THEME;
+  }
+
   function gradientStyle(ctx, w, h, theme) {
     const g = ctx.createLinearGradient(0, 0, w, 0);
-    const stops = {
-      dusk: [["#4a00e0", 0], ["#1a1a1a", 1]],
-      dawn: [["#f3904f", 0], ["#3b4371", 1]],
-      snow: [["#e0eafc", 0], ["#cfdef3", 1]],
-      night: [["#0f2027", 0], ["#203a43", 1]],
-      forest: [["#11998e", 0], ["#38ef7d", 1]],
-      glass: [["rgba(255,255,255,0.5)", 0], ["rgba(255,255,255,0.8)", 1]],
-      rainbow: [["red", 0], ["orange", .2], ["yellow", .4], ["green", .6], ["blue", .8], ["violet", 1]],
-    };
-    const s = stops[theme] || [["#ff00ff", 0], ["#00ffff", 1]];
-    s.forEach(([c, p]) => g.addColorStop(p, c));
+    themeOf(theme).linear.forEach(([c, p]) => g.addColorStop(p, c));
     return g;
   }
 
   function radialGradientStyle(ctx, cx, cy, radius, theme) {
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-    const stops = {
-      dusk: [["#4a00e0", 0], ["#1a1a1a", 1]],
-      dawn: [["#f3904f", 0], ["#3b4371", 1]],
-      snow: [["#e0eafc", 0], ["#cfdef3", 1]],
-      night: [["#0f2027", 0], ["#203a43", 1]],
-      forest: [["#11998e", 0], ["#38ef7d", 1]],
-      glass: [["rgba(255,255,255,0.9)", 0], ["rgba(255,255,255,0.3)", 1]],
-      rainbow: [["red", 0], ["orange", .2], ["yellow", .4], ["green", .6], ["blue", .8], ["violet", 1]],
-    };
-    const s = stops[theme] || [["#ff00ff", 0], ["#00ffff", 1]];
-    s.forEach(([c, p]) => g.addColorStop(p, c));
+    themeOf(theme).radial.forEach(([c, p]) => g.addColorStop(p, c));
     return g;
+  }
+
+  // Averages `data` (bufLen entries) down into `bands` proportional buckets,
+  // using a log-scale bin mapping rather than a linear one. Raw FFT bins
+  // are linear in Hz, but real audio energy is concentrated in the first
+  // handful of bins (bass/mid) — a linear bar->bin mapping leaves most bars
+  // representing near-silent treble, so they never reach the far edge of
+  // the player (or, for the radial visualizer, most spokes never extend at
+  // all, leaving the circle looking incomplete). Log mapping gives bass/mid
+  // most of the width/circle, like a real spectrum analyzer.
+  function sampleBands(data, bufLen, bands) {
+    const out = new Array(bands);
+    const binAt = (t) => Math.pow(bufLen, t) - 1; // t in [0,1] -> bin in [0, bufLen-1]
+    for (let i = 0; i < bands; i++) {
+      const start = Math.max(0, Math.min(bufLen - 1, Math.floor(binAt(i / bands))));
+      const end = i === bands - 1
+        ? bufLen
+        : Math.max(start + 1, Math.min(bufLen, Math.floor(binAt((i + 1) / bands))));
+      let sum = 0;
+      for (let j = start; j < end; j++) sum += data[j];
+      out[i] = sum / (end - start);
+    }
+    return out;
   }
 
   function drawViz() {
@@ -546,37 +834,211 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
 
     const sw = parseInt(els.visStroke.value, 10);
     const theme = els.visTheme.value;
+    const glow = themeOf(theme).glow;
     const bufLen = S.analyser.frequencyBinCount;
     const data = new Uint8Array(bufLen);
 
     if (type === "waveform") {
       S.analyser.getByteTimeDomainData(data);
-      ctx.strokeStyle = gradientStyle(ctx, w, h, theme);
-      ctx.lineWidth = sw;
-      ctx.beginPath();
-      const sliceW = w / bufLen;
+      const sliceW = w / (bufLen - 1);
       const stripTop = h * 0.70;
       const stripH = h * 0.30;
-      let x = 0;
+      const pts = [];
       for (let i = 0; i < bufLen; i++) {
         const y = stripTop + (data[i] / 128.0) * stripH / 2;
-        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        x += sliceW;
+        pts.push([i * sliceW, y]);
       }
-      ctx.lineTo(w, stripTop + stripH / 2);
+
+      ctx.save();
+      const grad = gradientStyle(ctx, w, h, theme);
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      // smoothed line via quadratic curves through midpoints
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        const xc = (pts[i][0] + pts[i + 1][0]) / 2;
+        const yc = (pts[i][1] + pts[i + 1][1]) / 2;
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1], xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+
+      ctx.shadowBlur = sw * 2.5;
+      ctx.shadowColor = glow;
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = sw;
       ctx.stroke();
+
+      // soft filled area beneath the line for depth
+      ctx.shadowBlur = 0;
+      ctx.lineTo(w, stripTop + stripH);
+      ctx.lineTo(0, stripTop + stripH);
+      ctx.closePath();
+      ctx.globalAlpha = 0.18;
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
 
     } else if (type === "eq") {
       S.analyser.getByteFrequencyData(data);
+      ctx.save();
       ctx.fillStyle = gradientStyle(ctx, w, h, theme);
-      const bars = Math.max(1, Math.floor(w / (sw * 2)));
-      const step = Math.max(1, Math.floor(bufLen / bars));
+      ctx.shadowBlur = sw * 1.5;
+      ctx.shadowColor = glow;
+
+      // Pick a bar count from the stroke size, then size bars (not the gap)
+      // to exactly fill the canvas width, so bands always span edge-to-edge
+      // instead of leaving leftover space bunched on one side.
+      const gap = sw;
+      const bars = Math.max(1, Math.round(w / (sw * 2)));
+      const barW = Math.max(1, (w - (bars - 1) * gap) / bars);
+      const radius = Math.min(barW / 2, 5);
+      const bands = sampleBands(data, bufLen, bars);
+
       for (let i = 0; i < bars; i++) {
-        let sum = 0;
-        for (let j = 0; j < step; j++) sum += data[i * step + j] || 0;
-        const barH = (sum / step / 255) * h * 0.40;
-        ctx.fillRect(i * sw * 2, h - barH, sw, barH);
+        const barH = (bands[i] / 255) * h * 0.40;
+        if (barH <= 0) continue;
+        const x = i * (barW + gap);
+        const y = h - barH;
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(x, y, barW, barH, [radius, radius, 0, 0]);
+          ctx.fill();
+        } else {
+          ctx.fillRect(x, y, barW, barH);
+        }
       }
+      ctx.restore();
+
+    } else if (type === "mirror") {
+      S.analyser.getByteFrequencyData(data);
+      ctx.save();
+      ctx.fillStyle = gradientStyle(ctx, w, h, theme);
+      ctx.shadowBlur = sw * 1.5;
+      ctx.shadowColor = glow;
+
+      const gap = sw;
+      const bars = Math.max(1, Math.round(w / (sw * 2)));
+      const barW = Math.max(1, (w - (bars - 1) * gap) / bars);
+      const radius = Math.min(barW / 2, 6);
+      const bands = sampleBands(data, bufLen, bars);
+      const cy = h / 2;
+
+      for (let i = 0; i < bars; i++) {
+        const barH = (bands[i] / 255) * h * 0.38;
+        if (barH <= 0) continue;
+        const x = i * (barW + gap);
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(x, cy - barH, barW, barH * 2, radius);
+          ctx.fill();
+        } else {
+          ctx.fillRect(x, cy - barH, barW, barH * 2);
+        }
+      }
+      ctx.restore();
+
+    } else if (type === "radial") {
+      S.analyser.getByteFrequencyData(data);
+
+      const cx = w / 2, cy = h / 2;
+      const side = Math.min(w, h);
+      const innerR = side * 0.18;
+      const maxLen = side * 0.30;
+      const bars = Math.max(12, Math.min(180, Math.round(side / (sw * 1.5))));
+      const bands = sampleBands(data, bufLen, bars);
+
+      S.radialAngle = (S.radialAngle || 0) + 0.0025;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(S.radialAngle);
+      ctx.lineCap = "round";
+      ctx.strokeStyle = radialGradientStyle(ctx, 0, 0, innerR + maxLen, theme);
+      ctx.lineWidth = Math.max(1, sw * 0.8);
+      ctx.shadowBlur = sw * 1.5;
+      ctx.shadowColor = glow;
+
+      for (let i = 0; i < bars; i++) {
+        const amp = bands[i] / 255;
+        const len = maxLen * amp;
+        if (len <= 0) continue;
+        const angle = (i / bars) * Math.PI * 2;
+        const cos = Math.cos(angle), sin = Math.sin(angle);
+        ctx.beginPath();
+        ctx.moveTo(cos * innerR, sin * innerR);
+        ctx.lineTo(cos * (innerR + len), sin * (innerR + len));
+        ctx.stroke();
+      }
+      ctx.restore();
+
+    } else if (type === "spectrum") {
+      S.analyser.getByteFrequencyData(data);
+
+      const bars = Math.max(32, Math.min(256, Math.round(w / 4)));
+      const bands = sampleBands(data, bufLen, bars);
+      const baseline = h;
+      const maxH = h * 0.65;
+      const pts = bands.map((v, i) => [(i / (bars - 1)) * w, baseline - (v / 255) * maxH]);
+
+      ctx.save();
+      const grad = gradientStyle(ctx, w, h, theme);
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length - 1; i++) {
+        const xc = (pts[i][0] + pts[i + 1][0]) / 2;
+        const yc = (pts[i][1] + pts[i + 1][1]) / 2;
+        ctx.quadraticCurveTo(pts[i][0], pts[i][1], xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+
+      ctx.shadowBlur = sw * 2;
+      ctx.shadowColor = glow;
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = sw;
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.lineTo(w, baseline);
+      ctx.lineTo(0, baseline);
+      ctx.closePath();
+      ctx.globalAlpha = 0.22;
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+
+    } else if (type === "pulse") {
+      S.analyser.getByteFrequencyData(data);
+      const bassBins = Math.max(1, Math.floor(bufLen * 0.12));
+      let bassSum = 0;
+      for (let i = 0; i < bassBins; i++) bassSum += data[i];
+      const bass = (bassSum / bassBins) / 255;
+
+      const cx = w / 2, cy = h / 2;
+      const side = Math.min(w, h);
+      const baseR = side * 0.22;
+      const r = baseR + bass * side * 0.16;
+
+      ctx.save();
+      ctx.strokeStyle = radialGradientStyle(ctx, cx, cy, r * 1.4, theme);
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = sw * 2;
+      ctx.shadowBlur = sw * 3;
+      ctx.shadowColor = glow;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + sw * 3, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = sw;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
 
     } else if (type === "circular") {
       S.analyser.getByteTimeDomainData(data);
@@ -586,6 +1048,11 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
       const side = Math.min(w, h);
       const radius = side * 0.38;
 
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.shadowBlur = sw * 2;
+      ctx.shadowColor = glow;
       ctx.strokeStyle = radialGradientStyle(ctx, cx, cy, radius * 1.6, theme);
       ctx.lineWidth = sw;
       ctx.beginPath();
@@ -600,6 +1067,7 @@ registerProcessor("aesthetic-bitcrush", BitcrushProcessor);
       }
       ctx.closePath();
       ctx.stroke();
+      ctx.restore();
     }
   }
 
