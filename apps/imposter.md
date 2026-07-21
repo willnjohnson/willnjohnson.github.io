@@ -12,8 +12,8 @@ stylesheet: imposter
     <div class="imposter-panel">
       <h2>How to Play</h2>
       <ul class="imposter-rules">
-        <li>A true word and a phony word are secretly chosen each round.</li>
-        <li>Pass the device. Everyone receives the true word, except for one random <strong>Imposter</strong> who gets the phony word.</li>
+        <li>Each round, a category (e.g. Fruits, Superheroes, Countries) is picked, then a true word and a phony word from that <em>same</em> category are secretly chosen.</li>
+        <li>Pass the device. Everyone receives the true word, except for one random <strong>Imposter</strong> who gets the phony word. Everyone sees the category, so the Imposter has a fighting chance to blend in.</li>
         <li>After all words are revealed, players take turns describing their word. The Imposter must give their own description <strong>(or blend in by making up a description on what they think the true word is)</strong></li>
         <li>Vote on who the Imposter is. Anyone who guesses correctly gets a point. The Imposter cannot score.</li>
       </ul>
@@ -50,6 +50,7 @@ stylesheet: imposter
   <div id="imposter-reveal-screen" class="imposter-hidden">
     <div class="imposter-panel" style="text-align: center;">
       <h2>Your Word</h2>
+      <p class="imposter-status" id="imposter-category" style="font-weight: 600;"></p>
       <div class="imposter-word-display" id="imposter-word"></div>
       <p class="imposter-status">Memorize your word, then hide it for the next player.</p>
       <div class="imposter-actions">
@@ -75,6 +76,7 @@ stylesheet: imposter
     <div class="imposter-panel">
       <h2 style="text-align: center; color: var(--accent-color);">The Imposter was <span id="imposter-reveal-name"></span>!</h2>
       <p style="text-align: center; margin-bottom: 1.5rem;">
+        Category: <strong id="imposter-category-result"></strong><br>
         True Word: <strong id="imposter-true-word"></strong><br>
         Phony Word: <strong id="imposter-phony-word"></strong>
       </p>

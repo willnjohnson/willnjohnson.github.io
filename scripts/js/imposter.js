@@ -16,12 +16,14 @@
     passName: document.getElementById("imposter-pass-name"),
     revealBtn: document.getElementById("imposter-reveal-btn"),
     wordDisplay: document.getElementById("imposter-word"),
+    categoryDisplay: document.getElementById("imposter-category"),
     nextPlayerBtn: document.getElementById("imposter-next-player-btn"),
     
     revealImposterBtn: document.getElementById("imposter-reveal-imposter-btn"),
     revealNameDisplay: document.getElementById("imposter-reveal-name"),
     trueWordDisplay: document.getElementById("imposter-true-word"),
     phonyWordDisplay: document.getElementById("imposter-phony-word"),
+    categoryResultDisplay: document.getElementById("imposter-category-result"),
     votingFields: document.getElementById("imposter-voting-fields"),
     updateScoreBtn: document.getElementById("imposter-update-score-btn"),
     
@@ -30,7 +32,14 @@
     playAgainBtn: document.getElementById("imposter-play-again"),
   };
 
-  let properList = [];
+  // Used only if proper_list.csv fails to load.
+  const FALLBACK_CATEGORIES = {
+    "Fruits": ["Apple", "Banana", "Orange", "Mango", "Strawberry", "Watermelon", "Grape", "Peach"],
+    "Superheroes": ["Superman", "Batman", "Spider-Man", "Iron Man", "Wonder Woman", "The Flash", "Wolverine", "Thor"],
+    "Countries": ["United States", "Canada", "Mexico", "Brazil", "France", "Germany", "Japan", "China"],
+  };
+
+  let categories = {};
   let players = [];
   let totalRounds = 5;
   let currentRound = 1;
@@ -38,6 +47,25 @@
   let imposterIndex = -1;
   let trueWord = "";
   let phonyWord = "";
+  let currentCategory = "";
+
+  function parseCategoryCsv(text) {
+    const parsed = {};
+    text.split(/\r?\n/).forEach((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      const commaIndex = trimmed.indexOf(',');
+      if (commaIndex === -1) return;
+      const category = trimmed.slice(0, commaIndex).replace(/"/g, '').trim();
+      const word = trimmed.slice(commaIndex + 1).replace(/"/g, '').trim();
+      if (!category || !word || category.toLowerCase() === 'category') return;
+      if (!parsed[category]) parsed[category] = [];
+      parsed[category].push(word);
+    });
+    return parsed;
+  }
+
+  categories = FALLBACK_CATEGORIES;
 
   fetch('../resources/proper_list.csv')
     .then(response => {
@@ -45,8 +73,9 @@
         return response.text();
     })
     .then(data => {
-        const parsed = data.split(',').map(item => item.replace(/"/g, '').trim()).filter(item => item.length > 0);
-        if (parsed.length > 2) properList = parsed;
+        const parsed = parseCategoryCsv(data);
+        const usable = Object.keys(parsed).filter((cat) => parsed[cat].length >= 2);
+        if (usable.length > 0) categories = parsed;
     })
     .catch(err => console.log("Using fallback word list. Could not load proper_list.csv"));
 
@@ -128,10 +157,12 @@
       return;
     }
 
-    const shuffledWords = shuffle(properList);
+    const catNames = Object.keys(categories).filter((cat) => categories[cat].length >= 2);
+    currentCategory = catNames[Math.floor(Math.random() * catNames.length)];
+    const shuffledWords = shuffle(categories[currentCategory]);
     trueWord = shuffledWords[0];
     phonyWord = shuffledWords[1];
-    
+
     imposterIndex = Math.floor(Math.random() * players.length);
     currentPlayerIndex = 0;
     
@@ -148,6 +179,7 @@
     hideAllScreens();
     const isImposter = (currentPlayerIndex === imposterIndex);
     els.wordDisplay.textContent = isImposter ? phonyWord : trueWord;
+    if (els.categoryDisplay) els.categoryDisplay.textContent = "Category: " + currentCategory;
     els.revealScreen.classList.remove("imposter-hidden");
   }
 
@@ -166,6 +198,7 @@
     els.revealNameDisplay.textContent = players[imposterIndex].name;
     els.trueWordDisplay.textContent = trueWord;
     els.phonyWordDisplay.textContent = phonyWord;
+    if (els.categoryResultDisplay) els.categoryResultDisplay.textContent = currentCategory;
 
     els.votingFields.innerHTML = "";
     players.forEach((player, index) => {

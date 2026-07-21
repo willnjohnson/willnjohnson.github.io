@@ -9,6 +9,7 @@ stylesheet: dynamsched
 
 <div id="dysc-root" class="dysc">
   <p>Download <a href="/resources/test_cases_dyn.tar.gz">test cases</a> containing various config.txt and trace.dat files. Traces use RISC-V-style instructions; loads and stores carry their data memory address after a colon, e.g. <code>lw x3,4(x3):0</code>.</p>
+  <p>For a review of different hazards, see <a href="/apps/dependency">Dependency Analyzer</a></p>
   <div class="dysc-panel dysc-panel--top">
     <h2>Configuration</h2>
     <div class="dysc-controls">
