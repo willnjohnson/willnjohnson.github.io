@@ -1,0 +1,684 @@
+---
+---
+
+@import "variables";
+
+.jeopardy {
+  --jp-board: #060ce9;
+  --jp-board-dark: #04089e;
+  --jp-gold: #ffcc00;
+  --jp-cell: #0b12f5;
+  --jp-cell-used: #030636;
+  --jp-correct: #2e9e4f;
+  --jp-incorrect: #c0392b;
+
+  font-family: "Fresca", $helveticaNeue, sans-serif;
+  max-width: 860px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  .jp-hint {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin: 0 0 0.75rem;
+  }
+
+  code {
+    font-family: "Quantico", $helveticaNeue, monospace;
+    font-size: 0.85em;
+  }
+
+  // Tabs
+  .jp-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .jp-tab {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    padding: 0.6rem 1.1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-tertiary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-bottom: -2px;
+
+    &.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+  }
+
+  .jp-tab-content {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+
+  .jp-hidden {
+    display: none !important;
+  }
+
+  .jp-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .jp-link-btn {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+  }
+
+  // Game select
+  .jp-select-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .jp-game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .jp-game-tile {
+    display: flex;
+    align-items: center;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+  }
+
+  .jp-game-tile-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    background: none;
+    border: none;
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: "Fresca", $helveticaNeue, sans-serif;
+  }
+
+  .jp-game-tile-name {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .jp-game-tile-meta {
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+  }
+
+  .jp-game-tile-delete {
+    margin: 0 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .jp-empty-note {
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  // Setup screen
+  .jp-field-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-bottom: 0.85rem;
+  }
+
+  .jp-field-label {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    flex-basis: 100%;
+  }
+
+  .jp-team-count {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .jp-count-btn {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    padding: 0.5rem 1rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+
+    &.active {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+  }
+
+  #jp-team-names {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    min-width: 140px;
+  }
+
+  .jp-checkbox-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 1.05rem;
+      height: 1.05rem;
+      margin-top: 0;
+      accent-color: var(--accent-color);
+      cursor: pointer;
+    }
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    padding: 0.5rem 0.65rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    width: 100%;
+  }
+
+  .btn {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+  }
+
+  // Board screen
+  .jp-scoreboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .jp-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    min-width: 100px;
+  }
+
+  .jp-team--control {
+    border-color: var(--jp-gold);
+    box-shadow: 0 0 0 1px var(--jp-gold);
+  }
+
+  .jp-team-name {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .jp-team-score {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+
+  .jp-team-score--negative {
+    color: var(--jp-incorrect);
+  }
+
+  .jp-board-wrap {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+
+  .jp-board {
+    display: grid;
+    grid-template-columns: repeat(var(--jp-cols, 5), minmax(110px, 1fr));
+    gap: 4px;
+    background: var(--jp-board-dark);
+    border: 4px solid var(--jp-board-dark);
+    border-radius: 8px;
+    min-width: 560px;
+  }
+
+  .jp-board-cat {
+    background: var(--jp-board);
+    color: #fff;
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-align: center;
+    padding: 0.75rem 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.2em;
+  }
+
+  .jp-board-cell {
+    background: var(--jp-cell);
+    color: var(--jp-gold);
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border: none;
+    padding: 1.1rem 0.4rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: color-mix(in srgb, var(--jp-cell) 70%, #fff 30%);
+    }
+  }
+
+  .jp-board-cell--used {
+    background: var(--jp-cell-used);
+    padding: 2rem 0.4rem;
+    cursor: default;
+  }
+
+  .jp-board-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  // Clue modal
+  .jp-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+
+  .jp-modal-box {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+
+    h2 {
+      margin-top: 0;
+    }
+  }
+
+  .jp-clue-box {
+    text-align: center;
+    background: var(--jp-board);
+    border-color: var(--jp-board-dark);
+  }
+
+  .jp-clue-meta {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--jp-gold);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+  }
+
+  .jp-clue-daily-double {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--jp-gold);
+    font-size: 1.4rem;
+    margin: 0 0 0.75rem;
+  }
+
+  #jp-clue-wager-team {
+    color: #fff;
+    margin: 0 0 0.5rem;
+  }
+
+  .jp-wager-field {
+    color: #fff;
+    align-items: center;
+    margin: 0 auto 1rem;
+    max-width: 200px;
+  }
+
+  .jp-clue-text {
+    color: #fff;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 0 0 1.25rem;
+  }
+
+  .jp-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .jp-clue-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .jp-clue-team-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+
+    span {
+      color: #fff;
+      font-size: 0.9rem;
+    }
+  }
+
+  .jp-clue-team-btn {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    color: #fff;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .jp-correct {
+    background: var(--jp-correct);
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+  }
+
+  .jp-incorrect {
+    background: var(--jp-incorrect);
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+  }
+
+  // Final Jeopardy
+  .jp-final-panel {
+    text-align: center;
+  }
+
+  .jp-final-category {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--jp-gold);
+    background: var(--jp-board);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+  }
+
+  .jp-final-clue {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin: 1rem 0;
+  }
+
+  .jp-final-wager-row,
+  .jp-final-grade-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+
+    span {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    input {
+      width: 100px;
+    }
+  }
+
+  #jp-final-lock-wagers,
+  #jp-final-reveal-answer,
+  #jp-final-show-results {
+    margin-top: 0.5rem;
+  }
+
+  // Results
+  .jp-result-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .jp-result-row--winner {
+    border-color: var(--jp-gold);
+    box-shadow: 0 0 0 1px var(--jp-gold);
+  }
+
+  .jp-result-rank {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    color: var(--accent-color);
+    min-width: 1.5em;
+  }
+
+  .jp-result-name {
+    flex: 1;
+    color: var(--text-primary);
+  }
+
+  .jp-result-score {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+
+  .jp-result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  // Editor
+  .jp-editor-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .jp-editor-actions {
+    align-items: center;
+  }
+
+  .jp-clue-editor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .jp-clue-editor-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 0.75rem;
+    align-items: start;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+
+    @media screen and (min-width: 700px) {
+      grid-template-columns: 3.5em 1fr 1fr auto;
+    }
+  }
+
+  .jp-clue-editor-value {
+    font-family: "Quantico", $helveticaNeue, sans-serif;
+    font-weight: 700;
+    color: var(--accent-color);
+    align-self: center;
+  }
+
+  .jp-clue-editor-field {
+    min-width: 140px;
+  }
+
+  .jp-clue-editor-dd {
+    margin-bottom: 0;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .jp-json-out {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: "Quantico", $helveticaNeue, monospace;
+    font-size: 0.75rem;
+  }
+
+  // Import modal
+  #jp-import-text {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.65rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: "Quantico", $helveticaNeue, monospace;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+    resize: vertical;
+  }
+
+  #jp-import-file {
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  .jp-import-errors {
+    color: var(--jp-incorrect);
+    font-size: 0.8rem;
+
+    p {
+      margin: 0 0 0.35rem;
+      color: inherit;
+    }
+  }
+}

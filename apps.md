@@ -18,7 +18,9 @@ title: Apps
 ### Games
 
 - [Alchemy!](/apps/alchemy)
+- [Emoji Tower Defense ٩(ˋᗣˊ*)و](/apps/emojitd)
 - [Imposter](/apps/imposter)
+- [Jeopardy!](/apps/jeopardy)
 - [Matchless!](/apps/matchless)
 - [Pictionary](/apps/pictionary)
 - [Pipe Patcher ৻( •̀ ᗜ •́ ৻)](/apps/pipe-patcher)
@@ -26,7 +28,7 @@ title: Apps
 
 ### Productivity
 
-- No items yet
+- [Ambience](/apps/ambience)
 
 ### Creativity
 
