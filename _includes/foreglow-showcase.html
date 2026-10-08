@@ -1,0 +1,92 @@
+{% comment %}
+  Foreglow Showcase
+  Usage: {% include foreglow-showcase.html %}
+  Slides come from _data/foreglow.yml. Styles live in home.scss.
+{% endcomment %}
+
+{% assign slides = site.data.foreglow %}
+<section class="foreglow">
+  <p class="home-eyebrow">My personal theme pack</p>
+  <h2 class="home-title">Foreglow Theme Pack</h2>
+  <p class="foreglow-intro">
+    Foreglow is a color theme I made, which comes in four variants. It's available for
+    {% for slide in slides -%}
+      <a href="{{ slide.link }}" target="_blank" rel="noopener">{{ slide.name }}</a>,
+    {% endfor -%}
+    and more.
+  </p>
+
+  <div class="foreglow-carousel">
+    <div class="foreglow-track">
+      {% for slide in slides %}
+      <figure class="foreglow-slide">
+        <img src="{{ slide.image | relative_url }}" alt="Foreglow for {{ slide.name }}"
+             loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" decoding="async">
+      </figure>
+      {% endfor %}
+    </div>
+    <div class="foreglow-controls">
+      <button type="button" class="foreglow-arrow prev" aria-label="Previous">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <span class="foreglow-label">
+        {% for slide in slides %}
+        <a href="{{ slide.link }}" target="_blank" rel="noopener"{% unless forloop.first %} hidden{% endunless %}><strong>{{ slide.name }}</strong> <span>&middot; {{ slide.source }}</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        {% endfor %}
+      </span>
+      <button type="button" class="foreglow-arrow next" aria-label="Next">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const root = document.querySelector('.foreglow-carousel');
+  if (!root) return;
+
+  const track = root.querySelector('.foreglow-track');
+  const slides = root.querySelectorAll('.foreglow-slide');
+  const labels = root.querySelectorAll('.foreglow-label a');
+  let current = 0;
+
+  function show(i) {
+    current = (i + slides.length) % slides.length;
+    track.scrollTo({ left: slides[current].offsetLeft, behavior: 'smooth' });
+    labels.forEach(function (label, n) { label.hidden = n !== current; });
+  }
+
+  // Advance every few seconds and wrap around; pause while hovered.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let timer = null;
+  let hovered = false;
+  function start() {
+    clearInterval(timer);
+    if (reduceMotion || hovered) return;
+    timer = setInterval(function () { show(current + 1); }, 5000);
+  }
+  function stop() { clearInterval(timer); }
+
+  root.addEventListener('mouseenter', function () { hovered = true; stop(); });
+  root.addEventListener('mouseleave', function () { hovered = false; start(); });
+  track.addEventListener('touchstart', start, { passive: true });
+  start();
+
+  root.querySelector('.prev').addEventListener('click', function () { show(current - 1); start(); });
+  root.querySelector('.next').addEventListener('click', function () { show(current + 1); start(); });
+
+  // Keep the label in step with swipes.
+  let tick = null;
+  track.addEventListener('scroll', function () {
+    clearTimeout(tick);
+    tick = setTimeout(function () {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i !== current) {
+        current = i;
+        labels.forEach(function (label, n) { label.hidden = n !== current; });
+      }
+    }, 80);
+  }, { passive: true });
+});
+</script>

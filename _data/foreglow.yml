@@ -1,0 +1,32 @@
+# Slides for the Foreglow showcase on the homepage (_includes/foreglow-showcase.html).
+# Link to the editor's own store when the theme is listed there; GitHub otherwise.
+
+- name: VS Code
+  image: /images/foreglow/vscode.png
+  link: https://marketplace.visualstudio.com/items?itemName=Foreglow.foreglow
+  source: Visual Studio Marketplace
+
+- name: JetBrains
+  image: /images/foreglow/jetbrains.png
+  link: https://plugins.jetbrains.com/plugin/34226-foreglow-theme-pack
+  source: JetBrains Marketplace
+
+- name: Zed
+  image: /images/foreglow/zed.png
+  link: https://zed.dev/extensions/foreglow-theme
+  source: Zed Extensions
+
+- name: Obsidian
+  image: /images/foreglow/obsidian.png
+  link: https://community.obsidian.md/themes/foreglow
+  source: Obsidian Community Themes
+
+- name: Vim
+  image: /images/foreglow/vim.png
+  link: https://github.com/Foreglow/vim
+  source: GitHub
+
+- name: Kitty
+  image: /images/foreglow/kitty.png
+  link: https://github.com/Foreglow/kitty
+  source: GitHub

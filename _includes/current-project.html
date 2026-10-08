@@ -1,0 +1,37 @@
+{% comment %}
+  Current Project (homepage)
+  Usage: {% include current-project.html %}
+  Styles live in home.scss.
+{% endcomment %}
+
+<section class="current-project">
+  <p class="home-eyebrow">What I'm building now (current project)</p>
+  <div class="current-project-body">
+    <div>
+      <h2 class="home-title">Kinesis</h2>
+      <p>
+        Kinesis is a desktop app for keeping and studying the videos you learn from. It saves YouTube videos along with
+        their transcripts, so you can search, summarize, tag and file them, and link them to each other. You can also
+        plan videos into a schedule, like a course or a workout program, and create flashcards to improve studying.
+      </p>
+      <p>
+        I started Kinesis to solve a gap between visual learning through online videos and organization. The design document goes into how it all works.
+      </p>
+    </div>
+
+    <a class="paper-card" href="{{ '/papers/kinesis-design.pdf' | relative_url }}" target="_blank" rel="noopener">
+      <div class="paper-page" aria-hidden="true">
+        <p class="paper-title">Kinesis Design Document</p>
+        <p class="paper-author">William N. Johnson</p>
+        <p class="paper-date">Version 0.5.3, October 2026</p>
+        <p class="paper-abstract-label">Abstract</p>
+        <p class="paper-abstract">
+          Kinesis is a desktop application for keeping and studying the videos you learn from. It saves YouTube videos
+          with their transcripts, lets you summarize, tag, file and link them, and lets you plan them into routines such
+          as a fitness program or a school course.
+        </p>
+      </div>
+      <span class="paper-link">Read the design document (PDF)</span>
+    </a>
+  </div>
+</section>
